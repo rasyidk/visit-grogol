@@ -1,0 +1,56 @@
+import express, { Application } from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
+import path from 'path';
+import { env } from './config/env';
+import { apiRouter } from './routes';
+import { errorHandler, notFoundHandler } from './middleware/error';
+import { sendSuccess } from './utils/apiResponse';
+
+export function createApp(): Application {
+  const app = express();
+
+  app.set('trust proxy', 1);
+  app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
+  app.use(
+    cors({
+      origin: env.corsOrigins.length ? env.corsOrigins : true,
+      credentials: true,
+    })
+  );
+  app.use(compression());
+  app.use(express.json({ limit: '5mb' }));
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
+  if (!env.isTest) app.use(morgan(env.isProd ? 'combined' : 'dev'));
+
+  // Rate limit the auth surface to slow brute-force attempts.
+  app.use(
+    `${env.apiPrefix}/auth`,
+    rateLimit({ windowMs: 15 * 60 * 1000, max: 100, standardHeaders: true, legacyHeaders: false })
+  );
+
+  // Static file serving for uploaded media.
+  app.use(
+    `/${env.upload.dir}`,
+    express.static(path.resolve(process.cwd(), env.upload.dir), { maxAge: '7d' })
+  );
+
+  // Health check
+  app.get('/health', (_req, res) =>
+    sendSuccess(res, { status: 'ok', uptime: process.uptime(), env: env.nodeEnv }, 'Healthy')
+  );
+
+  // API
+  app.use(env.apiPrefix, apiRouter);
+
+  // 404 + error handling (must be last)
+  app.use(notFoundHandler);
+  app.use(errorHandler);
+
+  return app;
+}

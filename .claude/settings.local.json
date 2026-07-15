@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "Bash(git --version)",
+      "Bash(mysql --version)",
+      "Bash(mkdir -p uploads)",
+      "Bash(touch uploads/.gitkeep)",
+      "Bash(npm install *)",
+      "Bash(npx prisma *)",
+      "Bash(npx tsc *)",
+      "Bash(npx jest *)",
+      "Bash(node *)",
+      "Bash(npx next *)",
+      "Bash(echo \"FE build exit: $?\")",
+      "Read(//tmp/**)",
+      "Bash(docker --version)",
+      "Bash(docker compose *)",
+      "Bash(systemctl is-active *)",
+      "Bash(sudo -n true)",
+      "Read(//run/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/admin)",
+      "Bash(curl -s -X POST http://localhost:4000/api/v1/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"admin@visitgrogol.id\",\"password\":\"Admin@12345\"}' -w '\\\\nHTTP %{http_code}\\\\n')",
+      "Bash(npm run *)",
+      "Bash(pkill -f \"prisma migrate\")"
+    ]
+  }
+}

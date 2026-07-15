@@ -1,0 +1,284 @@
+// ─────────────────────────────────────────────────────────────
+//  VisitGrogol / DesaWisata — Prisma Schema (MySQL)
+// ─────────────────────────────────────────────────────────────
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextIndex"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────  ENUMS  ────────────────────────
+
+enum Role {
+  ADMIN
+  SUPERADMIN
+}
+
+enum ReservasiStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+// ─────────────────────────  ADMIN USERS  ──────────────────────
+
+model AdminUser {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(120)
+  email     String   @unique @db.VarChar(160)
+  password  String   @db.VarChar(255)
+  role      Role     @default(ADMIN)
+  avatar    String?  @db.VarChar(255)
+  isActive  Boolean  @default(true)
+  lastLogin DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([isActive])
+  @@map("admin_users")
+}
+
+// ─────────────────────────  CATEGORIES  ───────────────────────
+
+model Kategori {
+  id          Int         @id @default(autoincrement())
+  name        String      @db.VarChar(120)
+  slug        String      @unique @db.VarChar(140)
+  description String?     @db.Text
+  icon        String?     @db.VarChar(120)
+  color       String?     @db.VarChar(30)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  destinasi   Destinasi[]
+
+  @@index([slug])
+  @@map("kategori")
+}
+
+// ─────────────────────────  DESTINATIONS  ─────────────────────
+
+model Destinasi {
+  id           Int       @id @default(autoincrement())
+  title        String    @db.VarChar(180)
+  slug         String    @unique @db.VarChar(200)
+  excerpt      String?   @db.VarChar(300)
+  description  String    @db.Text
+  content      String?   @db.LongText
+  location     String    @db.VarChar(180)
+  address      String?   @db.VarChar(255)
+  latitude     Float?
+  longitude    Float?
+  price        Int       @default(0)
+  priceForeign Int       @default(0)
+  openHours    String?   @db.VarChar(120)
+  rating       Float     @default(0)
+  thumbnail    String    @db.VarChar(255)
+  images       Json?
+  facilities   Json?
+  isFeatured   Boolean   @default(false)
+  isPublished  Boolean   @default(true)
+  views        Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  kategoriId   Int
+  kategori     Kategori  @relation(fields: [kategoriId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@index([kategoriId])
+  @@index([slug])
+  @@index([isFeatured])
+  @@index([isPublished])
+  @@fulltext([title, description])
+  @@map("destinasi")
+}
+
+// ─────────────────────────────  BANNERS  ──────────────────────
+
+model Banner {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(180)
+  subtitle  String?  @db.VarChar(255)
+  image     String   @db.VarChar(255)
+  link      String?  @db.VarChar(255)
+  ctaLabel  String?  @db.VarChar(80)
+  position  Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive])
+  @@index([position])
+  @@map("banner")
+}
+
+// ─────────────────────────────  NEWS  ─────────────────────────
+
+model Berita {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(200)
+  slug        String    @unique @db.VarChar(220)
+  excerpt     String?   @db.VarChar(400)
+  content     String    @db.LongText
+  thumbnail   String    @db.VarChar(255)
+  author      String?   @db.VarChar(120)
+  category    String?   @db.VarChar(120)
+  tags        Json?
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  views       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([isPublished])
+  @@fulltext([title, content])
+  @@map("berita")
+}
+
+// ─────────────────────────────  EVENTS  ───────────────────────
+
+model Event {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(200)
+  slug        String    @unique @db.VarChar(220)
+  description String    @db.Text
+  content     String?   @db.LongText
+  thumbnail   String    @db.VarChar(255)
+  location    String?   @db.VarChar(180)
+  startDate   DateTime
+  endDate     DateTime?
+  ticketPrice Int       @default(0)
+  isPublished Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([startDate])
+  @@index([isPublished])
+  @@map("event")
+}
+
+// ────────────────────────  PHOTO GALLERY  ─────────────────────
+
+model GaleriFoto {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(180)
+  image     String   @db.VarChar(255)
+  caption   String?  @db.VarChar(255)
+  category  String?  @db.VarChar(120)
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@map("galeri_foto")
+}
+
+// ────────────────────────  VIDEO GALLERY  ─────────────────────
+
+model GaleriVideo {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(180)
+  videoUrl    String   @db.VarChar(400)
+  thumbnail   String?  @db.VarChar(255)
+  description String?  @db.Text
+  position    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("galeri_video")
+}
+
+// ──────────────────────────  TESTIMONIALS  ────────────────────
+
+model Testimoni {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(140)
+  role       String?  @db.VarChar(140)
+  origin     String?  @db.VarChar(140)
+  avatar     String?  @db.VarChar(255)
+  message    String   @db.Text
+  rating     Int      @default(5)
+  isApproved Boolean  @default(true)
+  position   Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([isApproved])
+  @@map("testimoni")
+}
+
+// ────────────────────  WEBSITE PROFILE (single)  ──────────────
+
+model ProfilWebsite {
+  id          Int      @id @default(autoincrement())
+  siteName    String   @default("VisitGrogol") @db.VarChar(140)
+  tagline     String?  @db.VarChar(255)
+  logo        String?  @db.VarChar(255)
+  favicon     String?  @db.VarChar(255)
+  about       String?  @db.LongText
+  vision      String?  @db.Text
+  mission     String?  @db.Text
+  history     String?  @db.LongText
+  heroImage   String?  @db.VarChar(255)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("profil_website")
+}
+
+// ────────────────────  CONTACT INFO (single)  ─────────────────
+
+model Kontak {
+  id        Int      @id @default(autoincrement())
+  address   String?  @db.VarChar(255)
+  phone     String?  @db.VarChar(60)
+  whatsapp  String?  @db.VarChar(60)
+  email     String?  @db.VarChar(160)
+  mapEmbed  String?  @db.Text
+  latitude  Float?
+  longitude Float?
+  facebook  String?  @db.VarChar(255)
+  instagram String?  @db.VarChar(255)
+  twitter   String?  @db.VarChar(255)
+  youtube   String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("kontak")
+}
+
+// ───────────────────  RESERVATIONS (contact form)  ────────────
+
+model Reservasi {
+  id          Int             @id @default(autoincrement())
+  name        String          @db.VarChar(140)
+  email       String          @db.VarChar(160)
+  arrivalDate DateTime?
+  guests      Int             @default(1)
+  packageType String?         @db.VarChar(140)
+  note        String?         @db.Text
+  status      ReservasiStatus @default(PENDING)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([status])
+  @@map("reservasi")
+}
+
+// ─────────────────  NEWSLETTER SUBSCRIBERS  ───────────────────
+
+model NewsletterSubscriber {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(160)
+  createdAt DateTime @default(now())
+
+  @@map("newsletter_subscriber")
+}
