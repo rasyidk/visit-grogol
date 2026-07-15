@@ -18,7 +18,7 @@ export function createApp(): Application {
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
   app.use(
     cors({
-      origin: env.corsOrigins.length ? env.corsOrigins : true,
+      origin: true,
       credentials: true,
     })
   );
@@ -44,6 +44,15 @@ export function createApp(): Application {
   app.get('/health', (_req, res) =>
     sendSuccess(res, { status: 'ok', uptime: process.uptime(), env: env.nodeEnv }, 'Healthy')
   );
+
+  // Root route
+  app.get('/', (_req, res) => {
+    sendSuccess(res, { 
+      name: 'VisitGrogol API', 
+      version: '1.0.0',
+      docs: `${env.apiPrefix}` 
+    }, 'Welcome to VisitGrogol API');
+  });
 
   // API
   app.use(env.apiPrefix, apiRouter);

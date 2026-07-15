@@ -18,6 +18,10 @@ import newsletterRoutes from '../modules/newsletter/newsletter.route';
 
 export const apiRouter = Router();
 
+apiRouter.get('/health', (_req, res) => {
+  res.json({ success: true, message: 'Healthy', data: { status: 'ok', uptime: process.uptime() } });
+});
+
 apiRouter.use('/auth', authRoutes);
 apiRouter.use('/upload', uploadRoutes);
 apiRouter.use('/stats', statsRoutes);
