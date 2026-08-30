@@ -6,7 +6,8 @@ import { env } from '../../config/env';
 const cookieOpts = {
   httpOnly: true,
   secure: env.isProd,
-  sameSite: 'lax' as const,
+  sameSite: (env.isProd ? 'none' : 'lax') as 'none' | 'lax',
+  domain: env.isProd ? '.visitgrogolkaloka.com' : undefined,
   maxAge: 24 * 60 * 60 * 1000,
 };
 
