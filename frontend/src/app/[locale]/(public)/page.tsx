@@ -5,26 +5,32 @@ import { ArrowRight, Cloud, Wind, Eye, Droplets, Sun, Quote } from 'lucide-react
 import { Reveal } from '@/components/ui/Reveal';
 import { Badge } from '@/components/ui/Misc';
 import { useProfil, useTestimoni } from '@/hooks/usePublicData';
+import { useTranslations, useLocale } from 'next-intl';
 
 const img = (s: string, w = 800, h = 600) => `https://picsum.photos/seed/${s}/${w}/${h}`;
-
-const team = [
-  { name: 'Bp. Dharmawan', role: 'Kepala Desa' },
-  { name: 'Ibu Sari', role: 'Direktur BUMDes' },
-  { name: 'Bli Putu', role: 'Ketua Adat & Budaya' },
-  { name: 'Rian Wijaya', role: 'Koordinator Lingkungan' },
-];
-
-const products = [
-  { name: 'Tenun Serat Alam', desc: 'Dibuat selama 30 hari menggunakan pewarna tumbuhan alami.', badge: 'Best Seller', span: true, seed: 'prod-tenun' },
-  { name: 'Cokelat Arut', desc: 'Biji kakao pilihan dari kebun rakyat.', seed: 'prod-cokelat' },
-  { name: 'Minyak Atsiri', desc: '', seed: 'prod-atsiri' },
-  { name: 'Gerabah Kriya', desc: '', seed: 'prod-gerabah' },
-];
 
 export default function ProfilPage() {
   const { data: profil } = useProfil();
   const { data: testimoni } = useTestimoni();
+  const tHero = useTranslations('Hero');
+  const tCommon = useTranslations('Common');
+  const locale = useLocale();
+
+  const isEn = locale === 'en';
+
+  const team = [
+    { name: 'Bp. Dharmawan', role: isEn ? 'Village Head' : 'Kepala Desa' },
+    { name: 'Ibu Sari', role: isEn ? 'BUMDes Director' : 'Direktur BUMDes' },
+    { name: 'Bli Putu', role: isEn ? 'Head of Culture' : 'Ketua Adat & Budaya' },
+    { name: 'Rian Wijaya', role: isEn ? 'Environment Coordinator' : 'Koordinator Lingkungan' },
+  ];
+
+  const products = [
+    { name: isEn ? 'Natural Fiber Weaving' : 'Tenun Serat Alam', desc: isEn ? 'Made for 30 days using natural plant dyes.' : 'Dibuat selama 30 hari menggunakan pewarna tumbuhan alami.', badge: 'Best Seller', span: true, seed: 'prod-tenun' },
+    { name: isEn ? 'Arut Chocolate' : 'Cokelat Arut', desc: isEn ? 'Selected cocoa beans from community gardens.' : 'Biji kakao pilihan dari kebun rakyat.', seed: 'prod-cokelat' },
+    { name: isEn ? 'Essential Oil' : 'Minyak Atsiri', desc: '', seed: 'prod-atsiri' },
+    { name: isEn ? 'Craft Pottery' : 'Gerabah Kriya', desc: '', seed: 'prod-gerabah' },
+  ];
 
   return (
     <>
@@ -34,13 +40,13 @@ export default function ProfilPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-brand-950/50 to-brand-950/80" />
         <div className="container-wide relative flex min-h-[70vh] flex-col justify-center pt-24 text-white">
           <Reveal>
-            <Badge tone="neutral" className="mb-5 bg-white/15 text-white">Selamat Datang di Warisan Alam</Badge>
-            <h1 className="max-w-2xl text-5xl font-extrabold leading-tight sm:text-6xl">Keajaiban Desa di Balik Awan</h1>
+            <Badge tone="neutral" className="mb-5 bg-white/15 text-white">{tHero('welcome')}</Badge>
+            <h1 className="max-w-2xl text-5xl font-extrabold leading-tight sm:text-6xl">{tHero('title')}</h1>
             <p className="mt-5 max-w-xl text-white/80">
-              Temukan harmoni antara tradisi leluhur dan keindahan alam yang tak tersentuh di jantung nusantara.
+              {tHero('subtitle')}
             </p>
             <div className="glass-dark mt-8 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm">
-              <Cloud className="h-4 w-4" /> 24°C Gerimis Tipis
+              <Cloud className="h-4 w-4" /> {isEn ? '24°C Light Drizzle' : '24°C Gerimis Tipis'}
             </div>
           </Reveal>
         </div>
@@ -56,14 +62,13 @@ export default function ProfilPage() {
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="eyebrow mb-3">Sejarah &amp; Filosofi</p>
-          <h2 className="text-3xl font-bold text-ink sm:text-4xl">Jejak Waktu di Tanah Pusaka</h2>
+          <p className="eyebrow mb-3">{isEn ? 'History & Philosophy' : 'Sejarah & Filosofi'}</p>
+          <h2 className="text-3xl font-bold text-ink sm:text-4xl">{isEn ? 'Traces of Time in Heritage Land' : 'Jejak Waktu di Tanah Pusaka'}</h2>
           <div className="mt-5 space-y-4 text-sm leading-relaxed text-ink-muted">
-            <p>{profil.history || 'Didirikan pada abad ke-17 oleh pengembara dari pegunungan tengah, desa ini dibangun di atas filosofi Tri Hita Karana — keseimbangan antara manusia, alam, dan Sang Pencipta.'}</p>
-            <p>Setiap sudut jalan dan arsitektur rumah panggung di sini menyimpan cerita tentang ketangguhan masyarakat dalam menjaga kemurnian budaya di tengah arus modernisasi.</p>
+            <p>{(isEn ? profil.historyEn : profil.history) || 'Didirikan pada abad ke-17 oleh pengembara dari pegunungan tengah, desa ini dibangun di atas filosofi Tri Hita Karana — keseimbangan antara manusia, alam, dan Sang Pencipta.'}</p>
           </div>
           <button className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:gap-2.5 transition-all">
-            Baca Selengkapnya <ArrowRight className="h-4 w-4" />
+            {tCommon('readMore')} <ArrowRight className="h-4 w-4" />
           </button>
         </Reveal>
       </section>
@@ -73,9 +78,11 @@ export default function ProfilPage() {
         <div className="container-wide">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="eyebrow mb-3">Karya Lokal</p>
-              <h2 className="text-3xl font-bold text-ink sm:text-4xl">Produk Unggulan UMKM</h2>
-              <p className="mt-4 text-sm text-ink-muted">Setiap produk adalah hasil kurasi tangan-tangan terampil penduduk lokal yang menggunakan bahan baku alami dari sekitar desa.</p>
+              <p className="eyebrow mb-3">{isEn ? 'Local Crafts' : 'Karya Lokal'}</p>
+              <h2 className="text-3xl font-bold text-ink sm:text-4xl">{isEn ? 'Featured SME Products' : 'Produk Unggulan UMKM'}</h2>
+              <p className="mt-4 text-sm text-ink-muted">
+                {isEn ? 'Every product is a curated result of skilled local hands using natural raw materials from around the village.' : 'Setiap produk adalah hasil kurasi tangan-tangan terampil penduduk lokal yang menggunakan bahan baku alami dari sekitar desa.'}
+              </p>
             </div>
           </Reveal>
           <div className="mt-10 grid gap-5 md:grid-cols-3 md:grid-rows-2">
@@ -98,10 +105,14 @@ export default function ProfilPage() {
       {/* Team */}
       <section className="section container-wide">
         <Reveal>
-          <p className="eyebrow mb-3">Di Balik Layar</p>
+          <p className="eyebrow mb-3">{isEn ? 'Behind the Scenes' : 'Di Balik Layar'}</p>
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="max-w-md text-3xl font-bold text-ink sm:text-4xl">Bertemu dengan Pengelola Kami</h2>
-            <p className="max-w-sm text-sm text-ink-muted">Membangun ekosistem pariwisata berkelanjutan dengan memberdayakan talenta lokal.</p>
+            <h2 className="max-w-md text-3xl font-bold text-ink sm:text-4xl">
+              {isEn ? 'Meet Our Managers' : 'Bertemu dengan Pengelola Kami'}
+            </h2>
+            <p className="max-w-sm text-sm text-ink-muted">
+              {isEn ? 'Building a sustainable tourism ecosystem by empowering local talents.' : 'Membangun ekosistem pariwisata berkelanjutan dengan memberdayakan talenta lokal.'}
+            </p>
           </div>
         </Reveal>
         <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-4">
@@ -123,22 +134,26 @@ export default function ProfilPage() {
       <section className="section container-wide grid gap-8 lg:grid-cols-[1.3fr_1fr]">
         <div>
           <Reveal>
-            <p className="eyebrow mb-2">Suara Pengunjung</p>
-            <h2 className="text-3xl font-bold text-ink sm:text-4xl">Apa Kata Mereka?</h2>
+            <p className="eyebrow mb-2">{isEn ? 'Visitor Voices' : 'Suara Pengunjung'}</p>
+            <h2 className="text-3xl font-bold text-ink sm:text-4xl">{isEn ? 'What Do They Say?' : 'Apa Kata Mereka?'}</h2>
           </Reveal>
           <div className="mt-8 space-y-5">
             {testimoni.slice(0, 3).map((t, i) => (
               <Reveal key={t.id} delay={i * 0.08}>
                 <figure className="card relative p-6">
                   <Quote className="absolute right-6 top-6 h-8 w-8 text-brand-100" />
-                  <blockquote className="text-sm italic leading-relaxed text-ink-soft">“{t.message}”</blockquote>
+                  <blockquote className="text-sm italic leading-relaxed text-ink-soft">
+                    “{(isEn ? t.messageEn : t.message) || t.message}”
+                  </blockquote>
                   <figcaption className="mt-4 flex items-center gap-3">
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">
                       {t.name.charAt(0)}
                     </span>
                     <div>
                       <p className="text-sm font-semibold text-ink">{t.name}</p>
-                      <p className="text-xs text-ink-muted">{[t.role, t.origin].filter(Boolean).join(', ')}</p>
+                      <p className="text-xs text-ink-muted">
+                        {[isEn && t.roleEn ? t.roleEn : t.role, t.origin].filter(Boolean).join(', ')}
+                      </p>
                     </div>
                   </figcaption>
                 </figure>
@@ -152,16 +167,20 @@ export default function ProfilPage() {
             <div className="card p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-muted">Cuaca Realtime</p>
-                  <p className="text-xs text-ink-muted">Update terakhir: 30 menit lalu</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-muted">
+                    {isEn ? 'Realtime Weather' : 'Cuaca Realtime'}
+                  </p>
+                  <p className="text-xs text-ink-muted">
+                    {isEn ? 'Last updated: 30 minutes ago' : 'Update terakhir: 30 menit lalu'}
+                  </p>
                 </div>
                 <Sun className="h-8 w-8 text-gold-500" />
               </div>
               <p className="mt-4 text-5xl font-extrabold text-brand-700">24°<span className="text-2xl">C</span></p>
               <dl className="mt-5 space-y-3 text-sm">
-                <WeatherRow icon={Droplets} label="Kelembapan" value="78%" />
-                <WeatherRow icon={Wind} label="Kecepatan Angin" value="12 km/jam" />
-                <WeatherRow icon={Eye} label="Visibilitas" value="Sangat Baik" />
+                <WeatherRow icon={Droplets} label={isEn ? 'Humidity' : 'Kelembapan'} value="78%" />
+                <WeatherRow icon={Wind} label={isEn ? 'Wind Speed' : 'Kecepatan Angin'} value="12 km/h" />
+                <WeatherRow icon={Eye} label={isEn ? 'Visibility' : 'Visibilitas'} value={isEn ? 'Very Good' : 'Sangat Baik'} />
               </dl>
             </div>
           </Reveal>
@@ -177,7 +196,7 @@ export default function ProfilPage() {
                 ))}
               </div>
               <button className="mt-4 w-full rounded-full bg-sand py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50">
-                Lihat Semua Feed
+                {isEn ? 'View All Feed' : 'Lihat Semua Feed'}
               </button>
             </div>
           </Reveal>

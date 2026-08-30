@@ -1,0 +1,2 @@
+CONTAINER ID   IMAGE                        COMMAND                  CREATED              STATUS              PORTS                                         NAMES
+a02deced237f   website-pariwisata-backend   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:4001->4000/tcp, [::]:4001->4000/tcp   visitgrogol-backend

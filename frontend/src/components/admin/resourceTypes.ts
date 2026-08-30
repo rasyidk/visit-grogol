@@ -9,7 +9,8 @@ export type FieldType =
   | 'date'
   | 'image'
   | 'video'
-  | 'tags';
+  | 'tags'
+  | 'checkbox_group';
 
 export interface SelectOption {
   label: string;

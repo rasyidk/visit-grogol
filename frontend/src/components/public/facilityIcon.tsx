@@ -36,3 +36,7 @@ export function FacilityIcon({ name, className }: { name: string; className?: st
 export function facilityLabel(name: string) {
   return name.toUpperCase();
 }
+
+export function isValidFacility(name: string) {
+  return name.toLowerCase() in MAP;
+}

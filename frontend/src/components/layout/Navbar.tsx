@@ -5,10 +5,22 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Menu, X, Leaf } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { NAV_ITEMS } from './navItems';
+import { useTranslations, useLocale } from 'next-intl';
+import { LanguageSwitcher } from './LanguageSwitcher';
+
+const NAV_KEYS = [
+  { key: 'home', href: '/' },
+  { key: 'explore', href: '/atraksi' },
+  { key: 'culture', href: '/budaya' },
+  { key: 'culinary', href: '/kuliner' },
+  { key: 'accommodation', href: '/penginapan' },
+  { key: 'contact', href: '/kontak' },
+];
 
 export function Navbar() {
   const pathname = usePathname();
+  const locale = useLocale();
+  const t = useTranslations('Navigation');
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -21,7 +33,25 @@ export function Navbar() {
 
   useEffect(() => setOpen(false), [pathname]);
 
-  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname.startsWith(href));
+  const getHref = (href: string) => {
+    if (locale === 'id') return href;
+    return href === '/' ? `/${locale}` : `/${locale}${href}`;
+  };
+
+  const isActive = (href: string) => {
+    const fullHref = getHref(href);
+    if (href === '/') {
+      return pathname === fullHref || pathname === `${fullHref}/`;
+    }
+    return pathname.startsWith(fullHref);
+  };
+
+  let cleanPath = pathname;
+  if (locale !== 'id' && pathname.startsWith(`/${locale}`)) {
+    cleanPath = pathname.replace(`/${locale}`, '') || '/';
+  }
+  const isDarkHero = ['/', '/atraksi', '/budaya'].includes(cleanPath);
+  const forceLightText = !scrolled && isDarkHero;
 
   return (
     <header
@@ -31,26 +61,27 @@ export function Navbar() {
       )}
     >
       <nav className="container-wide flex h-16 items-center justify-between sm:h-20">
-        <Link href="/" className="flex items-center gap-2 text-xl font-extrabold text-brand-700">
+        <Link href={getHref('/')} className={cn("flex items-center gap-2 text-xl font-extrabold", !forceLightText ? "text-brand-700" : "text-white")}>
           <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white shadow-soft">
             <Leaf className="h-5 w-5" />
           </span>
-          VisitGrogol
+          Visit Grogol Kaloka
         </Link>
 
         <ul className="hidden items-center gap-8 lg:flex">
-          {NAV_ITEMS.map((item) => (
+          {NAV_KEYS.map((item) => (
             <li key={item.href}>
               <Link
-                href={item.href}
+                href={getHref(item.href)}
                 className={cn(
-                  'relative text-sm font-medium text-ink-soft transition-colors hover:text-brand-700',
-                  isActive(item.href) && 'text-brand-700'
+                  'relative text-sm font-medium transition-colors',
+                  !forceLightText ? 'text-ink-soft hover:text-brand-700' : 'text-white/90 hover:text-white',
+                  isActive(item.href) && (!forceLightText ? 'text-brand-700' : 'text-white')
                 )}
               >
-                {item.label}
+                {t(item.key)}
                 {isActive(item.href) && (
-                  <span className="absolute -bottom-1.5 left-0 h-0.5 w-full rounded-full bg-brand-600" />
+                  <span className={cn("absolute -bottom-1.5 left-0 h-0.5 w-full rounded-full", !forceLightText ? "bg-brand-600" : "bg-white")} />
                 )}
               </Link>
             </li>
@@ -58,12 +89,13 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
-          <Link href="/kontak" className="btn-primary hidden sm:inline-flex">
-            Booking Sekarang
+          <LanguageSwitcher forceLightText={forceLightText} />
+          <Link href={getHref('/kontak')} className={cn("btn-primary hidden sm:inline-flex", forceLightText && "bg-white text-brand-700 hover:bg-brand-50")}>
+            {t('contact')}
           </Link>
           <button
             aria-label="Menu"
-            className="rounded-xl p-2 text-ink hover:bg-black/5 lg:hidden"
+            className={cn("rounded-xl p-2 transition-colors lg:hidden", !forceLightText ? "text-ink hover:bg-black/5" : "text-white hover:bg-white/10")}
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -74,22 +106,22 @@ export function Navbar() {
       {open && (
         <div className="glass-strong border-t border-white/40 lg:hidden">
           <ul className="container-wide flex flex-col gap-1 py-4">
-            {NAV_ITEMS.map((item) => (
+            {NAV_KEYS.map((item) => (
               <li key={item.href}>
                 <Link
-                  href={item.href}
+                  href={getHref(item.href)}
                   className={cn(
                     'block rounded-xl px-4 py-3 text-sm font-medium transition-colors',
                     isActive(item.href) ? 'bg-brand-50 text-brand-700' : 'text-ink-soft hover:bg-black/5'
                   )}
                 >
-                  {item.label}
+                  {t(item.key)}
                 </Link>
               </li>
             ))}
             <li className="mt-2">
-              <Link href="/kontak" className="btn-primary w-full">
-                Booking Sekarang
+              <Link href={getHref('/kontak')} className="btn-primary w-full text-center">
+                {t('contact')}
               </Link>
             </li>
           </ul>

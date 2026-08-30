@@ -7,7 +7,9 @@ import { bodySchema, zBool, zInt, zOptionalString } from '../../utils/zodHelpers
 const createSchema = bodySchema({
   name: z.string().trim().min(2).max(140),
   message: z.string().trim().min(5),
+  messageEn: zOptionalString,
   role: zOptionalString,
+  roleEn: zOptionalString,
   origin: zOptionalString,
   avatar: zOptionalString,
   rating: zInt.min(1).max(5).optional(),
@@ -18,7 +20,9 @@ const createSchema = bodySchema({
 const updateSchema = bodySchema({
   name: z.string().trim().min(2).max(140).optional(),
   message: z.string().trim().min(5).optional(),
+  messageEn: zOptionalString,
   role: zOptionalString,
+  roleEn: zOptionalString,
   origin: zOptionalString,
   avatar: zOptionalString,
   rating: zInt.min(1).max(5).optional(),

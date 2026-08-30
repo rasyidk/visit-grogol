@@ -7,7 +7,9 @@ import { uniqueSlug } from '../../utils/slug';
 
 const baseFields = {
   excerpt: zOptionalString,
+  excerptEn: zOptionalString,
   content: zOptionalString,
+  contentEn: zOptionalString,
   address: zOptionalString,
   latitude: zNumber.optional(),
   longitude: zNumber.optional(),
@@ -23,7 +25,9 @@ const baseFields = {
 
 const createSchema = bodySchema({
   title: z.string().trim().min(3).max(180),
+  titleEn: zOptionalString,
   description: z.string().trim().min(10),
+  descriptionEn: zOptionalString,
   location: z.string().trim().min(2).max(180),
   thumbnail: z.string().trim().min(1),
   kategoriId: zInt.positive(),
@@ -32,7 +36,9 @@ const createSchema = bodySchema({
 
 const updateSchema = bodySchema({
   title: z.string().trim().min(3).max(180).optional(),
+  titleEn: zOptionalString,
   description: z.string().trim().min(10).optional(),
+  descriptionEn: zOptionalString,
   location: z.string().trim().min(2).max(180).optional(),
   thumbnail: z.string().trim().min(1).optional(),
   kategoriId: zInt.positive().optional(),
@@ -41,7 +47,7 @@ const updateSchema = bodySchema({
 
 const service = createCrudService(prisma.destinasi as unknown as PrismaDelegate, {
   resourceName: 'Destinasi',
-  include: { kategori: { select: { id: true, name: true, slug: true } } },
+  include: { kategori: { select: { id: true, name: true, nameEn: true, slug: true } } },
   query: {
     searchable: ['title', 'description', 'location'],
     sortable: ['title', 'price', 'rating', 'views', 'createdAt', 'updatedAt'],

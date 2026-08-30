@@ -7,11 +7,13 @@ import { AccommodationCard } from '@/components/public/AccommodationCard';
 import { Newsletter } from '@/components/public/Newsletter';
 import { useDestinasi } from '@/hooks/usePublicData';
 import { cn } from '@/lib/utils';
-
-const FILTERS = ['Semua', 'Vila Modern', 'Rumah Tradisional', 'Eko-Lodge'];
+import { useTranslations } from 'next-intl';
 
 export default function PenginapanPage() {
-  const [active, setActive] = useState('Semua');
+  const t = useTranslations('Penginapan');
+  const FILTERS = [t('filterAll'), t('filterVila'), t('filterRumah'), t('filterEko')];
+  
+  const [active, setActive] = useState(t('filterAll'));
   const { data } = useDestinasi({ limit: 12 });
   const lodging = data.filter((d) => d.kategoriId === 4 || d.price >= 500000);
 
@@ -19,13 +21,12 @@ export default function PenginapanPage() {
     <>
       <section className="container-wide pt-32 sm:pt-40">
         <Reveal>
-          <p className="eyebrow mb-4">Kenyamanan Otentik</p>
+          <p className="eyebrow mb-4">{t('heroTag')}</p>
           <h1 className="max-w-2xl text-4xl font-extrabold leading-tight text-ink sm:text-5xl lg:text-6xl">
-            Istirahat di Jantung <span className="text-brand-600">Keindahan Alam.</span>
+            {t('heroTitle1')} <span className="text-brand-600">{t('heroTitle2')}</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-muted">
-            Pilihan akomodasi kurasi kami menawarkan pengalaman tinggal yang intim, memadukan
-            keramahan lokal dengan standar kenyamanan modern yang elegan.
+            {t('heroDesc')}
           </p>
         </Reveal>
 
@@ -48,7 +49,7 @@ export default function PenginapanPage() {
             </div>
             <button className="flex items-center gap-2 px-4 py-2 text-sm text-ink-soft">
               <SlidersHorizontal className="h-4 w-4" />
-              Urutkan: Popularitas
+              {t('sortPopular')}
             </button>
           </div>
         </Reveal>
@@ -57,7 +58,7 @@ export default function PenginapanPage() {
       <section className="container-wide mt-12">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {lodging.map((item, i) => (
-            <Reveal key={item.id} delay={i * 0.08}>
+            <Reveal key={item.id} delay={i * 0.08} className="h-full">
               <AccommodationCard item={item} />
             </Reveal>
           ))}
@@ -68,9 +69,9 @@ export default function PenginapanPage() {
         <Reveal>
           <Newsletter
             variant="green"
-            title="Dapatkan Penawaran Eksklusif"
-            description="Berlangganan newsletter kami untuk akses pertama ke homestay baru dan promo musiman yang dikurasi khusus untuk Anda."
-            cta="Ikuti Sekarang"
+            title={t('newsletterTitle')}
+            description={t('newsletterDesc')}
+            cta={t('newsletterCta')}
           />
         </Reveal>
       </section>

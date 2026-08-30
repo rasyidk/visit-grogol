@@ -7,9 +7,12 @@ import { uniqueSlug } from '../../utils/slug';
 
 const createSchema = bodySchema({
   title: z.string().trim().min(3).max(200),
+  titleEn: zOptionalString,
   content: z.string().trim().min(10),
+  contentEn: zOptionalString,
   thumbnail: z.string().trim().min(1),
   excerpt: zOptionalString,
+  excerptEn: zOptionalString,
   author: zOptionalString,
   category: zOptionalString,
   tags: z.array(z.string()).optional(),
@@ -19,9 +22,12 @@ const createSchema = bodySchema({
 
 const updateSchema = bodySchema({
   title: z.string().trim().min(3).max(200).optional(),
+  titleEn: zOptionalString,
   content: z.string().trim().min(10).optional(),
+  contentEn: zOptionalString,
   thumbnail: z.string().trim().min(1).optional(),
   excerpt: zOptionalString,
+  excerptEn: zOptionalString,
   author: zOptionalString,
   category: zOptionalString,
   tags: z.array(z.string()).optional(),

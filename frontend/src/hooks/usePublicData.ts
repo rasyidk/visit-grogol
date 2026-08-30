@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { useLocale } from 'next-intl';
 import { fetchList, fetchOne } from '@/lib/api';
 import type {
   Destinasi,
@@ -18,12 +19,34 @@ import type {
  * Public data hooks. Each returns API data when available and falls back to
  * curated seed-like content so the design always renders (resilient demo).
  */
+function mapLocaleData<T>(data: T | T[], locale: string): any {
+  if (locale !== 'en' || !data) return data;
+
+  const mapItem = (item: any) => {
+    const newItem = { ...item };
+    for (const key of Object.keys(newItem)) {
+      if (key.endsWith('En') && newItem[key]) {
+        const originalKey = key.slice(0, -2);
+        newItem[originalKey] = newItem[key];
+      }
+    }
+    return newItem;
+  };
+
+  if (Array.isArray(data)) {
+    return data.map(mapItem);
+  }
+  return mapItem(data);
+}
+
 function usePublic<T>(key: string[], path: string, params: Record<string, unknown>, fallback: T[]) {
+  const locale = useLocale();
   const query = useQuery({
-    queryKey: key,
+    queryKey: [...key, locale],
     queryFn: () => fetchList<T>(path, params),
   });
-  const data = query.data?.data?.length ? query.data.data : fallback;
+  const rawData = query.data?.data?.length ? query.data.data : fallback;
+  const data = mapLocaleData(rawData, locale) as T[];
   return { ...query, data, meta: query.data?.meta };
 }
 
@@ -49,13 +72,19 @@ export const useGaleriVideo = () =>
   usePublic<GaleriVideo>(['galeri-video'], '/galeri-video', { limit: 12 }, []);
 
 export function useProfil() {
-  const query = useQuery({ queryKey: ['profil'], queryFn: () => fetchOne<ProfilWebsite>('/profil') });
-  return { ...query, data: query.data ?? FALLBACK_PROFIL };
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['profil', locale], queryFn: () => fetchOne<ProfilWebsite>('/profil') });
+  const rawData = query.data ?? FALLBACK_PROFIL;
+  const data = mapLocaleData(rawData, locale) as ProfilWebsite;
+  return { ...query, data };
 }
 
 export function useKontak() {
-  const query = useQuery({ queryKey: ['kontak'], queryFn: () => fetchOne<Kontak>('/kontak') });
-  return { ...query, data: query.data ?? FALLBACK_KONTAK };
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['kontak', locale], queryFn: () => fetchOne<Kontak>('/kontak') });
+  const rawData = query.data ?? FALLBACK_KONTAK;
+  const data = mapLocaleData(rawData, locale) as Kontak;
+  return { ...query, data };
 }
 
 // ── Fallback content (mirrors the seed) ──────────────────────
@@ -116,7 +145,7 @@ export const FALLBACK_TESTIMONI: Testimoni[] = [
 
 export const FALLBACK_PROFIL: ProfilWebsite = {
   id: 1,
-  siteName: 'VisitGrogol',
+  siteName: 'Visit Grogol Kaloka',
   tagline: 'Kembali ke Alam & Tradisi',
   about: 'Mewujudkan ekosistem pariwisata digital yang berkelanjutan, menjaga warisan budaya, dan memberdayakan komunitas lokal.',
   vision: 'Menjadi destinasi desa wisata premium yang mengedepankan keberlanjutan.',
@@ -124,6 +153,11 @@ export const FALLBACK_PROFIL: ProfilWebsite = {
   history: 'Didirikan pada abad ke-17 oleh pengembara dari pegunungan tengah, desa ini dibangun di atas filosofi Tri Hita Karana.',
   logo: null,
   heroImage: img('hero-profil', 1600, 900),
+  atraksiHeroImage: img('atraksi', 1600, 900),
+  budayaHeroImage: img('budaya', 1600, 900),
+  kulinerHeroImage: img('kuliner', 1600, 900),
+  penginapanHeroImage: img('penginapan-hero', 1600, 900),
+  kontakHeroImage: img('sunrise-hills', 1600, 800),
 };
 
 export const FALLBACK_KONTAK: Kontak = {

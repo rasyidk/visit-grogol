@@ -1,14 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { RatingPill } from '@/components/ui/Misc';
-import { FacilityIcon, facilityLabel } from './facilityIcon';
+import { FacilityIcon, facilityLabel, isValidFacility } from './facilityIcon';
 import { formatRupiah, truncate } from '@/lib/utils';
 import type { Destinasi } from '@/lib/types';
+import { useTranslations } from 'next-intl';
 
 export function AccommodationCard({ item }: { item: Destinasi }) {
-  const facilities = (item.facilities ?? []).slice(0, 4);
+  const t = useTranslations('Penginapan');
+  const facilities = (item.facilities ?? []).filter(isValidFacility);
   return (
-    <article className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-soft">
+    <article className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-soft">
       <div className="relative aspect-[4/5] overflow-hidden">
         <Image
           src={item.thumbnail}
@@ -27,11 +29,11 @@ export function AccommodationCard({ item }: { item: Destinasi }) {
           <h3 className="text-lg font-bold leading-snug text-ink">{item.title}</h3>
           <div className="shrink-0 text-right">
             <p className="text-sm font-bold text-brand-700">{formatRupiah(item.price)}</p>
-            <p className="text-[11px] text-ink-muted">/malam</p>
+            <p className="text-[11px] text-ink-muted">{t('perNight')}</p>
           </div>
         </div>
 
-        <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">
           {truncate(item.excerpt || item.description, 90)}
         </p>
 
@@ -50,7 +52,7 @@ export function AccommodationCard({ item }: { item: Destinasi }) {
           href="/kontak"
           className="mt-6 w-full rounded-full bg-sand py-3 text-center text-sm font-semibold text-brand-700 transition hover:bg-brand-600 hover:text-white"
         >
-          Pesan Sekarang
+          {t('bookNow')}
         </Link>
       </div>
     </article>

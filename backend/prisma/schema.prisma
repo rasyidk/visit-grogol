@@ -47,14 +47,16 @@ model AdminUser {
 // ─────────────────────────  CATEGORIES  ───────────────────────
 
 model Kategori {
-  id          Int         @id @default(autoincrement())
-  name        String      @db.VarChar(120)
-  slug        String      @unique @db.VarChar(140)
-  description String?     @db.Text
-  icon        String?     @db.VarChar(120)
-  color       String?     @db.VarChar(30)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id            Int         @id @default(autoincrement())
+  name          String      @db.VarChar(120)
+  nameEn        String?     @db.VarChar(120)
+  slug          String      @unique @db.VarChar(140)
+  description   String?     @db.Text
+  descriptionEn String?     @db.Text
+  icon          String?     @db.VarChar(120)
+  color         String?     @db.VarChar(30)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 
   destinasi   Destinasi[]
 
@@ -65,13 +67,17 @@ model Kategori {
 // ─────────────────────────  DESTINATIONS  ─────────────────────
 
 model Destinasi {
-  id           Int       @id @default(autoincrement())
-  title        String    @db.VarChar(180)
-  slug         String    @unique @db.VarChar(200)
-  excerpt      String?   @db.VarChar(300)
-  description  String    @db.Text
-  content      String?   @db.LongText
-  location     String    @db.VarChar(180)
+  id            Int       @id @default(autoincrement())
+  title         String    @db.VarChar(180)
+  titleEn       String?   @db.VarChar(180)
+  slug          String    @unique @db.VarChar(200)
+  excerpt       String?   @db.VarChar(300)
+  excerptEn     String?   @db.VarChar(300)
+  description   String    @db.Text
+  descriptionEn String?   @db.Text
+  content       String?   @db.LongText
+  contentEn     String?   @db.LongText
+  location      String    @db.VarChar(180)
   address      String?   @db.VarChar(255)
   latitude     Float?
   longitude    Float?
@@ -102,13 +108,16 @@ model Destinasi {
 // ─────────────────────────────  BANNERS  ──────────────────────
 
 model Banner {
-  id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(180)
-  subtitle  String?  @db.VarChar(255)
-  image     String   @db.VarChar(255)
-  link      String?  @db.VarChar(255)
-  ctaLabel  String?  @db.VarChar(80)
-  position  Int      @default(0)
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(180)
+  titleEn     String?  @db.VarChar(180)
+  subtitle    String?  @db.VarChar(255)
+  subtitleEn  String?  @db.VarChar(255)
+  image       String   @db.VarChar(255)
+  link        String?  @db.VarChar(255)
+  ctaLabel    String?  @db.VarChar(80)
+  ctaLabelEn  String?  @db.VarChar(80)
+  position    Int      @default(0)
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -123,9 +132,12 @@ model Banner {
 model Berita {
   id          Int       @id @default(autoincrement())
   title       String    @db.VarChar(200)
+  titleEn     String?   @db.VarChar(200)
   slug        String    @unique @db.VarChar(220)
   excerpt     String?   @db.VarChar(400)
+  excerptEn   String?   @db.VarChar(400)
   content     String    @db.LongText
+  contentEn   String?   @db.LongText
   thumbnail   String    @db.VarChar(255)
   author      String?   @db.VarChar(120)
   category    String?   @db.VarChar(120)
@@ -145,12 +157,15 @@ model Berita {
 // ─────────────────────────────  EVENTS  ───────────────────────
 
 model Event {
-  id          Int       @id @default(autoincrement())
-  title       String    @db.VarChar(200)
-  slug        String    @unique @db.VarChar(220)
-  description String    @db.Text
-  content     String?   @db.LongText
-  thumbnail   String    @db.VarChar(255)
+  id            Int       @id @default(autoincrement())
+  title         String    @db.VarChar(200)
+  titleEn       String?   @db.VarChar(200)
+  slug          String    @unique @db.VarChar(220)
+  description   String    @db.Text
+  descriptionEn String?   @db.Text
+  content       String?   @db.LongText
+  contentEn     String?   @db.LongText
+  thumbnail     String    @db.VarChar(255)
   location    String?   @db.VarChar(180)
   startDate   DateTime
   endDate     DateTime?
@@ -168,11 +183,13 @@ model Event {
 // ────────────────────────  PHOTO GALLERY  ─────────────────────
 
 model GaleriFoto {
-  id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(180)
-  image     String   @db.VarChar(255)
-  caption   String?  @db.VarChar(255)
-  category  String?  @db.VarChar(120)
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(180)
+  titleEn     String?  @db.VarChar(180)
+  image       String   @db.VarChar(255)
+  caption     String?  @db.VarChar(255)
+  captionEn   String?  @db.VarChar(255)
+  category    String?  @db.VarChar(120)
   position  Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -184,12 +201,14 @@ model GaleriFoto {
 // ────────────────────────  VIDEO GALLERY  ─────────────────────
 
 model GaleriVideo {
-  id          Int      @id @default(autoincrement())
-  title       String   @db.VarChar(180)
-  videoUrl    String   @db.VarChar(400)
-  thumbnail   String?  @db.VarChar(255)
-  description String?  @db.Text
-  position    Int      @default(0)
+  id            Int      @id @default(autoincrement())
+  title         String   @db.VarChar(180)
+  titleEn       String?  @db.VarChar(180)
+  videoUrl      String   @db.VarChar(400)
+  thumbnail     String?  @db.VarChar(255)
+  description   String?  @db.Text
+  descriptionEn String?  @db.Text
+  position      Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -202,9 +221,11 @@ model Testimoni {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(140)
   role       String?  @db.VarChar(140)
+  roleEn     String?  @db.VarChar(140)
   origin     String?  @db.VarChar(140)
   avatar     String?  @db.VarChar(255)
   message    String   @db.Text
+  messageEn  String?  @db.Text
   rating     Int      @default(5)
   isApproved Boolean  @default(true)
   position   Int      @default(0)
@@ -220,15 +241,26 @@ model Testimoni {
 model ProfilWebsite {
   id          Int      @id @default(autoincrement())
   siteName    String   @default("VisitGrogol") @db.VarChar(140)
+  siteNameEn  String?  @db.VarChar(140)
   tagline     String?  @db.VarChar(255)
+  taglineEn   String?  @db.VarChar(255)
   logo        String?  @db.VarChar(255)
   favicon     String?  @db.VarChar(255)
   about       String?  @db.LongText
+  aboutEn     String?  @db.LongText
   vision      String?  @db.Text
+  visionEn    String?  @db.Text
   mission     String?  @db.Text
+  missionEn   String?  @db.Text
   history     String?  @db.LongText
-  heroImage   String?  @db.VarChar(255)
-  createdAt   DateTime @default(now())
+  historyEn           String?  @db.LongText
+  heroImage           String?  @db.VarChar(255)
+  atraksiHeroImage    String?  @db.VarChar(255)
+  budayaHeroImage     String?  @db.VarChar(255)
+  kulinerHeroImage    String?  @db.VarChar(255)
+  penginapanHeroImage String?  @db.VarChar(255)
+  kontakHeroImage     String?  @db.VarChar(255)
+  createdAt           DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@map("profil_website")

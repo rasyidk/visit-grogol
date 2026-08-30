@@ -1,0 +1,12 @@
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": MySQL database "visitgrogol" at "mysql:3306"
+
+1 migration found in prisma/migrations
+
+
+No pending migrations to apply.
+
+> visitgrogol-backend@1.0.0 start
+> node dist/src/server.js
+
+🌿 VisitGrogol API running on http://localhost:4000/api/v1

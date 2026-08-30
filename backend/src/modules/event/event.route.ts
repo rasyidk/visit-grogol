@@ -7,10 +7,13 @@ import { uniqueSlug } from '../../utils/slug';
 
 const createSchema = bodySchema({
   title: z.string().trim().min(3).max(200),
+  titleEn: zOptionalString,
   description: z.string().trim().min(10),
+  descriptionEn: zOptionalString,
   thumbnail: z.string().trim().min(1),
   startDate: zDate,
   content: zOptionalString,
+  contentEn: zOptionalString,
   location: zOptionalString,
   endDate: zDate.optional(),
   ticketPrice: zInt.min(0).optional(),
@@ -19,10 +22,13 @@ const createSchema = bodySchema({
 
 const updateSchema = bodySchema({
   title: z.string().trim().min(3).max(200).optional(),
+  titleEn: zOptionalString,
   description: z.string().trim().min(10).optional(),
+  descriptionEn: zOptionalString,
   thumbnail: z.string().trim().min(1).optional(),
   startDate: zDate.optional(),
   content: zOptionalString,
+  contentEn: zOptionalString,
   location: zOptionalString,
   endDate: zDate.optional(),
   ticketPrice: zInt.min(0).optional(),

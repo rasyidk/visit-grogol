@@ -24,7 +24,9 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white">
               <Leaf className="h-5 w-5" />
             </span>
-            VisitGrogol
+            <div className="font-bold tracking-tight text-ink">
+              Visit Grogol Kaloka
+            </div>
           </Link>
           <button className="rounded-lg p-1.5 text-ink-muted hover:bg-black/5 lg:hidden" onClick={onClose}>
             <X className="h-5 w-5" />

@@ -7,14 +7,18 @@ import { uniqueSlug } from '../../utils/slug';
 
 const createSchema = bodySchema({
   name: z.string().trim().min(2).max(120),
+  nameEn: zOptionalString,
   description: zOptionalString,
+  descriptionEn: zOptionalString,
   icon: zOptionalString,
   color: zOptionalString,
 });
 
 const updateSchema = bodySchema({
   name: z.string().trim().min(2).max(120).optional(),
+  nameEn: zOptionalString,
   description: zOptionalString,
+  descriptionEn: zOptionalString,
   icon: zOptionalString,
   color: zOptionalString,
 });

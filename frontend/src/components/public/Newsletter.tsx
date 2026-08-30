@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { createOne, getApiErrorMessage } from '@/lib/api';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 interface NewsletterProps {
   variant?: 'light' | 'green';
@@ -14,13 +15,14 @@ interface NewsletterProps {
 
 export function Newsletter({
   variant = 'light',
-  title = 'Rencanakan Akhir Pekan Anda Bersama Kami',
-  description = 'Dapatkan panduan eksklusif dan penawaran khusus untuk penginapan villa terbaik langsung di email Anda.',
-  cta = 'Berlangganan',
+  title,
+  description,
+  cta,
 }: NewsletterProps) {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const green = variant === 'green';
+  const t = useTranslations('Newsletter');
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,10 +30,10 @@ export function Newsletter({
     setLoading(true);
     try {
       await createOne('/newsletter', { email });
-      toast.success('Berhasil berlangganan! Terima kasih.');
+      toast.success(t('success'));
       setEmail('');
     } catch (err) {
-      toast.error(getApiErrorMessage(err, 'Gagal berlangganan'));
+      toast.error(getApiErrorMessage(err, t('error')));
     } finally {
       setLoading(false);
     }
@@ -45,10 +47,10 @@ export function Newsletter({
       )}
     >
       <h2 className={cn('mx-auto max-w-xl text-2xl font-bold sm:text-3xl', green ? 'text-white' : 'text-ink')}>
-        {title}
+        {title || t('title')}
       </h2>
       <p className={cn('mx-auto mt-4 max-w-lg text-sm sm:text-base', green ? 'text-white/80' : 'text-ink-muted')}>
-        {description}
+        {description || t('description')}
       </p>
       <form onSubmit={submit} className="mx-auto mt-8 flex max-w-lg flex-col gap-3 sm:flex-row">
         <input
@@ -56,8 +58,8 @@ export function Newsletter({
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Alamat email Anda"
-          aria-label="Alamat email"
+          placeholder={t('placeholder')}
+          aria-label={t('placeholder')}
           className={cn(
             'flex-1 rounded-full px-6 py-3.5 text-sm outline-none transition',
             green
@@ -73,7 +75,7 @@ export function Newsletter({
             green ? 'bg-white text-brand-700 hover:bg-brand-50' : 'btn-primary'
           )}
         >
-          {loading ? 'Memproses…' : cta}
+          {loading ? t('processing') : (cta || t('cta'))}
         </button>
       </form>
     </div>

@@ -18,11 +18,14 @@ function buildDefaults(fields: FieldConfig[], record?: Values): Values {
     const existing = record?.[f.name];
     if (existing !== undefined && existing !== null) {
       if (f.type === 'tags' && Array.isArray(existing)) out[f.name] = existing.join(', ');
+      else if (f.type === 'checkbox_group' && Array.isArray(existing)) {
+        out[f.name] = existing.map(String).map(s => s.toLowerCase());
+      }
       else if (f.type === 'date' && typeof existing === 'string') out[f.name] = existing.slice(0, 10);
       else out[f.name] = existing;
     } else {
       out[f.name] =
-        f.defaultValue ?? (f.type === 'switch' ? false : f.type === 'number' ? 0 : '');
+        f.defaultValue ?? (f.type === 'switch' ? false : f.type === 'number' ? 0 : f.type === 'checkbox_group' ? [] : '');
     }
   }
   return out;
@@ -160,6 +163,37 @@ export function ResourceForm({
                         className="field-input"
                         placeholder={field.placeholder ?? 'pisahkan dengan koma'}
                         {...register(field.name)}
+                      />
+                    );
+                  case 'checkbox_group':
+                    return (
+                      <Controller
+                        control={control}
+                        name={field.name}
+                        render={({ field: f }) => {
+                          const valueArr = Array.isArray(f.value) ? f.value : [];
+                          return (
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              {field.options?.map((opt) => (
+                                <label key={opt.value} className="flex items-center gap-2 text-sm text-ink-soft cursor-pointer bg-black/5 px-3 py-1.5 rounded-full hover:bg-black/10 transition">
+                                  <input
+                                    type="checkbox"
+                                    className="rounded border-black/20 text-brand-600 focus:ring-brand-600 cursor-pointer h-4 w-4"
+                                    checked={valueArr.includes(opt.value as never)}
+                                    onChange={(e) => {
+                                      if (e.target.checked) {
+                                        f.onChange([...valueArr, opt.value]);
+                                      } else {
+                                        f.onChange(valueArr.filter((v: unknown) => v !== opt.value));
+                                      }
+                                    }}
+                                  />
+                                  <span>{opt.label}</span>
+                                </label>
+                              ))}
+                            </div>
+                          );
+                        }}
                       />
                     );
                   case 'switch':

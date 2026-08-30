@@ -44,14 +44,14 @@ router.get(
       prisma.destinasi.findMany({
         orderBy: { views: 'desc' },
         take: 5,
-        select: { id: true, title: true, views: true, rating: true, thumbnail: true },
+        select: { id: true, title: true, titleEn: true, views: true, rating: true, thumbnail: true },
       }),
       prisma.reservasi.findMany({ orderBy: { createdAt: 'desc' }, take: 5 }),
       prisma.event.findMany({
         where: { startDate: { gte: new Date('2024-01-01') } },
         orderBy: { startDate: 'asc' },
         take: 5,
-        select: { id: true, title: true, startDate: true, thumbnail: true },
+        select: { id: true, title: true, titleEn: true, startDate: true, thumbnail: true },
       }),
     ]);
 

@@ -20,8 +20,10 @@ export interface PaginationMeta {
 export interface Kategori {
   id: number;
   name: string;
+  nameEn?: string | null;
   slug: string;
   description?: string | null;
+  descriptionEn?: string | null;
   icon?: string | null;
   color?: string | null;
   createdAt: string;
@@ -31,10 +33,14 @@ export interface Kategori {
 export interface Destinasi {
   id: number;
   title: string;
+  titleEn?: string | null;
   slug: string;
   excerpt?: string | null;
+  excerptEn?: string | null;
   description: string;
+  descriptionEn?: string | null;
   content?: string | null;
+  contentEn?: string | null;
   location: string;
   address?: string | null;
   latitude?: number | null;
@@ -58,10 +64,13 @@ export interface Destinasi {
 export interface Banner {
   id: number;
   title: string;
+  titleEn?: string | null;
   subtitle?: string | null;
+  subtitleEn?: string | null;
   image: string;
   link?: string | null;
   ctaLabel?: string | null;
+  ctaLabelEn?: string | null;
   position: number;
   isActive: boolean;
 }
@@ -69,9 +78,12 @@ export interface Banner {
 export interface Berita {
   id: number;
   title: string;
+  titleEn?: string | null;
   slug: string;
   excerpt?: string | null;
+  excerptEn?: string | null;
   content: string;
+  contentEn?: string | null;
   thumbnail: string;
   author?: string | null;
   category?: string | null;
@@ -86,9 +98,12 @@ export interface Berita {
 export interface EventItem {
   id: number;
   title: string;
+  titleEn?: string | null;
   slug: string;
   description: string;
+  descriptionEn?: string | null;
   content?: string | null;
+  contentEn?: string | null;
   thumbnail: string;
   location?: string | null;
   startDate: string;
@@ -100,8 +115,10 @@ export interface EventItem {
 export interface GaleriFoto {
   id: number;
   title: string;
+  titleEn?: string | null;
   image: string;
   caption?: string | null;
+  captionEn?: string | null;
   category?: string | null;
   position: number;
 }
@@ -109,9 +126,11 @@ export interface GaleriFoto {
 export interface GaleriVideo {
   id: number;
   title: string;
+  titleEn?: string | null;
   videoUrl: string;
   thumbnail?: string | null;
   description?: string | null;
+  descriptionEn?: string | null;
   position: number;
 }
 
@@ -119,9 +138,11 @@ export interface Testimoni {
   id: number;
   name: string;
   role?: string | null;
+  roleEn?: string | null;
   origin?: string | null;
   avatar?: string | null;
   message: string;
+  messageEn?: string | null;
   rating: number;
   isApproved: boolean;
   position: number;
@@ -130,14 +151,25 @@ export interface Testimoni {
 export interface ProfilWebsite {
   id: number;
   siteName: string;
+  siteNameEn?: string | null;
   tagline?: string | null;
+  taglineEn?: string | null;
   logo?: string | null;
   favicon?: string | null;
   about?: string | null;
+  aboutEn?: string | null;
   vision?: string | null;
+  visionEn?: string | null;
   mission?: string | null;
+  missionEn?: string | null;
   history?: string | null;
+  historyEn?: string | null;
   heroImage?: string | null;
+  atraksiHeroImage?: string | null;
+  budayaHeroImage?: string | null;
+  kulinerHeroImage?: string | null;
+  penginapanHeroImage?: string | null;
+  kontakHeroImage?: string | null;
 }
 
 export interface Kontak {
@@ -180,7 +212,7 @@ export interface Reservasi {
 
 export interface DashboardStats {
   counts: Record<string, number>;
-  topDestinasi: Array<Pick<Destinasi, 'id' | 'title' | 'views' | 'rating' | 'thumbnail'>>;
+  topDestinasi: Array<Pick<Destinasi, 'id' | 'title' | 'titleEn' | 'titleEn' | 'views' | 'rating' | 'thumbnail'>>;
   latestReservasi: Reservasi[];
-  upcomingEvents: Array<Pick<EventItem, 'id' | 'title' | 'startDate' | 'thumbnail'>>;
+  upcomingEvents: Array<Pick<EventItem, 'id' | 'title' | 'titleEn' | 'titleEn' | 'startDate' | 'thumbnail'>>;
 }

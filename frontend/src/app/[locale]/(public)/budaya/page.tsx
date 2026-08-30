@@ -5,36 +5,38 @@ import Link from 'next/link';
 import { ArrowRight, ArrowDown, Download, Sparkles, Users, Leaf } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 import { Badge } from '@/components/ui/Misc';
-import { useEvents } from '@/hooks/usePublicData';
+import { useEvents, useProfil } from '@/hooks/usePublicData';
 import { formatDateShort } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 const img = (s: string, w = 800, h = 600) => `https://picsum.photos/seed/${s}/${w}/${h}`;
 
-const triHita = [
-  { icon: Sparkles, title: 'Parhyangan', desc: 'Hubungan harmonis antara manusia dengan Sang Pencipta melalui ritual dan syukur.' },
-  { icon: Users, title: 'Pawongan', desc: 'Hubungan harmonis antar sesama manusia lewat semangat gotong royong.' },
-  { icon: Leaf, title: 'Palemahan', desc: 'Hubungan harmonis antara manusia dengan alam dan lingkungan sekitar.' },
-];
-
 export default function BudayaPage() {
+  const t = useTranslations('Budaya');
   const { data: events } = useEvents({ limit: 3 });
+  const { data: profil } = useProfil();
+
+  const triHita = [
+    { icon: Sparkles, title: t('triHita1Title'), desc: t('triHita1Desc') },
+    { icon: Users, title: t('triHita2Title'), desc: t('triHita2Desc') },
+    { icon: Leaf, title: t('triHita3Title'), desc: t('triHita3Desc') },
+  ];
 
   return (
     <>
       {/* Hero */}
       <section className="relative min-h-[80vh] w-full overflow-hidden">
-        <Image src={img('cultural-dance', 1920, 1080)} alt="Tari tradisional" fill priority className="object-cover" />
+        <Image src={profil?.budayaHeroImage || img('cultural-dance', 1920, 1080)} alt="Tari tradisional" fill priority className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-brand-950/60 to-brand-950/80" />
         <div className="container-wide relative flex min-h-[80vh] flex-col justify-center pt-24 text-white">
           <Reveal>
-            <Badge tone="neutral" className="mb-5 bg-white/15 text-white">Eksplorasi Warisan</Badge>
-            <h1 className="max-w-2xl text-5xl font-extrabold leading-tight sm:text-6xl">Budaya &amp; Tradisi</h1>
+            <Badge tone="neutral" className="mb-5 bg-white/15 text-white">{t('heroTag')}</Badge>
+            <h1 className="max-w-2xl text-5xl font-extrabold leading-tight sm:text-6xl">{t('heroTitle')}</h1>
             <p className="mt-5 max-w-xl text-base text-white/80">
-              Menyelami kedalaman filosofi hidup masyarakat desa melalui seni yang melampaui waktu dan
-              tradisi yang menyatukan jiwa dengan alam.
+              {t('heroDesc')}
             </p>
             <button className="btn mt-8 w-fit bg-white text-brand-700 hover:bg-brand-50">
-              Jelajahi Cerita <ArrowDown className="h-4 w-4" />
+              {t('heroBtn')} <ArrowDown className="h-4 w-4" />
             </button>
           </Reveal>
         </div>
@@ -47,28 +49,28 @@ export default function BudayaPage() {
             <div className="relative aspect-[4/5] max-w-md overflow-hidden rounded-4xl shadow-soft rotate-[-2deg]">
               <Image src={img('elder-story', 800, 1000)} alt="Sesepuh bercerita" fill className="object-cover" />
               <div className="glass-strong absolute inset-x-4 bottom-4 rounded-2xl p-4">
-                <p className="text-sm italic text-ink">“Setiap bisikan angin di bawah banyan menyimpan seribu satu tahun kebijaksanaan leluhur kita.”</p>
+                <p className="text-sm italic text-ink">{t('quote')}</p>
               </div>
             </div>
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="eyebrow mb-3">Tradisi Lisan</p>
-          <h2 className="text-3xl font-bold text-ink sm:text-4xl">Narasi Cerita Unik</h2>
+          <p className="eyebrow mb-3">{t('oralTag')}</p>
+          <h2 className="text-3xl font-bold text-ink sm:text-4xl">{t('oralTitle')}</h2>
           <div className="mt-5 space-y-4 text-sm leading-relaxed text-ink-muted">
-            <p>Di bawah naungan pohon banyan yang telah berdiri selama berabad-abad, tradisi mendongeng masih tetap hidup. Para sesepuh desa bukan sekadar bercerita, mereka mewariskan kode etik dan nilai-nilai moral kepada generasi penerus.</p>
-            <p>Kisah tentang asal-usul sungai jernih hingga legenda para pelindung hutan diceritakan dengan penuh khidmat saat matahari terbenam, menciptakan jembatan antara masa lalu dan masa depan.</p>
+            <p>{t('oralDesc1')}</p>
+            <p>{t('oralDesc2')}</p>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <div className="card p-5">
               <Sparkles className="h-5 w-5 text-brand-600" />
-              <p className="mt-3 font-semibold text-ink">Mitos Lokal</p>
-              <p className="mt-1 text-xs text-ink-muted">Kisah-kisah magis pembentuk karakter desa.</p>
+              <p className="mt-3 font-semibold text-ink">{t('mythTitle')}</p>
+              <p className="mt-1 text-xs text-ink-muted">{t('mythDesc')}</p>
             </div>
             <div className="card p-5">
               <Leaf className="h-5 w-5 text-brand-600" />
-              <p className="mt-3 font-semibold text-ink">Kearifan</p>
-              <p className="mt-1 text-xs text-ink-muted">Filosofi hidup yang diwariskan turun-temurun.</p>
+              <p className="mt-3 font-semibold text-ink">{t('wisdomTitle')}</p>
+              <p className="mt-1 text-xs text-ink-muted">{t('wisdomDesc')}</p>
             </div>
           </div>
         </Reveal>
@@ -79,14 +81,14 @@ export default function BudayaPage() {
         <div className="container-wide">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="eyebrow mb-3">Mahakarya Tangan &amp; Raga</p>
-              <p className="text-lg text-ink-muted">Ekspresi jiwa masyarakat yang tertuang dalam gerak tari yang gemulai dan detail tenunan yang presisi.</p>
+              <p className="eyebrow mb-3">{t('masterpieceTag')}</p>
+              <p className="text-lg text-ink-muted">{t('masterpieceDesc')}</p>
             </div>
           </Reveal>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             {[
-              { title: 'Tari Padi Hijau', badge: 'Seni Pertunjukan', cta: 'Pelajari Gerakan', desc: 'Tarian ritmik yang menggambarkan siklus kehidupan padi, mulai dari penyemaian hingga masa raya.', img: img('tari-padi') },
-              { title: 'Tenun Serat Alam', badge: 'Kriya Tekstil', cta: 'Lihat Proses Produksi', desc: 'Menggunakan pewarna alami dari akar, kulit kayu, dan daun, setiap helai kain adalah catatan sejarah.', img: img('tenun-serat') },
+              { title: t('danceTitle'), badge: t('danceBadge'), cta: t('danceCta'), desc: t('danceDesc'), img: img('tari-padi') },
+              { title: t('weaveTitle'), badge: t('weaveBadge'), cta: t('weaveCta'), desc: t('weaveDesc'), img: img('tenun-serat') },
             ].map((m, i) => (
               <Reveal key={m.title} delay={i * 0.1}>
                 <article>
@@ -111,10 +113,9 @@ export default function BudayaPage() {
         <Reveal>
           <div className="grid gap-8 overflow-hidden rounded-4xl bg-brand-gradient p-8 text-white shadow-soft lg:grid-cols-2 lg:p-12">
             <div>
-              <h2 className="text-2xl font-bold sm:text-3xl">Tri Hita Karana</h2>
+              <h2 className="text-2xl font-bold sm:text-3xl">{t('triHitaTitle')}</h2>
               <p className="mt-3 text-sm text-white/80">
-                Tiga penyebab kebahagiaan yang menjadi fondasi kehidupan desa kami, menciptakan harmoni
-                yang tak terpisahkan antara spiritual, sosial, dan ekologi.
+                {t('triHitaDesc')}
               </p>
               <ul className="mt-8 space-y-5">
                 {triHita.map((t) => (
@@ -142,11 +143,11 @@ export default function BudayaPage() {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="eyebrow mb-2">Kalender Festival 2024</p>
-              <h2 className="text-2xl font-bold text-ink sm:text-3xl">Catat tanggalnya dan jadilah bagian dari perayaan kami.</h2>
+              <p className="eyebrow mb-2">{t('calendarTag')}</p>
+              <h2 className="text-2xl font-bold text-ink sm:text-3xl">{t('calendarTitle')}</h2>
             </div>
             <button className="btn-outline">
-              Unduh Kalender Lengkap <Download className="h-4 w-4" />
+              {t('calendarDownload')} <Download className="h-4 w-4" />
             </button>
           </div>
         </Reveal>
@@ -164,9 +165,9 @@ export default function BudayaPage() {
                   <h3 className={`mt-4 text-lg font-bold ${highlight ? 'text-white' : 'text-ink'}`}>{ev.title}</h3>
                   <p className={`mt-2 text-sm ${highlight ? 'text-white/80' : 'text-ink-muted'}`}>{ev.description}</p>
                   {highlight ? (
-                    <Link href="/kontak" className="mt-5 inline-block rounded-full bg-white px-5 py-2 text-sm font-semibold text-brand-700">Beli Tiket Akses</Link>
+                    <Link href="/kontak" className="mt-5 inline-block rounded-full bg-white px-5 py-2 text-sm font-semibold text-brand-700">{t('buyTicket')}</Link>
                   ) : (
-                    <button className="mt-5 rounded-full border border-black/10 px-5 py-2 text-sm font-semibold text-ink-soft hover:bg-black/5">Pelajari Selengkapnya</button>
+                    <button className="mt-5 rounded-full border border-black/10 px-5 py-2 text-sm font-semibold text-ink-soft hover:bg-black/5">{t('learnMore')}</button>
                   )}
                 </div>
               </Reveal>
