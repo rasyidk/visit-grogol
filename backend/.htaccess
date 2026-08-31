@@ -1,0 +1,16 @@
+<IfModule litespeed>
+  # Membatasi timeout dari sisi LiteSpeed agar request yang hang langsung di-drop
+  RewriteEngine On
+  RewriteRule .* - [E=noconnectiontimeout:1]
+  RewriteRule .* - [E=env_node_timeout:15]
+</IfModule>
+
+# Konfigurasi Phusion Passenger (Jika hosting Anda menggunakan ini untuk Node.js)
+# Batasi maksimal worker (proses) agar tidak melampaui Entry Process limit
+PassengerMaxInstances 2
+
+# Izinkan jumlah proses turun menjadi 0 saat trafik sepi
+PassengerMinInstances 0
+
+# Matikan proses Node.js yang idle (menganggur) selama 30 detik
+PassengerPoolIdleTime 30
