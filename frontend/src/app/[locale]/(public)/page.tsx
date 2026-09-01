@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Cloud, Wind, Eye, Droplets, Sun, Quote } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
@@ -17,6 +18,7 @@ export default function ProfilPage() {
   const locale = useLocale();
 
   const isEn = locale === 'en';
+  const getHref = (path: string) => (locale === 'id' ? path : `/${locale}${path}`);
 
   const team = [
     { name: 'Bp. Dharmawan', role: isEn ? 'Village Head' : 'Kepala Desa' },
@@ -35,18 +37,27 @@ export default function ProfilPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[70vh] w-full overflow-hidden">
-        <Image src={profil.heroImage || img('profil-hero', 1920, 1080)} alt="Desa di balik awan" fill priority className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-950/50 to-brand-950/80" />
-        <div className="container-wide relative flex min-h-[70vh] flex-col justify-center pt-24 text-white">
+      <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
+        <Image src={profil.heroImage || img('profil-hero', 1920, 1080)} alt="Desa di balik awan" fill priority className="object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-950/50 via-brand-950/60 to-brand-950/80" />
+        <div className="container-wide relative z-10 flex min-h-screen flex-col items-center justify-center pt-16 pb-28 text-center text-white">
           <Reveal>
-            <Badge tone="neutral" className="mb-5 bg-white/15 text-white">{tHero('welcome')}</Badge>
-            <h1 className="max-w-2xl text-5xl font-extrabold leading-tight sm:text-6xl">{tHero('title')}</h1>
-            <p className="mt-5 max-w-xl text-white/80">
-              {tHero('subtitle')}
-            </p>
-            <div className="glass-dark mt-8 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm">
-              <Cloud className="h-4 w-4" /> {isEn ? '24°C Light Drizzle' : '24°C Gerimis Tipis'}
+            <div className="max-w-4xl mx-auto flex flex-col items-center">
+              <h1 className="max-w-3xl text-5xl font-extrabold leading-[1.1] sm:text-6xl lg:text-7xl tracking-tight text-white">
+                {tHero('title')}
+              </h1>
+              <p className="mt-6 max-w-2xl text-lg sm:text-xl text-white/85 font-normal leading-relaxed">
+                {tHero('subtitle')}
+              </p>
+              <div className="mt-9 flex justify-center">
+                <Link
+                  href={getHref('/atraksi')}
+                  className="btn-primary inline-flex items-center gap-2.5 px-8 py-3.5 text-sm sm:text-base font-bold shadow-soft hover:shadow-lg transition-all duration-200 active:scale-95"
+                >
+                  <span>{isEn ? 'Explore Destinations' : 'Jelajahi Wisata'}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
           </Reveal>
         </div>
