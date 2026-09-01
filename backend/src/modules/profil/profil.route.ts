@@ -28,5 +28,4 @@ const updateSchema = bodySchema({
 
 export default createSingletonRouter(prisma.profilWebsite, 'Profil Website', updateSchema, {
   siteName: 'VisitGrogol',
-  siteNameEn: zOptionalString,
 });
