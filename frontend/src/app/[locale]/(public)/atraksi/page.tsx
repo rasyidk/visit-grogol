@@ -66,7 +66,6 @@ export default function BerandaPage() {
       <section className="section container-wide">
         <div className="grid gap-8 lg:grid-cols-[1fr_320px] lg:items-end">
           <Reveal>
-            <p className="eyebrow mb-3">{t('featuredTag')}</p>
             <h2 className="text-3xl font-bold leading-tight text-ink sm:text-4xl">
               {t('featuredTitle')}
             </h2>

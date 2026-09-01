@@ -21,7 +21,6 @@ export default function PenginapanPage() {
     <>
       <section className="container-wide pt-32 sm:pt-40">
         <Reveal>
-          <p className="eyebrow mb-4">{t('heroTag')}</p>
           <h1 className="max-w-2xl text-4xl font-extrabold leading-tight text-ink sm:text-5xl lg:text-6xl">
             {t('heroTitle1')} <span className="text-brand-600">{t('heroTitle2')}</span>
           </h1>

@@ -2,9 +2,12 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Cloud, Wind, Eye, Droplets, Sun, Quote } from 'lucide-react';
+import { ArrowRight, Quote } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
-import { Badge } from '@/components/ui/Misc';
+import { CultureCorridor } from '@/components/home/CultureCorridor';
+import { ManagersSection } from '@/components/home/ManagersSection';
+import { TestimonialShowcase } from '@/components/home/TestimonialShowcase';
+import { GsapMagnetic } from '@/components/ui/GsapMagnetic';
 import { useProfil, useTestimoni } from '@/hooks/usePublicData';
 import { useTranslations, useLocale } from 'next-intl';
 
@@ -14,24 +17,16 @@ export default function ProfilPage() {
   const { data: profil } = useProfil();
   const { data: testimoni } = useTestimoni();
   const tHero = useTranslations('Hero');
-  const tCommon = useTranslations('Common');
   const locale = useLocale();
 
   const isEn = locale === 'en';
   const getHref = (path: string) => (locale === 'id' ? path : `/${locale}${path}`);
 
   const team = [
-    { name: 'Bp. Dharmawan', role: isEn ? 'Village Head' : 'Kepala Desa' },
-    { name: 'Ibu Sari', role: isEn ? 'BUMDes Director' : 'Direktur BUMDes' },
-    { name: 'Bli Putu', role: isEn ? 'Head of Culture' : 'Ketua Adat & Budaya' },
-    { name: 'Rian Wijaya', role: isEn ? 'Environment Coordinator' : 'Koordinator Lingkungan' },
-  ];
-
-  const products = [
-    { name: isEn ? 'Natural Fiber Weaving' : 'Tenun Serat Alam', desc: isEn ? 'Made for 30 days using natural plant dyes.' : 'Dibuat selama 30 hari menggunakan pewarna tumbuhan alami.', badge: 'Best Seller', span: true, seed: 'prod-tenun' },
-    { name: isEn ? 'Arut Chocolate' : 'Cokelat Arut', desc: isEn ? 'Selected cocoa beans from community gardens.' : 'Biji kakao pilihan dari kebun rakyat.', seed: 'prod-cokelat' },
-    { name: isEn ? 'Essential Oil' : 'Minyak Atsiri', desc: '', seed: 'prod-atsiri' },
-    { name: isEn ? 'Craft Pottery' : 'Gerabah Kriya', desc: '', seed: 'prod-gerabah' },
+    { name: 'Bp. Dharmawan', role: isEn ? 'Village Head' : 'Kepala Desa', seed: 'team-dharmawan-0' },
+    { name: 'Ibu Sari', role: isEn ? 'BUMDes Director' : 'Direktur BUMDes', seed: 'team-sari-1' },
+    { name: 'Bli Putu', role: isEn ? 'Head of Culture' : 'Ketua Adat & Budaya', seed: 'team-putu-2' },
+    { name: 'Rian Wijaya', role: isEn ? 'Environment Coordinator' : 'Koordinator Lingkungan', seed: 'team-rian-3' },
   ];
 
   return (
@@ -50,200 +45,86 @@ export default function ProfilPage() {
                 {tHero('subtitle')}
               </p>
               <div className="mt-9 flex justify-center">
-                <Link
-                  href={getHref('/atraksi')}
-                  className="btn-primary inline-flex items-center gap-2.5 px-8 py-3.5 text-sm sm:text-base font-bold shadow-soft hover:shadow-lg transition-all duration-200 active:scale-95"
-                >
-                  <span>{isEn ? 'Explore Destinations' : 'Jelajahi Wisata'}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                <GsapMagnetic strength={0.4}>
+                  <Link
+                    href={getHref('/atraksi')}
+                    className="btn-primary inline-flex items-center gap-2.5 px-8 py-3.5 text-sm sm:text-base font-bold shadow-soft hover:shadow-xl transition-all duration-200 active:scale-95"
+                  >
+                    <span>{isEn ? 'Explore Destinations' : 'Jelajahi Wisata'}</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </GsapMagnetic>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* Sejarah */}
-      <section className="section container-wide grid items-center gap-12 lg:grid-cols-2">
-        <Reveal>
-          <div className="relative mx-auto aspect-square max-w-md rounded-4xl bg-white p-6 shadow-soft rotate-[-2deg]">
-            <div className="relative h-full w-full overflow-hidden rounded-2xl">
-              <Image src={img('old-photo', 700, 700)} alt="Foto sejarah desa" fill className="object-cover grayscale" />
-            </div>
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="eyebrow mb-3">{isEn ? 'History & Philosophy' : 'Sejarah & Filosofi'}</p>
-          <h2 className="text-3xl font-bold text-ink sm:text-4xl">{isEn ? 'Traces of Time in Heritage Land' : 'Jejak Waktu di Tanah Pusaka'}</h2>
-          <div className="mt-5 space-y-4 text-sm leading-relaxed text-ink-muted">
-            <p>{(isEn ? profil.historyEn : profil.history) || 'Didirikan pada abad ke-17 oleh pengembara dari pegunungan tengah, desa ini dibangun di atas filosofi Tri Hita Karana — keseimbangan antara manusia, alam, dan Sang Pencipta.'}</p>
-          </div>
-          <button className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:gap-2.5 transition-all">
-            {tCommon('readMore')} <ArrowRight className="h-4 w-4" />
-          </button>
-        </Reveal>
-      </section>
-
-      {/* UMKM */}
-      <section className="section bg-sand/60">
+      {/* Sejarah & Filosofi */}
+      <section className="py-24 sm:py-32 bg-sand/30 border-t border-black/5">
         <div className="container-wide">
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="eyebrow mb-3">{isEn ? 'Local Crafts' : 'Karya Lokal'}</p>
-              <h2 className="text-3xl font-bold text-ink sm:text-4xl">{isEn ? 'Featured SME Products' : 'Produk Unggulan UMKM'}</h2>
-              <p className="mt-4 text-sm text-ink-muted">
-                {isEn ? 'Every product is a curated result of skilled local hands using natural raw materials from around the village.' : 'Setiap produk adalah hasil kurasi tangan-tangan terampil penduduk lokal yang menggunakan bahan baku alami dari sekitar desa.'}
-              </p>
-            </div>
-          </Reveal>
-          <div className="mt-10 grid gap-5 md:grid-cols-3 md:grid-rows-2">
-            <Reveal className="md:row-span-2">
-              <ProductCard p={products[0]} tall />
-            </Reveal>
-            <Reveal delay={0.1} className="md:col-span-2">
-              <ProductCard p={products[1]} wide />
-            </Reveal>
-            <Reveal delay={0.15}>
-              <ProductCard p={products[2]} />
-            </Reveal>
-            <Reveal delay={0.2}>
-              <ProductCard p={products[3]} />
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="section container-wide">
-        <Reveal>
-          <p className="eyebrow mb-3">{isEn ? 'Behind the Scenes' : 'Di Balik Layar'}</p>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 className="max-w-md text-3xl font-bold text-ink sm:text-4xl">
-              {isEn ? 'Meet Our Managers' : 'Bertemu dengan Pengelola Kami'}
-            </h2>
-            <p className="max-w-sm text-sm text-ink-muted">
-              {isEn ? 'Building a sustainable tourism ecosystem by empowering local talents.' : 'Membangun ekosistem pariwisata berkelanjutan dengan memberdayakan talenta lokal.'}
-            </p>
-          </div>
-        </Reveal>
-        <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-4">
-          {team.map((m, i) => (
-            <Reveal key={m.name} delay={i * 0.08}>
-              <div className="text-center">
-                <div className="relative mx-auto h-28 w-28 overflow-hidden rounded-full ring-4 ring-white shadow-soft">
-                  <Image src={img(`team-${i}`, 200, 200)} alt={m.name} fill className="object-cover" />
-                </div>
-                <p className="mt-4 font-bold text-ink">{m.name}</p>
-                <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">{m.role}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Testimoni + widgets */}
-      <section className="section container-wide grid gap-8 lg:grid-cols-[1.3fr_1fr]">
-        <div>
-          <Reveal>
-            <p className="eyebrow mb-2">{isEn ? 'Visitor Voices' : 'Suara Pengunjung'}</p>
-            <h2 className="text-3xl font-bold text-ink sm:text-4xl">{isEn ? 'What Do They Say?' : 'Apa Kata Mereka?'}</h2>
-          </Reveal>
-          <div className="mt-8 space-y-5">
-            {testimoni.slice(0, 3).map((t, i) => (
-              <Reveal key={t.id} delay={i * 0.08}>
-                <figure className="card relative p-6">
-                  <Quote className="absolute right-6 top-6 h-8 w-8 text-brand-100" />
-                  <blockquote className="text-sm italic leading-relaxed text-ink-soft">
-                    “{(isEn ? t.messageEn : t.message) || t.message}”
-                  </blockquote>
-                  <figcaption className="mt-4 flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-100 text-xs font-bold text-brand-700">
-                      {t.name.charAt(0)}
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-ink">{t.name}</p>
-                      <p className="text-xs text-ink-muted">
-                        {[isEn && t.roleEn ? t.roleEn : t.role, t.origin].filter(Boolean).join(', ')}
-                      </p>
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-6">
+              <Reveal>
+                <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white shadow-card">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
+                    <Image
+                      src={img('cultural-heritage', 1000, 750)}
+                      alt="Warisan Budaya Desa Grogol"
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-6 left-6 right-6 text-white">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-gold-400">Warisan Abad XVII</p>
+                      <p className="mt-1 text-sm text-white/90 font-medium">Harmoni Tradisi, Komunitas, & Alam Lestari</p>
                     </div>
-                  </figcaption>
-                </figure>
+                  </div>
+                </div>
               </Reveal>
-            ))}
-          </div>
-        </div>
+            </div>
 
-        <div className="flex flex-col gap-6">
-          <Reveal delay={0.1}>
-            <div className="card p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-muted">
-                    {isEn ? 'Realtime Weather' : 'Cuaca Realtime'}
+            <div className="lg:col-span-6">
+              <Reveal delay={0.1}>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-ink leading-[1.15]">
+                  {isEn ? 'Traces of Time in Heritage Land' : 'Jejak Waktu di Tanah Pusaka'}
+                </h2>
+                
+                <div className="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+                  <p>
+                    {(isEn ? profil.historyEn : profil.history) ||
+                      'Didirikan pada abad ke-17 oleh pengembara dari pegunungan tengah, desa ini dibangun di atas filosofi Tri Hita Karana — keseimbangan harmonis antara manusia, alam sekitar, dan Sang Pencipta.'}
                   </p>
-                  <p className="text-xs text-ink-muted">
-                    {isEn ? 'Last updated: 30 minutes ago' : 'Update terakhir: 30 menit lalu'}
+                  <p className="text-sm text-ink-muted leading-relaxed">
+                    {isEn
+                      ? 'Every pathway, terraced field, and traditional pavilion preserves stories passed down through generations, welcoming travelers to slow down and reconnect.'
+                      : 'Setiap jengkal sawah terasering, mata air jernih, dan balai adat dirawat dengan penuh ketulusan, mengundang setiap pengunjung untuk merasakan ketenangan hidup yang sejati.'}
                   </p>
                 </div>
-                <Sun className="h-8 w-8 text-gold-500" />
-              </div>
-              <p className="mt-4 text-5xl font-extrabold text-brand-700">24°<span className="text-2xl">C</span></p>
-              <dl className="mt-5 space-y-3 text-sm">
-                <WeatherRow icon={Droplets} label={isEn ? 'Humidity' : 'Kelembapan'} value="78%" />
-                <WeatherRow icon={Wind} label={isEn ? 'Wind Speed' : 'Kecepatan Angin'} value="12 km/h" />
-                <WeatherRow icon={Eye} label={isEn ? 'Visibility' : 'Visibilitas'} value={isEn ? 'Very Good' : 'Sangat Baik'} />
-              </dl>
-            </div>
-          </Reveal>
 
-          <Reveal delay={0.15}>
-            <div className="card p-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-ink-muted">@desawisata.official</p>
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="relative aspect-square overflow-hidden rounded-xl">
-                    <Image src={img(`ig-${i}`, 200, 200)} alt="Instagram" fill className="object-cover" />
-                  </div>
-                ))}
-              </div>
-              <button className="mt-4 w-full rounded-full bg-sand py-2.5 text-sm font-semibold text-brand-700 hover:bg-brand-50">
-                {isEn ? 'View All Feed' : 'Lihat Semua Feed'}
-              </button>
+                <div className="mt-8">
+                  <Link
+                    href={getHref('/budaya')}
+                    className="inline-flex items-center gap-2 text-sm font-bold text-brand-700 hover:text-brand-800 transition-colors group"
+                  >
+                    <span>{isEn ? 'Explore Cultural Heritage' : 'Pelajari Warisan Budaya'}</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
+
+      {/* Lorong Budaya (Animated Scroll Perspective Corridor) */}
+      <CultureCorridor />
+
+      {/* Team / Managers with GSAP Physics */}
+      <ManagersSection isEn={isEn} team={team} />
+
+      {/* Testimoni & Guestbook */}
+      <TestimonialShowcase isEn={isEn} items={testimoni} />
     </>
-  );
-}
-
-function WeatherRow({ icon: Icon, label, value }: { icon: typeof Wind; label: string; value: string }) {
-  return (
-    <div className="flex items-center justify-between border-b border-black/5 pb-2">
-      <dt className="flex items-center gap-2 text-ink-muted"><Icon className="h-4 w-4" /> {label}</dt>
-      <dd className="font-semibold text-ink">{value}</dd>
-    </div>
-  );
-}
-
-function ProductCard({
-  p,
-  tall,
-  wide,
-}: {
-  p: { name: string; desc: string; badge?: string; seed: string };
-  tall?: boolean;
-  wide?: boolean;
-}) {
-  return (
-    <div className={`group relative overflow-hidden rounded-3xl ${tall ? 'h-full min-h-[300px]' : wide ? 'aspect-[2/1] md:h-full' : 'aspect-square md:h-full'}`}>
-      <Image src={img(p.seed, 700, 700)} alt={p.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-      <div className="absolute inset-x-5 bottom-5 text-white">
-        {p.badge && <Badge tone="gold" className="mb-2 bg-gold-500 text-white">{p.badge}</Badge>}
-        <h3 className="text-lg font-bold">{p.name}</h3>
-        {p.desc && <p className="mt-1 text-xs text-white/80">{p.desc}</p>}
-      </div>
-    </div>
   );
 }

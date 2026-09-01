@@ -33,7 +33,6 @@ export default function KulinerPage() {
         <Reveal>
           <SectionHeading
             align="center"
-            eyebrow={t('heroTag')}
             title={t('heroTitle')}
             description={t('heroDesc')}
           />

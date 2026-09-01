@@ -55,7 +55,6 @@ export default function BudayaPage() {
           </div>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="eyebrow mb-3">{t('oralTag')}</p>
           <h2 className="text-3xl font-bold text-ink sm:text-4xl">{t('oralTitle')}</h2>
           <div className="mt-5 space-y-4 text-sm leading-relaxed text-ink-muted">
             <p>{t('oralDesc1')}</p>
@@ -81,7 +80,6 @@ export default function BudayaPage() {
         <div className="container-wide">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
-              <p className="eyebrow mb-3">{t('masterpieceTag')}</p>
               <p className="text-lg text-ink-muted">{t('masterpieceDesc')}</p>
             </div>
           </Reveal>
@@ -143,7 +141,6 @@ export default function BudayaPage() {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="eyebrow mb-2">{t('calendarTag')}</p>
               <h2 className="text-2xl font-bold text-ink sm:text-3xl">{t('calendarTitle')}</h2>
             </div>
             <button className="btn-outline">
