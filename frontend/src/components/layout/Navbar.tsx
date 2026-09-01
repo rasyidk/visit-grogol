@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Menu, X, Leaf } from 'lucide-react';
@@ -61,10 +62,8 @@ export function Navbar() {
       )}
     >
       <nav className="container-wide flex h-16 items-center justify-between sm:h-20">
-        <Link href={getHref('/')} className={cn("flex items-center gap-2 text-xl font-extrabold", !forceLightText ? "text-brand-700" : "text-white")}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 text-white shadow-soft">
-            <Leaf className="h-5 w-5" />
-          </span>
+        <Link href={getHref('/')} className={cn("flex items-center gap-3 text-xl font-extrabold", !forceLightText ? "text-brand-700" : "text-white")}>
+          <Image src="/logo.png" alt="Desa Wisata Grogol Kaloka" width={40} height={40} className="rounded-full shadow-soft" />
           Visit Grogol Kaloka
         </Link>
 
