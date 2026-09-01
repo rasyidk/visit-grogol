@@ -5,6 +5,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["fullTextIndex"]
+  engineType      = "binary"
 }
 
 datasource db {
