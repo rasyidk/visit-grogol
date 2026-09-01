@@ -12,8 +12,8 @@ async function bootstrap() {
 
   // WAKTU TIMEOUT: Mencegah server menahan idle connection terlalu lama
   // yang bisa menghabiskan Entry Processes (EP) di shared hosting
-  server.keepAliveTimeout = 15000;
-  server.headersTimeout = 16000;
+  server.keepAliveTimeout = 5000;
+  server.headersTimeout = 6000;
 
   const shutdown = async (signal: string) => {
     // eslint-disable-next-line no-console

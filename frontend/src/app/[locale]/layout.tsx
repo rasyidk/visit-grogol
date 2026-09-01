@@ -24,6 +24,10 @@ export const metadata: Metadata = {
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
+export function generateStaticParams() {
+  return [{ locale: 'id' }, { locale: 'en' }];
+}
+
 export default async function RootLayout({
   children,
   params: { locale },
