@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { prisma } from '../config/prisma';
 import authRoutes from '../modules/auth/auth.route';
 import uploadRoutes from '../modules/upload/upload.route';
 import statsRoutes from '../modules/stats/stats.route';
@@ -18,8 +19,13 @@ import newsletterRoutes from '../modules/newsletter/newsletter.route';
 
 export const apiRouter = Router();
 
-apiRouter.get('/health', (_req, res) => {
-  res.json({ success: true, message: 'Healthy', data: { status: 'ok', uptime: process.uptime() } });
+apiRouter.get('/health', async (_req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ success: true, message: 'Healthy', data: { status: 'ok', db: 'connected', uptime: process.uptime() } });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: 'Database connection failed', data: { status: 'error', db: 'disconnected', error: error?.message, uptime: process.uptime() } });
+  }
 });
 
 apiRouter.use('/auth', authRoutes);

@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { env } from './config/env';
+import { prisma } from './config/prisma';
 import { apiRouter } from './routes';
 import { errorHandler, notFoundHandler } from './middleware/error';
 import { sendSuccess } from './utils/apiResponse';
@@ -35,15 +36,27 @@ export function createApp(): Application {
   );
 
   // Static file serving for uploaded media.
-  app.use(
-    `/${env.upload.dir}`,
-    express.static(path.resolve(process.cwd(), env.upload.dir), { maxAge: '7d' })
-  );
+  // Di production (Hostinger), web server (LiteSpeed) yang harus menyajikan file ini, bukan Express.
+  if (!env.isProd) {
+    app.use(
+      `/${env.upload.dir}`,
+      express.static(path.resolve(process.cwd(), env.upload.dir), { maxAge: '7d' })
+    );
+  }
 
-  // Health check
-  app.get('/health', (_req, res) =>
-    sendSuccess(res, { status: 'ok', uptime: process.uptime(), env: env.nodeEnv }, 'Healthy')
-  );
+  // Health check (includes Database check)
+  app.get('/health', async (_req, res) => {
+    try {
+      await prisma.$queryRaw`SELECT 1`;
+      sendSuccess(res, { status: 'ok', db: 'connected', uptime: process.uptime(), env: env.nodeEnv }, 'Healthy');
+    } catch (error: any) {
+      res.status(500).json({
+        success: false,
+        message: 'Database connection failed',
+        data: { status: 'error', db: 'disconnected', error: error?.message, uptime: process.uptime(), env: env.nodeEnv }
+      });
+    }
+  });
 
   // Root route
   app.get('/', (_req, res) => {
