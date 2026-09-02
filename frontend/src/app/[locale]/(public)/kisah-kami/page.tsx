@@ -1,1 +1,14 @@
-export default function KisahKami() { return <div className='pt-32 min-h-screen text-center'><h1>Kisah Kami</h1></div>; }
+import { JejakWaktu } from '@/components/history/JejakWaktu';
+
+export const metadata = {
+  title: 'Kisah Kami | Visit Grogol Kaloka',
+  description: 'Jejak sejarah Grogol dari tahun 1916 hingga hari ini.',
+};
+
+export default function KisahKamiPage() {
+  return (
+    <main className="w-full bg-cream min-h-screen">
+      <JejakWaktu />
+    </main>
+  );
+}
