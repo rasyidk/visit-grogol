@@ -56,7 +56,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
               <div className="max-w-2xl">
                 <motion.div 
                   initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}
-                  className="font-display font-black text-[15vw] lg:text-[12rem] tracking-tighter leading-none text-brand-700/20 absolute top-10 left-10 lg:top-24 lg:left-24 -z-10"
+                  className="font-display font-black text-[15vw] lg:text-[12rem] tracking-tighter leading-none text-brand-200 absolute top-10 left-10 lg:top-24 lg:left-24 -z-10"
                 >
                   1916
                 </motion.div>
@@ -77,7 +77,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
               <div className="max-w-2xl text-right">
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}
-                  className="font-display font-black text-7xl lg:text-9xl tracking-tighter text-brand-700/30 mb-6"
+                  className="font-display font-black text-7xl lg:text-9xl tracking-tighter text-brand-200 mb-6"
                 >
                   1927
                 </motion.div>
@@ -141,7 +141,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
               <div className="flex-1 lg:pr-12 w-full">
                 <motion.div 
                   initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-                  className="font-display font-black text-[12vw] lg:text-[10rem] tracking-tighter leading-[0.8] text-brand-700/20 mb-4"
+                  className="font-display font-black text-[12vw] lg:text-[10rem] tracking-tighter leading-[0.8] text-brand-200 mb-4"
                 >
                   1965
                 </motion.div>
@@ -183,7 +183,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
           <SceneWrapper key="state-6">
             <div className="w-full h-full flex flex-col justify-center px-6 lg:px-32">
               <div className="max-w-3xl ml-auto text-right">
-                <div className="font-display font-black text-5xl lg:text-7xl tracking-tighter text-brand-700/30 mb-2">1996 — 2014</div>
+                <div className="font-display font-black text-5xl lg:text-7xl tracking-tighter text-brand-200 mb-2">1996 — 2014</div>
                 <h2 className="font-display font-black text-6xl lg:text-8xl uppercase text-stone-900 mb-12">Sugiyarto</h2>
                 
                 <div className="flex justify-end gap-12 mb-8">
