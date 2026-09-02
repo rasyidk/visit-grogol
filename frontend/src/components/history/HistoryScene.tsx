@@ -269,7 +269,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
         {/* STATE 09: PRESENT DAY (Outro) */}
         {currentState === 9 && (
           <SceneWrapper key="state-9">
-            <div className="w-full h-full flex flex-col justify-center items-center text-center px-4 bg-stone-900 text-white relative overflow-hidden">
+            <div className="w-full h-full flex flex-col justify-center items-center text-center px-4 pb-[15vh] lg:pb-[25vh] bg-stone-900 text-white relative overflow-hidden">
               <motion.div 
                 initial={{ scale: 1.1, opacity: 0 }}
                 animate={{ scale: 1, opacity: 0.3 }}
