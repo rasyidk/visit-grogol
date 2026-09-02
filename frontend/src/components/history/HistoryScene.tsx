@@ -82,8 +82,8 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                   1927
                 </motion.div>
                 
-                <div className="bg-[#f4f1ea] border border-stone-200 p-8 lg:p-12 shadow-sm inline-block text-left relative">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-brand-700" />
+                <div className="inline-block text-left max-w-lg mt-8">
+                  <div className="w-16 h-[1px] bg-brand-700 mb-8" />
                   <h3 className="font-display text-xl lg:text-2xl font-bold uppercase tracking-widest text-stone-900 mb-2">Rijksblad van Jogjakarta No. 10</h3>
                   <p className="font-serif italic text-stone-500 mb-6">Tahun 1927</p>
                   <p className="text-lg leading-relaxed text-stone-800">
@@ -152,26 +152,44 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 </p>
               </div>
               
-              <div className="flex-1 w-full mt-12 lg:mt-0 space-y-6">
+              <div className="flex-1 w-full mt-12 lg:mt-0 space-y-12 pl-0 lg:pl-12 border-l-0 lg:border-l border-stone-300">
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
-                  className="p-6 lg:p-8 bg-white shadow-card border border-stone-100 rounded-sm"
+                  className="relative"
                 >
-                  <h4 className="font-bold text-xl mb-4 text-stone-900">Panca Marga (1983)</h4>
-                  <ul className="list-none space-y-2 text-stone-600 font-medium">
-                    <li className="flex gap-3"><span className="text-brand-600 font-bold">—</span> <span>Jalan Lingkar Desa</span></li>
-                    <li className="flex gap-3"><span className="text-brand-600 font-bold">—</span> <span>Tugu Batas Wilayah</span></li>
-                    <li className="flex gap-3"><span className="text-brand-600 font-bold">—</span> <span>Irigasi Bulak Lungguh</span></li>
-                    <li className="flex gap-3"><span className="text-brand-600 font-bold">—</span> <span>Poskamling Terpadu</span></li>
-                    <li className="flex gap-3"><span className="text-brand-600 font-bold">—</span> <span>Balai Kalurahan Baru</span></li>
+                  <h4 className="font-display font-bold uppercase tracking-widest text-sm text-stone-500 mb-6">Panca Marga (1983)</h4>
+                  <ul className="list-none space-y-4 text-stone-800 font-serif text-lg">
+                    <li className="flex gap-4 items-center">
+                      <div className="w-6 h-[1px] bg-stone-400" />
+                      <span>Jalan Lingkar Desa</span>
+                    </li>
+                    <li className="flex gap-4 items-center">
+                      <div className="w-6 h-[1px] bg-stone-400" />
+                      <span>Tugu Batas Wilayah</span>
+                    </li>
+                    <li className="flex gap-4 items-center">
+                      <div className="w-6 h-[1px] bg-stone-400" />
+                      <span>Irigasi Bulak Lungguh</span>
+                    </li>
+                    <li className="flex gap-4 items-center">
+                      <div className="w-6 h-[1px] bg-stone-400" />
+                      <span>Poskamling Terpadu</span>
+                    </li>
+                    <li className="flex gap-4 items-center">
+                      <div className="w-6 h-[1px] bg-stone-400" />
+                      <span>Balai Kalurahan Baru</span>
+                    </li>
                   </ul>
                 </motion.div>
+                
+                <div className="w-16 h-[1px] bg-brand-700" />
+
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.8 }}
-                  className="p-6 lg:p-8 bg-[#f4f1ea] border border-stone-200 rounded-sm"
+                  className="relative"
                 >
-                  <h4 className="font-bold text-lg lg:text-xl mb-2 text-stone-900 uppercase tracking-wide">Masjid Ki Ageng Pemanahan</h4>
-                  <p className="text-stone-600 font-serif">Dibangun megah sebagai salah satu ikon spiritual Grogol hingga hari ini.</p>
+                  <h4 className="font-display font-bold uppercase tracking-widest text-sm text-stone-500 mb-4">Masjid Ki Ageng Pemanahan</h4>
+                  <p className="text-stone-800 font-serif text-lg leading-relaxed">Dibangun megah sebagai salah satu ikon spiritual Grogol hingga hari ini.</p>
                 </motion.div>
               </div>
             </div>
