@@ -157,9 +157,8 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center container-wide">
         <Reveal>
           <div className="max-w-2xl mb-6 sm:mb-10">
-            <div className="h-1 w-12 bg-brand-700 rounded-full mb-3" />
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-ink">
-              {isEn ? 'Customer Reviews' : 'Ulasan Pengunjung'}
+              {isEn ? 'Visitor Reviews' : 'Ulasan Pengunjung'}
             </h2>
           </div>
         </Reveal>
@@ -232,12 +231,11 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
                 >
                   <Quote className="h-10 w-10 text-brand-600/30 mb-3 -scale-x-100" />
                   
-                  <p className="text-xl sm:text-2xl lg:text-3xl font-serif italic text-ink leading-relaxed font-normal">
+                  <p className="text-xl sm:text-2xl lg:text-3xl font-medium text-ink leading-relaxed">
                     {(isEn && item.messageEn ? item.messageEn : item.message) || item.message}
                   </p>
 
-                  <div className="mt-6 flex items-center gap-3">
-                    <div className="h-0.5 w-8 bg-brand-700" />
+                  <div className="mt-6">
                     <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-brand-800">
                       {[isEn && item.roleEn ? item.roleEn : item.role, item.origin].filter(Boolean).join(', ')}
                     </span>
@@ -246,19 +244,7 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
               );
             })}
 
-            {/* Scroll Progress Indicator with Clickable Dots */}
-            <div className="mt-8 flex items-center gap-2">
-              {list.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => scrollToReview(i)}
-                  aria-label={`Jump to review ${i + 1}`}
-                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                    i === activeIdx ? 'w-8 bg-brand-700' : 'w-2 bg-black/15 hover:bg-black/30'
-                  }`}
-                />
-              ))}
-            </div>
+
           </div>
         </div>
       </div>

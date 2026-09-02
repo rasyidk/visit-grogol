@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter, Poppins } from 'next/font/google';
+import { Outfit, Poppins } from 'next/font/google';
 import './globals.css';
 import { QueryProvider } from '@/providers/QueryProvider';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
 const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-display',
   display: 'swap',
 });
@@ -38,7 +38,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${inter.variable} ${poppins.variable}`}>
+    <html lang={locale} className={`${outfit.variable} ${poppins.variable}`}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>{children}</QueryProvider>

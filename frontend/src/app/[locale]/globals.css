@@ -4,8 +4,6 @@
 
 @layer base {
   :root {
-    --font-body: 'Inter', system-ui, sans-serif;
-    --font-display: 'Poppins', system-ui, sans-serif;
   }
 
   html {

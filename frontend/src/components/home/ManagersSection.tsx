@@ -75,7 +75,7 @@ export function ManagersSection({ isEn, team }: ManagersSectionProps) {
     <section ref={containerRef} className="py-24 container-wide">
       <Reveal>
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-ink sm:text-4xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-ink">
             {isEn ? 'Meet Our Managers' : 'Bertemu dengan Pengelola Kami'}
           </h2>
         </div>
