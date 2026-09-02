@@ -1,11 +1,14 @@
 {
   "Navigation": {
     "home": "Beranda",
-    "explore": "Atraksi",
+    "story": "Kisah Kami",
+    "tourism": "Wisata",
     "culture": "Budaya",
     "culinary": "Kuliner",
-    "accommodation": "Penginapan",
-    "contact": "Kontak"
+    "umkm": "UMKM",
+    "homestay": "Homestay",
+    "news": "Kabar Grogol",
+    "reservation": "Reservasi"
   },
   "Hero": {
     "welcome": "Selamat Datang di Warisan Alam",

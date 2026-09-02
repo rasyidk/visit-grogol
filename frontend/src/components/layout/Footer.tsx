@@ -15,19 +15,22 @@ export function Footer() {
 
   const columns = [
     {
-      title: navT('explore'),
+      title: navT('tourism'),
       links: [
         { label: navT('home'), href: '/' },
-        { label: navT('explore'), href: '/atraksi' },
+        { label: navT('story'), href: '/kisah-kami' },
+        { label: navT('tourism'), href: '/wisata' },
         { label: navT('culture'), href: '/budaya' },
         { label: navT('culinary'), href: '/kuliner' },
-        { label: navT('accommodation'), href: '/penginapan' },
       ],
     },
     {
       title: t('links'),
       links: [
-        { label: navT('contact'), href: '/kontak' },
+        { label: navT('umkm'), href: '/umkm' },
+        { label: navT('homestay'), href: '/homestay' },
+        { label: navT('news'), href: '/kabar-grogol' },
+        { label: navT('reservation'), href: '/reservasi' },
       ],
     },
   ];

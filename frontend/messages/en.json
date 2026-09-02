@@ -1,11 +1,14 @@
 {
   "Navigation": {
     "home": "Home",
-    "explore": "Explore",
+    "story": "Our Story",
+    "tourism": "Tourism",
     "culture": "Culture",
     "culinary": "Culinary",
-    "accommodation": "Stay",
-    "contact": "Contact"
+    "umkm": "MSME",
+    "homestay": "Homestay",
+    "news": "News",
+    "reservation": "Reservation"
   },
   "Hero": {
     "welcome": "Welcome to Nature's Heritage",

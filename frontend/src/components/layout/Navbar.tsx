@@ -11,11 +11,13 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 
 const NAV_KEYS = [
   { key: 'home', href: '/' },
-  { key: 'explore', href: '/atraksi' },
+  { key: 'story', href: '/kisah-kami' },
+  { key: 'tourism', href: '/wisata' },
   { key: 'culture', href: '/budaya' },
   { key: 'culinary', href: '/kuliner' },
-  { key: 'accommodation', href: '/penginapan' },
-  { key: 'contact', href: '/kontak' },
+  { key: 'umkm', href: '/umkm' },
+  { key: 'homestay', href: '/homestay' },
+  { key: 'news', href: '/kabar-grogol' },
 ];
 
 export function Navbar() {
@@ -51,7 +53,7 @@ export function Navbar() {
   if (locale !== 'id' && pathname.startsWith(`/${locale}`)) {
     cleanPath = pathname.replace(`/${locale}`, '') || '/';
   }
-  const isDarkHero = ['/', '/atraksi', '/budaya'].includes(cleanPath);
+  const isDarkHero = ['/', '/wisata', '/budaya'].includes(cleanPath);
   const forceLightText = !scrolled && isDarkHero;
 
   return (
@@ -67,13 +69,13 @@ export function Navbar() {
           Visit Grogol Kaloka
         </Link>
 
-        <ul className="hidden items-center gap-8 lg:flex">
+        <ul className="hidden items-center gap-4 xl:gap-6 lg:flex">
           {NAV_KEYS.map((item) => (
             <li key={item.href}>
               <Link
                 href={getHref(item.href)}
                 className={cn(
-                  'relative text-sm font-medium transition-colors',
+                  'relative text-[13px] xl:text-sm font-semibold transition-colors whitespace-nowrap',
                   !forceLightText ? 'text-ink-soft hover:text-brand-700' : 'text-white/90 hover:text-white',
                   isActive(item.href) && (!forceLightText ? 'text-brand-700' : 'text-white')
                 )}
@@ -89,8 +91,8 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher forceLightText={forceLightText} />
-          <Link href={getHref('/kontak')} className={cn("btn-primary hidden sm:inline-flex", forceLightText && "bg-white text-brand-700 hover:bg-brand-50")}>
-            {t('contact')}
+          <Link href={getHref('/reservasi')} className={cn("btn-primary hidden sm:inline-flex text-xs xl:text-sm px-4 xl:px-6", forceLightText && "bg-white text-brand-700 hover:bg-brand-50")}>
+            {t('reservation')}
           </Link>
           <button
             aria-label="Menu"
@@ -119,8 +121,8 @@ export function Navbar() {
               </li>
             ))}
             <li className="mt-2">
-              <Link href={getHref('/kontak')} className="btn-primary w-full text-center">
-                {t('contact')}
+              <Link href={getHref('/reservasi')} className="btn-primary w-full text-center">
+                {t('reservation')}
               </Link>
             </li>
           </ul>
