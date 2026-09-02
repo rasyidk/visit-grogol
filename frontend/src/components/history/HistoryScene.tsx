@@ -22,6 +22,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
                 className="font-display font-black text-[12vw] sm:text-[8vw] lg:text-[7rem] tracking-tighter leading-[0.85] uppercase mb-8"
+                style={{ paddingRight: '0.05em' }}
               >
                 Jejak <br />
                 <span className="text-stone-500">Sejarah Grogol</span>
