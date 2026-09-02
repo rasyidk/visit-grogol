@@ -32,7 +32,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.8 }}
-                className="text-xl sm:text-2xl font-serif italic text-stone-600 max-w-2xl"
+                className="text-xl sm:text-2xl italic text-stone-600 max-w-2xl"
               >
                 “Sebuah desa tidak hanya dibentuk oleh waktu, tetapi oleh orang-orang yang menjaganya.”
               </motion.p>
@@ -62,7 +62,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 </motion.div>
                 
                 <h3 className="font-display text-2xl lg:text-4xl font-bold uppercase tracking-widest text-stone-900 mb-6">Awal Perjalanan</h3>
-                <p className="text-lg lg:text-xl leading-relaxed text-stone-700 font-serif">
+                <p className="text-lg lg:text-xl leading-relaxed text-stone-700">
                   Tercatat sebagai tahun lahirnya Kalurahan Grogol. Dalam konteks Kasultanan Ngayogyakarta Hadiningrat, sejarah administrasi desa mulai dibentuk secara sistematis berdasarkan Rijksblad No. 12 Tahun 1916.
                 </p>
               </div>
@@ -85,7 +85,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 <div className="inline-block text-left max-w-lg mt-8">
                   <div className="w-16 h-[1px] bg-brand-700 mb-8" />
                   <h3 className="font-display text-xl lg:text-2xl font-bold uppercase tracking-widest text-stone-900 mb-2">Rijksblad van Jogjakarta No. 10</h3>
-                  <p className="font-serif italic text-stone-500 mb-6">Tahun 1927</p>
+                  <p className="italic text-stone-500 mb-6">Tahun 1927</p>
                   <p className="text-lg leading-relaxed text-stone-800">
                     Grogol resmi tercatat sebagai salah satu dari 14 kalurahan di Onder-distrik Paliyan. Struktur pemerintahan desa mulai memiliki landasan administratif yang jelas.
                   </p>
@@ -107,7 +107,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                   1946
                 </motion.div>
                 <h2 className="font-display font-black text-5xl lg:text-7xl uppercase text-white mb-6">Arjo Sukarso</h2>
-                <p className="text-xl lg:text-2xl italic font-serif text-stone-400 mb-12">Lurah Ketiga</p>
+                <p className="text-xl lg:text-2xl italic text-stone-400 mb-12">Lurah Ketiga</p>
                 
                 <div className="w-16 h-[1px] bg-stone-700 mx-auto mb-12" />
                 
@@ -126,7 +126,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
               <div className="max-w-xl">
                 <div className="font-display font-black text-6xl tracking-tighter text-brand-700 mb-4">1947 — 1965</div>
                 <h2 className="font-display font-black text-5xl lg:text-7xl uppercase text-stone-900 mb-6">Sastro Diwirjo</h2>
-                <p className="text-lg leading-relaxed text-stone-700 font-serif">
+                <p className="text-lg leading-relaxed text-stone-700">
                   Memimpin Kalurahan Grogol melintasi masa-masa genting awal kemerdekaan hingga pertengahan tahun 60-an, menjaga stabilitas dan semangat kebersamaan masyarakat desa.
                 </p>
               </div>
@@ -147,7 +147,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 </motion.div>
                 <h2 className="font-display font-black text-5xl lg:text-7xl uppercase text-stone-900 mb-4">Hadi Suwarno</h2>
                 <h3 className="font-display text-2xl font-bold tracking-widest text-brand-700 mb-6">31 TAHUN</h3>
-                <p className="text-lg leading-relaxed text-stone-700 max-w-md font-serif">
+                <p className="text-lg leading-relaxed text-stone-700 max-w-md">
                   Periode krusial dalam sejarah pembangunan fisik Grogol. Infrastruktur desa berkembang secara terpadu melalui semangat gotong royong.
                 </p>
               </div>
@@ -158,7 +158,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                   className="relative"
                 >
                   <h4 className="font-display font-bold uppercase tracking-widest text-sm text-stone-500 mb-6">Panca Marga (1983)</h4>
-                  <ul className="list-none space-y-4 text-stone-800 font-serif text-lg">
+                  <ul className="list-none space-y-4 text-stone-800 text-lg">
                     <li className="flex gap-4 items-center">
                       <div className="w-6 h-[1px] bg-stone-400" />
                       <span>Jalan Lingkar Desa</span>
@@ -189,7 +189,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                   className="relative"
                 >
                   <h4 className="font-display font-bold uppercase tracking-widest text-sm text-stone-500 mb-4">Masjid Ki Ageng Pemanahan</h4>
-                  <p className="text-stone-800 font-serif text-lg leading-relaxed">Dibangun megah sebagai salah satu ikon spiritual Grogol hingga hari ini.</p>
+                  <p className="text-stone-800 text-lg leading-relaxed">Dibangun megah sebagai salah satu ikon spiritual Grogol hingga hari ini.</p>
                 </motion.div>
               </div>
             </div>
@@ -211,7 +211,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                   </motion.div>
                 </div>
                 
-                <p className="text-lg leading-relaxed text-stone-700 font-serif lg:pl-24">
+                <p className="text-lg leading-relaxed text-stone-700 lg:pl-24">
                   Peningkatan masif pada jalan lingkungan dan jalan usaha tani. Revitalisasi Pasar Karangmojo A, pembangunan embung tadah hujan, dan penguatan seni budaya menjadi ciri khas kepemimpinan ini.
                 </p>
               </div>
@@ -227,7 +227,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-2">
                   <div className="text-stone-400 font-bold tracking-widest uppercase mb-4">2014</div>
                   <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">Ngadiyono</h2>
-                  <p className="text-stone-500 italic font-serif">Pj. Lurah</p>
+                  <p className="text-stone-500 italic">Pj. Lurah</p>
                 </motion.div>
                 
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="hidden lg:block w-[1px] h-32 bg-stone-300" />
@@ -235,7 +235,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="space-y-2">
                   <div className="text-stone-400 font-bold tracking-widest uppercase mb-4">2015 — 2018</div>
                   <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">H. Suhari</h2>
-                  <p className="text-stone-500 italic font-serif">Pj. Lurah</p>
+                  <p className="text-stone-500 italic">Pj. Lurah</p>
                 </motion.div>
 
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="hidden lg:block w-[1px] h-32 bg-stone-300" />
@@ -243,7 +243,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0 }} className="space-y-2">
                   <div className="text-stone-400 font-bold tracking-widest uppercase mb-4">2018 — 2020</div>
                   <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">Drs. Purnomo</h2>
-                  <p className="text-stone-500 italic font-serif">Pj. Lurah</p>
+                  <p className="text-stone-500 italic">Pj. Lurah</p>
                 </motion.div>
               </div>
             </div>
@@ -258,7 +258,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 <div className="font-display font-black text-6xl lg:text-8xl tracking-tighter text-brand-700 mb-4">2021</div>
                 <h2 className="font-display font-black text-5xl lg:text-7xl uppercase text-stone-900 mb-4">Latip Wahyudi</h2>
                 <h3 className="font-display text-xl font-bold uppercase tracking-widest text-stone-500 mb-8">Lurah Kedelapan</h3>
-                <p className="text-lg lg:text-xl leading-relaxed text-stone-700 font-serif">
+                <p className="text-lg lg:text-xl leading-relaxed text-stone-700">
                   Membawa visi modernisasi tanpa meninggalkan akar tradisi. Di era ini, Grogol bertransformasi menjadi desa wisata unggulan—Kaloka—yang dikenal luas karena inovasi, keindahan alam, dan kearifan lokalnya.
                 </p>
               </div>
@@ -293,7 +293,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 </motion.div>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5 }}
-                  className="font-serif italic text-2xl lg:text-3xl text-stone-300 mb-8"
+                  className="italic text-2xl lg:text-3xl text-stone-300 mb-8"
                 >
                   “Sejarah Grogol bukan sesuatu yang telah selesai.”
                 </motion.p>
