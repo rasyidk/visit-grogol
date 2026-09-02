@@ -45,35 +45,33 @@ export function TimeTrail({ currentState }: TimeTrailProps) {
           transition={{ duration: 1.5, ease: "easeInOut" }}
         />
 
-        {/* Nodes */}
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((state) => {
-          // Calculate roughly where these lie on the path
-          // This is a simple linear map across the X axis for the visual nodes
-          const xPos = (state / 9) * 1000;
-          // Calculate Y based on the bezier curve roughly
-          // Simple sine wave approximation for the visual
-          const yPos = 100 + Math.sin(xPos / 100) * 20;
-
-          const isActive = currentState === state;
-          const isPast = currentState > state;
-
-          return (
-            <motion.circle
-              key={state}
-              cx={xPos}
-              cy={yPos}
-              r={isActive ? 6 : 4}
-              className={isActive ? "fill-brand-700" : isPast ? "fill-stone-400" : "fill-stone-300"}
-              initial={false}
-              animate={{
-                r: isActive ? 6 : 4,
-                opacity: currentState === 0 || currentState === 9 ? 0 : 1 // Hide nodes on hero and outro
-              }}
-              transition={{ duration: 0.5 }}
-            />
-          );
-        })}
       </svg>
+      
+      {/* Nodes */}
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((state) => {
+        const leftPercent = (state / 9) * 100;
+        const xPos = (state / 9) * 1000;
+        const yPos = 100 + Math.sin(xPos / 100) * 20;
+        const topPercent = (yPos / 200) * 100;
+
+        const isActive = currentState === state;
+        const isPast = currentState > state;
+
+        return (
+          <motion.div
+            key={state}
+            className={`absolute rounded-full -translate-x-1/2 -translate-y-1/2 ${isActive ? "bg-brand-700" : isPast ? "bg-stone-400" : "bg-stone-300"}`}
+            style={{ left: `${leftPercent}%`, top: `${topPercent}%` }}
+            initial={false}
+            animate={{
+              width: isActive ? 12 : 8,
+              height: isActive ? 12 : 8,
+              opacity: currentState === 0 || currentState === 9 ? 0 : 1
+            }}
+            transition={{ duration: 0.5 }}
+          />
+        );
+      })}
     </div>
   );
 }
