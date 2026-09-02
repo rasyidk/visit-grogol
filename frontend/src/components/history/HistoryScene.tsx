@@ -183,7 +183,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
           <SceneWrapper key="state-6">
             <div className="w-full h-full flex flex-col justify-center px-6 lg:px-32">
               <div className="max-w-3xl ml-auto text-right">
-                <div className="font-display font-black text-5xl lg:text-7xl tracking-tighter text-brand-800 opacity-[0.15] mb-2">1996 — 2014</div>
+                <div className="font-display font-black text-5xl lg:text-7xl tracking-tighter text-brand-700 mb-2">1996 — 2014</div>
                 <h2 className="font-display font-black text-6xl lg:text-8xl uppercase text-stone-900 mb-12">Sugiyarto</h2>
                 
                 <div className="flex justify-end gap-12 mb-8">
