@@ -56,12 +56,12 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
               <div className="max-w-2xl">
                 <motion.div 
                   initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}
-                  className="font-display font-black text-[15vw] lg:text-[12rem] tracking-tighter leading-none text-brand-200 absolute top-10 left-10 lg:top-24 lg:left-24 -z-10"
+                  className="font-display font-black text-[15vw] lg:text-[12rem] tracking-tighter leading-none text-brand-200 mb-4"
                 >
                   1916
                 </motion.div>
                 
-                <h3 className="font-display text-2xl lg:text-4xl font-bold uppercase tracking-widest text-stone-900 mb-6 mt-24">Awal Perjalanan</h3>
+                <h3 className="font-display text-2xl lg:text-4xl font-bold uppercase tracking-widest text-stone-900 mb-6">Awal Perjalanan</h3>
                 <p className="text-lg lg:text-xl leading-relaxed text-stone-700 font-serif">
                   Tercatat sebagai tahun lahirnya Kalurahan Grogol. Dalam konteks Kasultanan Ngayogyakarta Hadiningrat, sejarah administrasi desa mulai dibentuk secara sistematis berdasarkan Rijksblad No. 12 Tahun 1916.
                 </p>
