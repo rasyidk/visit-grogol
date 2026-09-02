@@ -83,12 +83,13 @@ export function NavigationControls({ currentState, totalStates, onNext, onPrev }
             exit={{ opacity: 0, y: 20 }}
             className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center z-50 text-stone-500"
           >
-            <span className="text-xs font-bold tracking-[0.3em] uppercase mb-4 ml-[0.3em]">Scroll Untuk Menjelajahi</span>
+            <span className="text-xs font-bold tracking-[0.3em] uppercase mb-4 pl-[0.3em]">Scroll Untuk Menjelajahi</span>
             <motion.div 
               animate={{ y: [0, 10, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="flex justify-center w-full"
             >
-              <div className="w-[1px] h-12 bg-stone-400" />
+              <div className="w-[1px] h-12 bg-stone-400 mx-auto" />
             </motion.div>
           </motion.div>
         )}
