@@ -302,7 +302,7 @@ function SceneWrapper({ children }: { children: React.ReactNode }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       transition={{ duration: 0.8, ease: "easeInOut" }}
-      className="absolute inset-0 w-full h-full"
+      className="absolute inset-0 w-full h-full pt-20"
     >
       {children}
     </motion.div>
