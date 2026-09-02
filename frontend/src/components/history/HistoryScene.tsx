@@ -206,7 +206,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 
                 <div className="flex justify-end gap-12 mb-8">
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
-                    <div className="font-display font-black text-6xl lg:text-7xl text-brand-700">6,25</div>
+                    <div className="font-display font-black text-6xl lg:text-7xl text-stone-900">6,25</div>
                     <div className="font-bold tracking-widest text-stone-500 uppercase mt-2">KM Jalan Desa</div>
                   </motion.div>
                 </div>
