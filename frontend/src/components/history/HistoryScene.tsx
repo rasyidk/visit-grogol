@@ -25,7 +25,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 style={{ paddingRight: '0.05em' }}
               >
                 Jejak <br />
-                <span className="text-stone-500">Sejarah Grogol</span>
+                <span className="text-brand-700">Sejarah Grogol</span>
               </motion.h1>
               
               <motion.p 
