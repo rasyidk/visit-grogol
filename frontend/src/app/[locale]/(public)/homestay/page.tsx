@@ -42,7 +42,7 @@ export default function HomestayPage() {
 
                 return (
                   <Reveal key={homestay.id} delay={i * 0.1} className="h-full flex">
-                    <Link href={`/homestay/${homestay.slug}`} className="group flex flex-col w-full bg-white rounded-3xl shadow-sm hover:shadow-card transition-all duration-300 border border-black/5 overflow-hidden transform hover:-translate-y-1">
+                    <div className="group flex flex-col w-full bg-white rounded-3xl shadow-sm border border-black/5 overflow-hidden">
                       <div className="relative w-full aspect-[4/3] shrink-0 overflow-hidden">
                         <Image 
                           src={homestay.thumbnail || ''} 
@@ -64,17 +64,8 @@ export default function HomestayPage() {
                           {homestay.facilities}
                         </p>
 
-                        <div className="flex items-center justify-between text-brand-600 text-sm mt-auto pt-4 border-t border-black/5 font-medium">
-                          <span className="flex items-center">
-                            <Bed className="w-4 h-4 mr-2" />
-                            {isEn ? "View details" : "Lihat selengkapnya"}
-                          </span>
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 duration-300">
-                            &rarr;
-                          </span>
-                        </div>
                       </div>
-                    </Link>
+                    </div>
                   </Reveal>
                 );
               })}
