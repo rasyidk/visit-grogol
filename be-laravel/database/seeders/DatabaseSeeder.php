@@ -15,22 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Membuat Roles
-        $adminRole = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'admin']);
-        $anggotaRole = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'anggota']);
-
-        // Membuat Admin User
-        $admin = User::firstOrCreate(
-            ['email' => 'admin@visitgrogol.com'],
-            [
-                'name' => 'Administrator',
-                'password' => \Illuminate\Support\Facades\Hash::make('password'),
-            ]
-        );
-
-        $admin->assignRole($adminRole);
-
         $this->call([
+            UserSeeder::class,
             BeritaSeeder::class,
         ]);
     }
