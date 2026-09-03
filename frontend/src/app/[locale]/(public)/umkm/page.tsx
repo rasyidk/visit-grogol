@@ -18,25 +18,17 @@ export default function UmkmPage() {
     <>
       {/* Header Etalase */}
       <section className="container-wide pt-32 pb-12 sm:pt-40 sm:pb-16 border-b border-black/5">
-        <div className="grid lg:grid-cols-2 gap-8 items-end">
+        <div className="max-w-4xl">
           <Reveal>
             <h1 className="text-5xl md:text-7xl font-bold text-ink tracking-tight leading-[1.1]">
-              {isEn ? "Local" : "Karya Lokal,"} <br />
-              <span className="text-brand-600 font-serif italic">{isEn ? "Craftsmanship." : "Cita Rasa Global."}</span>
+              {isEn ? "Local Craftsmanship." : "Karya Lokal, Cita Rasa Global."}
             </h1>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className="text-lg md:text-xl text-ink-soft max-w-lg leading-relaxed lg:justify-self-end lg:text-right pb-2">
-              {isEn 
-                ? "Discover unique products and authentic crafts directly from the hands of our village artisans. Support local micro-enterprises." 
-                : "Temukan produk unik dan kerajinan autentik langsung dari tangan pengrajin desa kami. Dukung usaha mikro lokal untuk terus berkarya."}
-            </p>
           </Reveal>
         </div>
       </section>
 
-      {/* Katalog Kreatif (Masonry) */}
-      <section className="section py-16 bg-white">
+      {/* Katalog Kreatif (Grid) */}
+      <section className="section py-16">
         <div className="container-wide">
           {isLoading ? (
             <div className="text-center py-10 text-ink-muted">Loading...</div>
