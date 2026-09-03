@@ -77,7 +77,7 @@ export default function UmkmDetailPage({ params }: { params: { slug: string; loc
       )}
 
       {/* ── Content ───────────────────────────────────────── */}
-      <section className="container-wide">
+      <section className="container-wide mb-16">
         <div className="mx-auto max-w-3xl">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -91,30 +91,64 @@ export default function UmkmDetailPage({ params }: { params: { slug: string; loc
 
       {/* ── Gallery Slider ────────────────────────────────── */}
       {umkm.is_gallery_active && umkm.images && umkm.images.length > 0 && (
-        <section className="mt-20 overflow-hidden bg-sand/30 py-16">
-          <div className="container-wide mb-8">
-            <h2 className="text-2xl font-bold text-ink">
-              {isEn ? "Product Gallery" : "Galeri Produk"}
-            </h2>
-          </div>
-          
-          <div className="flex gap-4 px-4 md:px-8 overflow-x-auto snap-x snap-mandatory hide-scrollbar">
-            {umkm.images.map((img, i) => (
-              <div 
-                key={i} 
-                className="relative aspect-square w-72 shrink-0 snap-center overflow-hidden rounded-2xl md:w-96"
-              >
-                <Image
-                  src={img}
-                  alt={`Gallery image ${i + 1}`}
-                  fill
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                />
+        <GallerySlider images={umkm.images} title={displayTitle} isEn={isEn} />
+      )}
+    </article>
+  );
+}
+
+function GallerySlider({ images, title, isEn }: { images: string[]; title: string; isEn: boolean }) {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === 'left' ? -300 : 300;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section className="mt-8 mb-12">
+      <div className="container-wide mb-6">
+        <h2 className="text-2xl font-bold text-ink">
+          {isEn ? "Product Gallery" : "Galeri Produk"}
+        </h2>
+      </div>
+      <div className="container-wide relative group">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="w-full relative"
+        >
+          <button
+            onClick={() => scroll('left')}
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-ink p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+            aria-label="Geser Kiri"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          </button>
+
+          <div 
+            ref={scrollRef}
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] scroll-smooth"
+          >
+            {images.map((img, i) => (
+              <div key={i} className="relative shrink-0 w-[50vw] sm:w-56 md:w-72 aspect-[4/3] overflow-hidden rounded-2xl bg-black/5 snap-center">
+                <Image src={img} alt={`${title} - Foto ${i + 1}`} fill className="object-cover transition-transform duration-500 hover:scale-105" />
               </div>
             ))}
           </div>
-        </section>
-      )}
-    </article>
+
+          <button
+            onClick={() => scroll('right')}
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-ink p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+            aria-label="Geser Kanan"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </motion.div>
+      </div>
+    </section>
   );
 }
