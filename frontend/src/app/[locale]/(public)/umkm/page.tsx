@@ -43,19 +43,16 @@ export default function UmkmPage() {
           ) : !umkmList || umkmList.length === 0 ? (
             <div className="text-center py-10 text-ink-muted">Belum ada data UMKM.</div>
           ) : (
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {umkmList.map((umkm, i) => {
                 const displayTitle = isEn ? (umkm.titleEn || umkm.title_en || umkm.title) : umkm.title;
                 const displayDesc = isEn ? (umkm.contentEn || umkm.content_en || umkm.content) : umkm.content;
                 const excerpt = displayDesc ? displayDesc.replace(/<[^>]+>/g, '').substring(0, 120) + '...' : '';
-                
-                // Variasi aspect ratio untuk memberikan efek masonry yang natural
-                const isTall = i % 3 === 0;
 
                 return (
-                  <Reveal key={umkm.id} delay={i * 0.1} className="break-inside-avoid">
-                    <Link href={`/umkm/${umkm.slug}`} className="group block w-full overflow-hidden bg-sand/30 rounded-3xl shadow-sm hover:shadow-card transition-all duration-300 transform hover:-translate-y-1">
-                      <div className={`relative w-full overflow-hidden ${isTall ? 'aspect-[3/4]' : 'aspect-square'}`}>
+                  <Reveal key={umkm.id} delay={i * 0.1} className="h-full flex">
+                    <Link href={`/umkm/${umkm.slug}`} className="group flex flex-col w-full overflow-hidden bg-sand/30 rounded-3xl shadow-sm hover:shadow-card transition-all duration-300 transform hover:-translate-y-1">
+                      <div className="relative w-full overflow-hidden aspect-[4/5] shrink-0">
                         <Image 
                           src={umkm.thumbnail || ''} 
                           alt={displayTitle} 
@@ -67,9 +64,9 @@ export default function UmkmPage() {
                           <ArrowUpRight className="w-5 h-5 text-brand-600" />
                         </div>
                       </div>
-                      <div className="p-6">
+                      <div className="p-6 flex flex-col flex-1">
                         <h3 className="text-2xl font-bold text-ink group-hover:text-brand-600 transition-colors">{displayTitle}</h3>
-                        <p className="mt-3 text-sm leading-relaxed text-ink-muted">{excerpt}</p>
+                        <p className="mt-3 text-sm leading-relaxed text-ink-muted flex-1">{excerpt}</p>
                       </div>
                     </Link>
                   </Reveal>
