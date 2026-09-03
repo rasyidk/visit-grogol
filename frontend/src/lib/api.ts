@@ -1,40 +1,98 @@
 import axios, { AxiosError } from 'axios';
 import type { ApiEnvelope, PaginationMeta } from './types';
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
-
-const TOKEN_KEY = 'vg_token';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export const tokenStore = {
-  get: () => (typeof window === 'undefined' ? null : localStorage.getItem(TOKEN_KEY)),
-  set: (t: string) => localStorage.setItem(TOKEN_KEY, t),
-  clear: () => localStorage.removeItem(TOKEN_KEY),
+  get: () => (typeof window !== 'undefined' ? localStorage.getItem('access_token') : null),
+  set: (token: string) => typeof window !== 'undefined' && localStorage.setItem('access_token', token),
+  clear: () => typeof window !== 'undefined' && localStorage.removeItem('access_token'),
 };
 
 export const api = axios.create({
   baseURL: API_URL,
-  withCredentials: true,
-  headers: { 'Content-Type': 'application/json' },
+  headers: { 
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  },
 });
 
-// Attach the bearer token on every request when present.
 api.interceptors.request.use((config) => {
   const token = tokenStore.get();
-  if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
-// Normalise errors and auto-logout on 401 in the admin area.
+let isRefreshing = false;
+let failedQueue: Array<{ resolve: (value?: unknown) => void; reject: (reason?: any) => void }> = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
+};
+
 api.interceptors.response.use(
   (res) => res,
-  (error: AxiosError<ApiEnvelope<unknown>>) => {
-    if (error.response?.status === 401 && typeof window !== 'undefined') {
-      const path = window.location.pathname;
-      if (path.startsWith('/admin') && !path.includes('/login')) {
+  async (error: AxiosError<ApiEnvelope<unknown>>) => {
+    const originalRequest = error.config as any;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise(function (resolve, reject) {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            originalRequest.headers['Authorization'] = 'Bearer ' + token;
+            return api(originalRequest);
+          })
+          .catch((err) => {
+            return Promise.reject(err);
+          });
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      try {
+        // Attempt to refresh
+        const res = await axios.post<{ access_token: string }>(`${API_URL}/api/refresh`, {}, {
+          headers: {
+            'Authorization': `Bearer ${tokenStore.get()}`,
+            'Accept': 'application/json'
+          }
+        });
+        
+        const newToken = res.data.access_token;
+        tokenStore.set(newToken);
+        api.defaults.headers.common['Authorization'] = 'Bearer ' + newToken;
+        originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
+        
+        processQueue(null, newToken);
+        return api(originalRequest);
+      } catch (refreshError) {
+        processQueue(refreshError, null);
         tokenStore.clear();
-        window.location.href = '/admin/login';
+        
+        if (typeof window !== 'undefined') {
+          const path = window.location.pathname;
+          if (path.startsWith('/admin') && !path.includes('/login')) {
+            window.location.href = '/admin/login';
+          }
+        }
+        return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
       }
     }
+
     return Promise.reject(error);
   }
 );
