@@ -35,7 +35,7 @@ export default function KulinerPage() {
       </section>
 
       {/* Tempat Makan Pilihan (Dynamic List) */}
-      <section className="section py-16">
+      <section className="section pt-16 pb-32">
         <div className="container-wide">
           {isLoading ? (
             <div className="text-center py-10 text-ink-muted">Loading...</div>
