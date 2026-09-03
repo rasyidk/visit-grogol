@@ -8,6 +8,7 @@ import type {
   Budaya,
   Kuliner,
   Umkm,
+  Homestay,
   Destinasi,
   Kategori,
   Berita,
@@ -95,6 +96,17 @@ export function useUmkmDetail(slug: string) {
   const query = useQuery({ queryKey: ['umkm', slug, locale], queryFn: () => fetchOne<Umkm>(`/umkm/${slug}`) });
   const rawData = query.data;
   const data = rawData ? mapLocaleData(rawData, locale) as Umkm : undefined;
+  return { ...query, data };
+}
+
+export const useHomestay = (params: Record<string, unknown> = {}) =>
+  usePublic<Homestay>(['homestay', JSON.stringify(params)], '/homestay', { limit: 12, is_active: true, ...params }, []);
+
+export function useHomestayDetail(slug: string) {
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['homestay', slug, locale], queryFn: () => fetchOne<Homestay>(`/homestay/${slug}`) });
+  const rawData = query.data;
+  const data = rawData ? mapLocaleData(rawData, locale) as Homestay : undefined;
   return { ...query, data };
 }
 

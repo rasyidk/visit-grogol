@@ -296,3 +296,22 @@ export interface Umkm {
   isActive?: boolean;
   isGalleryActive?: boolean;
 }
+
+export interface Homestay {
+  id: number;
+  slug: string;
+  title: string;
+  title_en: string | null;
+  price: string | null;
+  facilities: string | null;
+  thumbnail: string | null;
+  images: string[] | null;
+  is_active: boolean;
+  is_gallery_active: boolean;
+  created_at: string;
+  updated_at: string;
+
+  titleEn?: string;
+  isActive?: boolean;
+  isGalleryActive?: boolean;
+}

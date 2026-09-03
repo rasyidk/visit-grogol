@@ -498,3 +498,28 @@ export const umkmConfig: ResourceConfig = {
     { name: 'is_active', label: 'Status Publikasi (Aktif)', type: 'switch', defaultValue: true, colSpan: 2 },
   ],
 };
+
+export const homestayConfig: ResourceConfig = {
+  key: 'homestay',
+  endpoint: '/homestay',
+  label: 'Homestay',
+  labelSingular: 'Homestay',
+  description: 'Kelola data Homestay di Grogol.',
+  searchable: true,
+  defaultSort: { sortBy: 'created_at', sortOrder: 'desc' },
+  columns: [
+    { key: 'thumbnail', label: 'Gambar', type: 'image' },
+    { key: 'title', label: 'Nama Homestay' },
+    { key: 'is_active', label: 'Status', type: 'boolean', booleanLabels: ['Aktif', 'Draft'] },
+  ],
+  fields: [
+    { name: 'title', label: 'Nama Homestay', type: 'text', required: true, colSpan: 2 },
+    { name: 'title_en', label: 'Nama Homestay (EN)', type: 'text', colSpan: 2 },
+    { name: 'price', label: 'Harga', type: 'text', colSpan: 2 },
+    { name: 'facilities', label: 'Fasilitas (pisahkan dengan koma)', type: 'tags', colSpan: 2 },
+    { name: 'thumbnail', label: 'Thumbnail Utama', type: 'image', colSpan: 2 },
+    { name: 'is_gallery_active', label: 'Tampilkan Slider Galeri di Halaman Detail', type: 'switch', defaultValue: true, colSpan: 2 },
+    { name: 'images', label: 'Galeri Tambahan', type: 'gallery', colSpan: 2 },
+    { name: 'is_active', label: 'Status Publikasi (Aktif)', type: 'switch', defaultValue: true, colSpan: 2 },
+  ],
+};

@@ -18,6 +18,7 @@ import {
   Sparkles,
   Coffee,
   ShoppingBag,
+  Home,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -48,6 +49,7 @@ export const ADMIN_NAV: AdminNavSection[] = [
       { label: 'Seni Budaya', href: '/dashboard/budaya', icon: Sparkles },
       { label: 'Kuliner', href: '/dashboard/kuliner', icon: Coffee },
       { label: 'UMKM', href: '/dashboard/umkm', icon: ShoppingBag },
+      { label: 'Homestay', href: '/dashboard/homestay', icon: Home },
       { label: 'Event', href: '/dashboard/event', icon: CalendarDays },
       { label: 'Testimoni', href: '/dashboard/testimoni', icon: MessageSquareQuote },
     ],
