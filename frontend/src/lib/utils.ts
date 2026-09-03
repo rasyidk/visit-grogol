@@ -17,19 +17,21 @@ export function formatRupiah(value?: number | null): string {
 }
 
 /** Format a date string as "15 Mei 2024". */
-export function formatDate(input?: string | Date | null): string {
+export function formatDate(input?: string | Date | null, locale: string = 'id'): string {
   if (!input) return '-';
   const d = typeof input === 'string' ? new Date(input) : input;
   if (Number.isNaN(d.getTime())) return '-';
-  return new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+  const l = locale === 'en' ? 'en-US' : 'id-ID';
+  return new Intl.DateTimeFormat(l, { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
 }
 
 /** "15 Mei" short form used on event chips. */
-export function formatDateShort(input?: string | Date | null): { day: string; month: string } {
+export function formatDateShort(input?: string | Date | null, locale: string = 'id'): { day: string; month: string } {
   const d = input ? new Date(input) : new Date();
+  const l = locale === 'en' ? 'en-US' : 'id-ID';
   return {
-    day: new Intl.DateTimeFormat('id-ID', { day: '2-digit' }).format(d),
-    month: new Intl.DateTimeFormat('id-ID', { month: 'short' }).format(d).toUpperCase(),
+    day: new Intl.DateTimeFormat(l, { day: '2-digit' }).format(d),
+    month: new Intl.DateTimeFormat(l, { month: 'short' }).format(d).toUpperCase(),
   };
 }
 

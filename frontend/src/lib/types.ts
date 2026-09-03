@@ -79,20 +79,25 @@ export interface Berita {
   id: number;
   title: string;
   titleEn?: string | null;
+  title_en?: string | null;
   slug: string;
   excerpt?: string | null;
   excerptEn?: string | null;
   content: string;
   contentEn?: string | null;
+  content_en?: string | null;
   thumbnail: string;
   author?: string | null;
   category?: string | null;
   tags?: string[] | null;
   isPublished: boolean;
   publishedAt?: string | null;
+  published_at?: string | null;
   views: number;
   createdAt: string;
+  created_at?: string;
   updatedAt: string;
+  updated_at?: string;
 }
 
 export interface EventItem {
