@@ -14,6 +14,9 @@ import {
   Users,
   Map,
   Flower2,
+  Palmtree,
+  Sparkles,
+  Coffee,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -40,8 +43,9 @@ export const ADMIN_NAV: AdminNavSection[] = [
     items: [
       { label: 'Profil Desa', href: '/dashboard/profil', icon: Building2 },
       { label: 'Berita', href: '/dashboard/berita', icon: Newspaper },
-      { label: 'Wisata', href: '/dashboard/wisata', icon: Map },
-      { label: 'Budaya', href: '/dashboard/budaya', icon: Flower2 },
+      { label: 'Atraksi Wisata', href: '/dashboard/wisata', icon: Palmtree },
+      { label: 'Seni Budaya', href: '/dashboard/budaya', icon: Sparkles },
+      { label: 'Kuliner', href: '/dashboard/kuliner', icon: Coffee },
       { label: 'Event', href: '/dashboard/event', icon: CalendarDays },
       { label: 'Testimoni', href: '/dashboard/testimoni', icon: MessageSquareQuote },
     ],

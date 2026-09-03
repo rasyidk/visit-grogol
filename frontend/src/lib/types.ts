@@ -256,3 +256,23 @@ export interface Budaya {
   isActive?: boolean;
   isGalleryActive?: boolean;
 }
+
+export interface Kuliner {
+  id: number;
+  slug: string;
+  title: string;
+  title_en: string | null;
+  content: string | null;
+  content_en: string | null;
+  thumbnail: string | null;
+  images: string[] | null;
+  is_active: boolean;
+  is_gallery_active?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  
+  titleEn?: string | null;
+  contentEn?: string | null;
+  isActive?: boolean;
+  isGalleryActive?: boolean;
+}

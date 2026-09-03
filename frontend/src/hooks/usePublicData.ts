@@ -6,6 +6,7 @@ import { fetchList, fetchOne } from '@/lib/api';
 import type {
   Wisata,
   Budaya,
+  Kuliner,
   Destinasi,
   Kategori,
   Berita,
@@ -71,6 +72,17 @@ export function useBudayaDetail(slug: string) {
   const query = useQuery({ queryKey: ['budaya', slug, locale], queryFn: () => fetchOne<Budaya>(`/budaya/${slug}`) });
   const rawData = query.data;
   const data = rawData ? mapLocaleData(rawData, locale) as Budaya : undefined;
+  return { ...query, data };
+}
+
+export const useKuliner = (params: Record<string, unknown> = {}) =>
+  usePublic<Kuliner>(['kuliner', JSON.stringify(params)], '/kuliner', { limit: 12, is_active: true, ...params }, []);
+
+export function useKulinerDetail(slug: string) {
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['kuliner', slug, locale], queryFn: () => fetchOne<Kuliner>(`/kuliner/${slug}`) });
+  const rawData = query.data;
+  const data = rawData ? mapLocaleData(rawData, locale) as Kuliner : undefined;
   return { ...query, data };
 }
 

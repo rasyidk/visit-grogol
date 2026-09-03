@@ -448,3 +448,28 @@ export const budayaConfig: ResourceConfig = {
     { name: 'isGalleryActive', label: 'Aktifkan Galeri Foto', type: 'switch', defaultValue: true },
   ],
 };
+
+export const kulinerConfig: ResourceConfig = {
+  key: 'kuliner',
+  endpoint: '/kuliner',
+  label: 'Kuliner',
+  labelSingular: 'Kuliner',
+  description: 'Kelola data kuliner dan tempat makan khas Grogol.',
+  searchable: true,
+  defaultSort: { sortBy: 'created_at', sortOrder: 'desc' },
+  columns: [
+    { key: 'thumbnail', label: 'Gambar', type: 'image' },
+    { key: 'title', label: 'Judul' },
+    { key: 'is_active', label: 'Status', type: 'boolean', booleanLabels: ['Aktif', 'Draft'] },
+  ],
+  fields: [
+    { name: 'title', label: 'Nama Kuliner / Tempat Makan', type: 'text', required: true, colSpan: 2 },
+    { name: 'title_en', label: 'Nama (EN)', type: 'text', colSpan: 2 },
+    { name: 'content', label: 'Deskripsi (ID)', type: 'richtext', colSpan: 2 },
+    { name: 'content_en', label: 'Deskripsi (EN)', type: 'richtext', colSpan: 2 },
+    { name: 'thumbnail', label: 'Thumbnail Utama', type: 'image', colSpan: 2 },
+    { name: 'is_gallery_active', label: 'Tampilkan Slider Galeri di Halaman Detail', type: 'switch', defaultValue: true, colSpan: 2 },
+    { name: 'images', label: 'Galeri Tambahan', type: 'gallery', colSpan: 2 },
+    { name: 'is_active', label: 'Status Publikasi (Aktif)', type: 'switch', defaultValue: true, colSpan: 2 },
+  ],
+};
