@@ -24,7 +24,7 @@ export default function BerandaPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────── */}
-      <section className="relative min-h-[92vh] w-full overflow-hidden">
+      <section className="relative min-h-screen w-full overflow-hidden">
         {profil?.atraksiHeroImage ? (
           <Image
             src={profil.atraksiHeroImage}
@@ -38,7 +38,7 @@ export default function BerandaPage() {
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-brand-950/40 via-brand-950/30 to-brand-950/70 pointer-events-none" />
 
-        <div className="container-wide relative flex min-h-[92vh] flex-col justify-center pb-16 pt-28 pointer-events-none">
+        <div className="container-wide relative flex min-h-screen flex-col justify-center pb-16 pt-28 pointer-events-none">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -50,15 +50,6 @@ export default function BerandaPage() {
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
               {t('heroDesc')}
             </p>
-            <div className="mt-10 flex flex-wrap gap-4 pointer-events-auto">
-              <Link href="/penginapan" className="btn bg-white text-brand-700 hover:bg-brand-50">
-                {t('heroBtn1')}
-              </Link>
-              <button className="btn glass-dark text-white hover:bg-brand-900/60">
-                <Play className="h-4 w-4 fill-current" />
-                {t('heroBtn2')}
-              </button>
-            </div>
           </motion.div>
         </div>
       </section>
