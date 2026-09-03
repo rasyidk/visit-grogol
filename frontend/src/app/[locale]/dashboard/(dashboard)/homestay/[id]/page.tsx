@@ -8,17 +8,16 @@ import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { fetchOne } from '@/lib/api';
-import type { Homestay } from '@/lib/types';
 import { Spinner } from '@/components/ui/Misc';
 
 export default function EditHomestayPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const { update } = useResourceMutations(homestayConfig.endpoint, homestayConfig.labelSingular);
-  const [record, setRecord] = useState<Homestay | null>(null);
+  const [record, setRecord] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchOne<Homestay>(`${homestayConfig.endpoint}/${params.id}`)
+    fetchOne<any>(`${homestayConfig.endpoint}/${params.id}`)
       .then(setRecord)
       .catch(() => router.push('/dashboard/homestay'))
       .finally(() => setLoading(false));
@@ -52,7 +51,7 @@ export default function EditHomestayPage({ params }: { params: { id: string } })
         ) : (
           <ResourceForm 
             config={homestayConfig} 
-            record={record as any}
+            record={record}
             submitting={update.isPending}
             onSubmit={handleSubmit} 
             onCancel={() => router.push('/dashboard/homestay')} 

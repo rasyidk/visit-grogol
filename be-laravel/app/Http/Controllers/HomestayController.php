@@ -34,7 +34,18 @@ class HomestayController extends Controller
             return response()->json($query->latest()->get());
         }
 
-        return response()->json($query->latest()->paginate($limit));
+        $paginated = $query->latest()->paginate($limit);
+        return response()->json([
+            'data' => $paginated->items(),
+            'meta' => [
+                'page' => $paginated->currentPage(),
+                'totalPages' => $paginated->lastPage(),
+                'limit' => $paginated->perPage(),
+                'total' => $paginated->total(),
+                'hasNext' => $paginated->hasMorePages(),
+                'hasPrev' => $paginated->currentPage() > 1,
+            ]
+        ]);
     }
 
     public function store(Request $request)
@@ -51,14 +62,14 @@ class HomestayController extends Controller
         ]);
 
         $homestay = Homestay::create($validated);
-        return response()->json($homestay, 201);
+        return response()->json(['data' => $homestay], 201);
     }
 
     public function show($id)
     {
         // Try finding by id first, then by slug for public facing urls
         $homestay = Homestay::where('id', $id)->orWhere('slug', $id)->firstOrFail();
-        return response()->json($homestay);
+        return response()->json(['data' => $homestay]);
     }
 
     public function update(Request $request, $id)
@@ -92,7 +103,7 @@ class HomestayController extends Controller
         }
 
         $homestay->update($validated);
-        return response()->json($homestay);
+        return response()->json(['data' => $homestay]);
     }
 
     public function destroy($id)

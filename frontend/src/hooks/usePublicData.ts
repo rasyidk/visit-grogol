@@ -117,7 +117,15 @@ export const useKategori = () =>
   usePublic<Kategori>(['kategori'], '/kategori', { limit: 50 }, FALLBACK_KATEGORI);
 
 export const useBerita = (params: Record<string, unknown> = {}) =>
-  usePublic<Berita>(['berita', JSON.stringify(params)], '/berita', { limit: 6, isPublished: true, ...params }, []);
+  usePublic<Berita>(['berita', JSON.stringify(params)], '/berita', { limit: 6, is_active: true, ...params }, []);
+
+export function useBeritaDetail(slug: string) {
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['berita', slug, locale], queryFn: () => fetchOne<Berita>(`/berita/${slug}`) });
+  const rawData = query.data;
+  const data = rawData ? mapLocaleData(rawData, locale) as Berita : undefined;
+  return { ...query, data };
+}
 
 export const useEvents = (params: Record<string, unknown> = {}) =>
   usePublic<EventItem>(['event', JSON.stringify(params)], '/event', { limit: 6, ...params }, FALLBACK_EVENTS);

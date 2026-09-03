@@ -14,12 +14,14 @@ use App\Http\Controllers\WisataController;
 use App\Http\Controllers\KulinerController;
 use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\HomestayController;
+use App\Http\Controllers\BeritaController;
 
 Route::apiResource('wisata', WisataController::class)->only(['index', 'show']);
 Route::apiResource('budaya', BudayaController::class)->only(['index', 'show']);
 Route::apiResource('kuliner', KulinerController::class)->only(['index', 'show']);
 Route::apiResource('umkm', UmkmController::class)->only(['index', 'show']);
 Route::apiResource('homestay', HomestayController::class)->only(['index', 'show']);
+Route::apiResource('berita', BeritaController::class)->only(['index', 'show']);
 
 use App\Http\Controllers\UploadController;
 
@@ -37,4 +39,5 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('kuliner', KulinerController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('umkm', UmkmController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('homestay', HomestayController::class)->only(['store', 'update', 'destroy']);
+    Route::apiResource('berita', BeritaController::class)->only(['store', 'update', 'destroy']);
 });

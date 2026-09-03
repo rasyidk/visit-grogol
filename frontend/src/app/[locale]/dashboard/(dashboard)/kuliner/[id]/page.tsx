@@ -8,17 +8,16 @@ import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import { fetchOne } from '@/lib/api';
-import type { Kuliner } from '@/lib/types';
 import { Spinner } from '@/components/ui/Misc';
 
 export default function EditKulinerPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const { update } = useResourceMutations(kulinerConfig.endpoint, kulinerConfig.labelSingular);
-  const [record, setRecord] = useState<Kuliner | null>(null);
+  const [record, setRecord] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchOne<Kuliner>(`${kulinerConfig.endpoint}/${params.id}`)
+    fetchOne<any>(`${kulinerConfig.endpoint}/${params.id}`)
       .then(setRecord)
       .catch(() => router.push('/dashboard/kuliner'))
       .finally(() => setLoading(false));
@@ -52,7 +51,7 @@ export default function EditKulinerPage({ params }: { params: { id: string } }) 
         ) : (
           <ResourceForm 
             config={kulinerConfig} 
-            record={record as any}
+            record={record}
             submitting={update.isPending}
             onSubmit={handleSubmit} 
             onCancel={() => router.push('/dashboard/kuliner')} 

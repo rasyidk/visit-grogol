@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { ResourceForm } from '@/components/admin/ResourceForm';
-import { umkmConfig } from '@/lib/adminResources';
+import { beritaConfig } from '@/lib/adminResources';
 import { useResourceMutations } from '@/hooks/useResource';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
@@ -10,36 +10,36 @@ import Link from 'next/link';
 import { fetchOne } from '@/lib/api';
 import { Spinner } from '@/components/ui/Misc';
 
-export default function EditUmkmPage({ params }: { params: { id: string } }) {
+export default function EditBeritaPage({ params }: { params: { id: string } }) {
   const router = useRouter();
-  const { update } = useResourceMutations(umkmConfig.endpoint, umkmConfig.labelSingular);
+  const { update } = useResourceMutations(beritaConfig.endpoint, beritaConfig.labelSingular);
   const [record, setRecord] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchOne<any>(`${umkmConfig.endpoint}/${params.id}`)
+    fetchOne<any>(`${beritaConfig.endpoint}/${params.id}`)
       .then(setRecord)
-      .catch(() => router.push('/dashboard/umkm'))
+      .catch(() => router.push('/dashboard/berita'))
       .finally(() => setLoading(false));
   }, [params.id, router]);
 
   const handleSubmit = async (values: Record<string, unknown>) => {
     await update.mutateAsync({ id: Number(params.id), body: values });
-    router.push('/dashboard/umkm');
+    router.push('/dashboard/berita');
   };
 
   return (
     <div className="max-w-4xl pb-16">
       <div className="mb-6 flex items-center gap-4">
         <Link 
-          href="/dashboard/umkm" 
+          href="/dashboard/berita" 
           className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink-soft hover:bg-black/5"
         >
           <ChevronLeft className="h-5 w-5" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-ink">Edit {umkmConfig.labelSingular}</h1>
-          <p className="text-sm text-ink-soft">Sunting entri {umkmConfig.labelSingular.toLowerCase()}</p>
+          <h1 className="text-2xl font-bold text-ink">Edit {beritaConfig.labelSingular}</h1>
+          <p className="text-sm text-ink-soft">Sunting {beritaConfig.labelSingular.toLowerCase()}</p>
         </div>
       </div>
 
@@ -50,11 +50,11 @@ export default function EditUmkmPage({ params }: { params: { id: string } }) {
           </div>
         ) : (
           <ResourceForm 
-            config={umkmConfig} 
+            config={beritaConfig} 
             record={record}
             submitting={update.isPending}
             onSubmit={handleSubmit} 
-            onCancel={() => router.push('/dashboard/umkm')} 
+            onCancel={() => router.push('/dashboard/berita')} 
           />
         )}
       </div>
