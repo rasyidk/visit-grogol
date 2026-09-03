@@ -17,36 +17,18 @@ export default function KulinerPage() {
 
   return (
     <>
-      {/* Creative Hero */}
-      <section className="relative w-full overflow-hidden min-h-[50vh] flex flex-col justify-center items-center">
-        {profil?.kulinerHeroImage ? (
-          <Image
-            src={profil.kulinerHeroImage}
-            alt="Hero Kuliner"
-            fill
-            className="object-cover"
-            priority
-          />
-        ) : (
-          <Image
-            src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1600&q=80"
-            alt="Hero Kuliner Placeholder"
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-950/70 to-brand-950/90 pointer-events-none" />
-        
-        <div className="container-wide relative z-10 text-center py-20 mt-16">
+      {/* Editorial Header */}
+      <section className="container-wide pt-32 pb-16 sm:pt-40 sm:pb-24">
+        <div className="max-w-4xl">
           <Reveal>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
-              {isEn ? "Culinary Delights" : "Ragam Kuliner"}
+            <h1 className="text-5xl md:text-7xl font-bold text-ink tracking-tight mb-6 leading-[1.1]">
+              {isEn ? "Authentic Flavors." : "Cita Rasa Autentik."} <br className="hidden sm:block" />
+              <span className="text-brand-600">{isEn ? "Culinary Heritage." : "Warisan Kuliner."}</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
+            <p className="text-lg md:text-2xl text-ink-soft max-w-2xl leading-relaxed">
               {isEn 
-                ? "Explore the authentic flavors and best eateries in our village." 
-                : "Jelajahi cita rasa otentik dan tempat makan terbaik di desa kami."}
+                ? "Explore the best eateries and traditional flavors passed down through generations in our village." 
+                : "Jelajahi tempat makan terbaik dan cita rasa tradisional yang diwariskan turun-temurun di desa kami."}
             </p>
           </Reveal>
         </div>
