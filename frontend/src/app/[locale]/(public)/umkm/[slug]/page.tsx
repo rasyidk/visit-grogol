@@ -76,23 +76,23 @@ export default function UmkmDetailPage({ params }: { params: { slug: string; loc
         </section>
       )}
 
-      {/* ── Content ───────────────────────────────────────── */}
-      <section className="container-wide mb-16">
-        <div className="mx-auto max-w-3xl">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="prose prose-lg prose-brand max-w-none text-ink-soft"
-            dangerouslySetInnerHTML={{ __html: displayContent || '' }}
-          />
-        </div>
-      </section>
-
       {/* ── Gallery Slider ────────────────────────────────── */}
       {umkm.is_gallery_active && umkm.images && umkm.images.length > 0 && (
         <GallerySlider images={umkm.images} title={displayTitle} isEn={isEn} />
       )}
+
+      {/* ── Content ───────────────────────────────────────── */}
+      <section className="container-wide mb-16 mt-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="prose prose-lg prose-brand max-w-none text-ink-soft mx-auto"
+            dangerouslySetInnerHTML={{ __html: displayContent || '' }}
+          />
+        </div>
+      </section>
     </article>
   );
 }
@@ -109,11 +109,6 @@ function GallerySlider({ images, title, isEn }: { images: string[]; title: strin
 
   return (
     <section className="mt-8 mb-12">
-      <div className="container-wide mb-6">
-        <h2 className="text-2xl font-bold text-ink">
-          {isEn ? "Product Gallery" : "Galeri Produk"}
-        </h2>
-      </div>
       <div className="container-wide relative group">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
