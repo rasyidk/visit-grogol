@@ -1,22 +1,40 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useForm, Controller, type DefaultValues } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/Button';
 import { toast } from 'sonner';
-import { MediaUpload } from './MediaUpload';
-import { fetchList } from '@/lib/api';
+import { MediaUpload, GalleryUpload } from './MediaUpload';
+import { fetchList, uploadFile } from '@/lib/api';
 import type { FieldConfig, ResourceConfig, SelectOption } from './resourceTypes';
 import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
+
+const QuillEditor = dynamic(() => import('./QuillEditorWrapper'), { ssr: false, loading: () => <div className="h-[242px] animate-pulse bg-black/5 rounded-lg border border-black/10" /> });
 
 type Values = Record<string, unknown>;
+
+function getExistingValue(record: Values | undefined, key: string): unknown {
+  if (!record) return undefined;
+  if (record[key] !== undefined && record[key] !== null) return record[key];
+
+  // camelCase -> snake_case (e.g., contentEn -> content_en, isActive -> is_active)
+  const snakeKey = key.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+  if (record[snakeKey] !== undefined && record[snakeKey] !== null) return record[snakeKey];
+
+  // snake_case -> camelCase (e.g., content_en -> contentEn, is_active -> isActive)
+  const camelKey = key.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+  if (record[camelKey] !== undefined && record[camelKey] !== null) return record[camelKey];
+
+  return undefined;
+}
 
 /** Build initial form values from an existing record or field defaults. */
 function buildDefaults(fields: FieldConfig[], record?: Values): Values {
   const out: Values = {};
   for (const f of fields) {
-    const existing = record?.[f.name];
+    const existing = getExistingValue(record, f.name);
     if (existing !== undefined && existing !== null) {
       if (f.type === 'tags' && Array.isArray(existing)) out[f.name] = existing.join(', ');
       else if (f.type === 'checkbox_group' && Array.isArray(existing)) {
@@ -138,7 +156,7 @@ export function ResourceForm({
           const span = field.colSpan === 1 ? 'sm:col-span-1' : 'sm:col-span-2';
           return (
             <div key={field.name} className={cn(field.type === 'switch' ? 'sm:col-span-2' : span)}>
-              {field.type !== 'switch' && field.type !== 'image' && field.type !== 'video' && (
+              {field.type !== 'switch' && field.type !== 'image' && field.type !== 'video' && field.type !== 'gallery' && (
                 <label className="field-label" htmlFor={field.name}>
                   {field.label}
                   {field.required && <span className="text-red-500"> *</span>}
@@ -263,6 +281,34 @@ export function ResourceForm({
                             value={f.value as string}
                             onChange={f.onChange}
                           />
+                        )}
+                      />
+                    );
+                  case 'gallery':
+                    return (
+                      <Controller
+                        control={control}
+                        name={field.name}
+                        rules={{ required: field.required && `${field.label} wajib diunggah` }}
+                        render={({ field: f }) => (
+                          <GalleryUpload
+                            label={field.label}
+                            value={(f.value as string[]) || []}
+                            onChange={f.onChange}
+                          />
+                        )}
+                      />
+                    );
+                  case 'richtext':
+                    return (
+                      <Controller
+                        control={control}
+                        name={field.name}
+                        rules={{ required: field.required && `${field.label} wajib diisi` }}
+                        render={({ field: f }) => (
+                          <div className="bg-white [&_.ql-container]:min-h-[200px] [&_.ql-container]:text-base [&_.ql-editor]:min-h-[200px] [&_.ql-toolbar]:rounded-t-lg [&_.ql-container]:rounded-b-lg">
+                            <QuillEditor value={(f.value as string) || ''} onChange={f.onChange} />
+                          </div>
                         )}
                       />
                     );

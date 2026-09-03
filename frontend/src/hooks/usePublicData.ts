@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useLocale } from 'next-intl';
 import { fetchList, fetchOne } from '@/lib/api';
 import type {
+  Wisata,
   Destinasi,
   Kategori,
   Berita,
@@ -48,6 +49,17 @@ function usePublic<T>(key: string[], path: string, params: Record<string, unknow
   const rawData = query.data?.data?.length ? query.data.data : fallback;
   const data = mapLocaleData(rawData, locale) as T[];
   return { ...query, data, meta: query.data?.meta };
+}
+
+export const useWisata = (params: Record<string, unknown> = {}) =>
+  usePublic<Wisata>(['wisata', JSON.stringify(params)], '/wisata', { limit: 12, is_active: true, ...params }, []);
+
+export function useWisataDetail(slug: string) {
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['wisata', slug, locale], queryFn: () => fetchOne<Wisata>(`/wisata/${slug}`) });
+  const rawData = query.data;
+  const data = rawData ? mapLocaleData(rawData, locale) as Wisata : undefined;
+  return { ...query, data };
 }
 
 export const useDestinasi = (params: Record<string, unknown> = {}) =>

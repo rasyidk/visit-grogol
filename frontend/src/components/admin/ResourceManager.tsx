@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Plus, Search, Pencil, Trash2, ArrowUpDown } from 'lucide-react';
 import { PageHeader, Pagination, StatusBadge, EmptyState } from './ui';
 import { Modal } from './Modal';
@@ -47,6 +48,7 @@ function Cell({ col, row }: { col: ColumnConfig; row: Row }) {
 }
 
 export function ResourceManager({ config }: { config: ResourceConfig }) {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [debounced, setDebounced] = useState('');
@@ -82,12 +84,20 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
   const meta = data?.meta;
 
   const openCreate = () => {
-    setEditing(null);
-    setFormOpen(true);
+    if (config.formMode === 'page') {
+      router.push(`/dashboard/${config.key}/create`);
+    } else {
+      setEditing(null);
+      setFormOpen(true);
+    }
   };
   const openEdit = (row: Row) => {
-    setEditing(row);
-    setFormOpen(true);
+    if (config.formMode === 'page') {
+      router.push(`/dashboard/${config.key}/${row.id}`);
+    } else {
+      setEditing(row);
+      setFormOpen(true);
+    }
   };
 
   const handleSubmit = async (values: Record<string, unknown>) => {
@@ -246,20 +256,22 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
         )}
       </div>
 
-      <Modal
-        open={formOpen}
-        onClose={() => setFormOpen(false)}
-        title={`${editing ? 'Edit' : 'Tambah'} ${config.labelSingular}`}
-        size="lg"
-      >
-        <ResourceForm
-          config={config}
-          record={editing ?? undefined}
-          submitting={create.isPending || update.isPending}
-          onSubmit={handleSubmit}
-          onCancel={() => setFormOpen(false)}
-        />
-      </Modal>
+      {config.formMode !== 'page' && (
+        <Modal
+          open={formOpen}
+          onClose={() => setFormOpen(false)}
+          title={`${editing ? 'Edit' : 'Tambah'} ${config.labelSingular}`}
+          size="lg"
+        >
+          <ResourceForm
+            config={config}
+            record={editing ?? undefined}
+            submitting={create.isPending || update.isPending}
+            onSubmit={handleSubmit}
+            onCancel={() => setFormOpen(false)}
+          />
+        </Modal>
+      )}
 
       <ConfirmDialog
         open={!!deleting}

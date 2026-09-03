@@ -95,21 +95,91 @@ export function MediaUpload({
             <UploadCloud className="h-7 w-7" />
           )}
           <span className="text-sm font-medium">Klik untuk mengunggah {isVideo ? 'video' : 'gambar'}</span>
-          <span className="text-xs">atau tempel URL di bawah</span>
         </button>
       )}
 
-      {/* Manual URL fallback */}
+    </div>
+  );
+}
+
+export function GalleryUpload({
+  value = [],
+  onChange,
+  label,
+}: {
+  value?: string[];
+  onChange: (urls: string[]) => void;
+  label?: string;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFiles = async (files?: FileList | null) => {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    const newUrls: string[] = [];
+    try {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const { url } = await uploadFile(file);
+        newUrls.push(url);
+      }
+      onChange([...value, ...newUrls]);
+    } catch (err) {
+      toast.error(getApiErrorMessage(err, 'Upload gagal'));
+    } finally {
+      setUploading(false);
+      if (inputRef.current) inputRef.current.value = '';
+    }
+  };
+
+  const removeImage = (index: number) => {
+    const newValues = [...value];
+    newValues.splice(index, 1);
+    onChange(newValues);
+  };
+
+  return (
+    <div>
+      {label && <label className="field-label">{label}</label>}
       <input
-        type="text"
-        value={preview && preview.startsWith('http') ? preview : ''}
-        onChange={(e) => {
-          setPreview(e.target.value);
-          onChange(e.target.value);
-        }}
-        placeholder="https://…"
-        className="field-input mt-2 text-xs"
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        className="hidden"
+        onChange={(e) => handleFiles(e.target.files)}
       />
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-4">
+        {value.map((url, idx) => (
+          <div key={idx} className="relative aspect-square overflow-hidden rounded-xl border border-black/10">
+            <Image src={url} alt={`Gallery ${idx}`} fill className="object-cover" unoptimized />
+            <button
+              type="button"
+              onClick={() => removeImage(idx)}
+              className="absolute right-2 top-2 rounded-full bg-white/90 p-1.5 text-red-600 shadow hover:bg-white"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={() => inputRef.current?.click()}
+          disabled={uploading}
+          className="flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-black/15 bg-black/[0.02] text-ink-muted transition hover:border-brand-400 hover:bg-brand-50/40"
+        >
+          {uploading ? (
+            <Loader2 className="h-7 w-7 animate-spin text-brand-600" />
+          ) : (
+            <>
+              <UploadCloud className="h-7 w-7" />
+              <span className="text-xs font-medium text-center px-2">Tambah Gambar</span>
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

@@ -10,7 +10,8 @@ export type FieldType =
   | 'image'
   | 'video'
   | 'tags'
-  | 'checkbox_group';
+  | 'checkbox_group'
+  | 'richtext';
 
 export interface SelectOption {
   label: string;
@@ -58,6 +59,7 @@ export interface ResourceConfig<T = Record<string, unknown>> {
   label: string;
   labelSingular: string;
   description?: string;
+  formMode?: 'modal' | 'page';
   columns: ColumnConfig<T>[];
   fields: FieldConfig[];
   searchable?: boolean;

@@ -216,3 +216,20 @@ export interface DashboardStats {
   latestReservasi: Reservasi[];
   upcomingEvents: Array<Pick<EventItem, 'id' | 'title' | 'titleEn' | 'titleEn' | 'startDate' | 'thumbnail'>>;
 }
+
+export interface Wisata {
+  id: number;
+  slug: string;
+  title: string;
+  titleEn?: string | null;
+  title_en?: string | null;
+  content?: string | null;
+  contentEn?: string | null;
+  content_en?: string | null;
+  thumbnail?: string | null;
+  images?: string[] | null;
+  isActive?: boolean;
+  is_active?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}

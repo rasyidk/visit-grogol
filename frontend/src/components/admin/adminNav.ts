@@ -35,6 +35,12 @@ export const ADMIN_NAV: AdminNavSection[] = [
     items: [{ label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard }],
   },
   {
+    title: 'Konten',
+    items: [
+      { label: 'Manajemen Wisata', href: '/dashboard/wisata', icon: MapPin },
+    ],
+  },
+  {
     title: 'Sistem',
     roles: ['SUPERADMIN'],
     items: [

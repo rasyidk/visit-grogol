@@ -384,3 +384,35 @@ export const penggunaConfig: ResourceConfig = {
     { name: 'isActive', label: 'Akun Aktif', type: 'switch', defaultValue: true },
   ],
 };
+
+export const wisataConfig: ResourceConfig = {
+  key: 'wisata',
+  endpoint: '/wisata',
+  label: 'Manajemen Wisata',
+  labelSingular: 'Wisata',
+  description: 'Kelola konten halaman Wisata Publik (Bilingual).',
+  formMode: 'page',
+  searchable: true,
+  filters: [boolFilter('Aktif', 'is_active')],
+  sortOptions: [
+    { label: 'Terbaru', value: 'createdAt' },
+    { label: 'Judul', value: 'title' },
+  ],
+  defaultSort: { sortBy: 'createdAt', sortOrder: 'desc' },
+  columns: [
+    { key: 'thumbnail', label: 'Gambar', type: 'image' },
+    { key: 'title', label: 'Judul (ID)' },
+    { key: 'title_en', label: 'Judul (EN)' },
+    { key: 'is_active', label: 'Status', type: 'boolean', booleanLabels: ['AKTIF', 'TIDAK AKTIF'] },
+  ],
+  fields: [
+    { name: 'title', label: 'Judul (Bahasa Indonesia)', type: 'text', required: true, colSpan: 1 },
+    { name: 'titleEn', label: 'Judul (Bahasa Inggris)', type: 'text', required: false, colSpan: 1 },
+    { name: 'thumbnail', label: 'Thumbnail Utama', type: 'image', help: 'URL Gambar Thumbnail', colSpan: 2 },
+    { name: 'images', label: 'Galeri Foto', type: 'gallery', help: 'Beberapa foto untuk carousel wisata', colSpan: 2 },
+    { name: 'content', label: 'Konten (Bahasa Indonesia)', type: 'richtext', colSpan: 2 },
+    { name: 'contentEn', label: 'Konten (Bahasa Inggris)', type: 'richtext', colSpan: 2 },
+    { name: 'isActive', label: 'Tampilkan ke Publik', type: 'switch', defaultValue: true },
+    { name: 'isGalleryActive', label: 'Aktifkan Galeri Foto', type: 'switch', defaultValue: true },
+  ],
+};
