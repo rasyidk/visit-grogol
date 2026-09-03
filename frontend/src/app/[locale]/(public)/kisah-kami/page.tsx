@@ -1,4 +1,5 @@
 import { JejakWaktu } from '@/components/history/JejakWaktu';
+import { KehidupanMasyarakat } from '@/components/history/KehidupanMasyarakat';
 
 export const metadata = {
   title: 'Kisah Kami | Visit Grogol Kaloka',
@@ -9,6 +10,7 @@ export default function KisahKamiPage() {
   return (
     <main className="w-full bg-cream min-h-screen">
       <JejakWaktu />
+      <KehidupanMasyarakat />
     </main>
   );
 }

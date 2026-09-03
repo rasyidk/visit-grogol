@@ -118,21 +118,7 @@ export default function KulinerPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section container-wide">
-        <Reveal>
-          <div className="rounded-4xl bg-brand-gradient px-6 py-16 text-center text-white shadow-soft">
-            <h2 className="text-3xl font-bold sm:text-4xl">{t('ctaTitle')}</h2>
-            <p className="mx-auto mt-4 max-w-md text-sm text-white/80">
-              {t('ctaDesc')}
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link href="/kontak" className="btn bg-white text-brand-700 hover:bg-brand-50">{t('ctaBtn1')}</Link>
-              <Link href="/kontak" className="btn border border-white/40 text-white hover:bg-white/10">{t('ctaBtn2')}</Link>
-            </div>
-          </div>
-        </Reveal>
-      </section>
+
     </>
   );
 }

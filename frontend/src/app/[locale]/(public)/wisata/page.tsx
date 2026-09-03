@@ -8,7 +8,7 @@ const Hero360 = dynamic(() => import('@/components/public/Hero360'), { ssr: fals
 import { Play, Clock, Ticket, MapPin, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Reveal } from '@/components/ui/Reveal';
-import { Newsletter } from '@/components/public/Newsletter';
+
 import { Badge } from '@/components/ui/Misc';
 import { useDestinasi, useProfil } from '@/hooks/usePublicData';
 import { formatRupiah } from '@/lib/utils';
@@ -147,12 +147,7 @@ export default function BerandaPage() {
         </div>
       </section>
 
-      {/* ── Newsletter ───────────────────────────────── */}
-      <section className="section container-wide">
-        <Reveal>
-          <Newsletter />
-        </Reveal>
-      </section>
+
     </>
   );
 }

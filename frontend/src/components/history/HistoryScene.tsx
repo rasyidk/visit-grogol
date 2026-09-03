@@ -1,12 +1,14 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface HistorySceneProps {
   currentState: number;
 }
 
 export function HistoryScene({ currentState }: HistorySceneProps) {
+  const t = useTranslations('KisahKami');
   return (
     <div className="absolute inset-0 w-full h-full">
       <AnimatePresence mode="wait">
@@ -24,8 +26,8 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 className="font-display font-black text-[12vw] sm:text-[8vw] lg:text-[7rem] tracking-tighter leading-[0.85] uppercase mb-8"
                 style={{ paddingRight: '0.05em' }}
               >
-                Jejak <br />
-                <span className="text-brand-700">Sejarah Grogol</span>
+                {t('title1')} <br />
+                <span className="text-brand-700">{t('title2')}</span>
               </motion.h1>
               
               <motion.p 
@@ -34,7 +36,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 transition={{ duration: 1, delay: 0.8 }}
                 className="text-xl sm:text-2xl italic text-stone-600 max-w-2xl"
               >
-                “Sebuah desa tidak hanya dibentuk oleh waktu, tetapi oleh orang-orang yang menjaganya.”
+                {t('subtitle')}
               </motion.p>
 
               <motion.div 
@@ -43,7 +45,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                 transition={{ duration: 1, delay: 1.2 }}
                 className="absolute top-[15vh] lg:top-[20vh] font-display font-bold text-xl tracking-[0.5em] text-brand-800"
               >
-                17 MEI 1916
+                {t('date0')}
               </motion.div>
             </div>
           </SceneWrapper>
@@ -52,18 +54,18 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
         {/* STATE 01: 1916 */}
         {currentState === 1 && (
           <SceneWrapper key="state-1">
-            <div className="w-full h-full flex items-center px-6 lg:px-24">
+            <div className="w-full h-full flex items-center pl-6 pr-16 lg:pl-24 lg:pr-[140px] pb-[25vh] lg:pb-0">
               <div className="max-w-2xl">
                 <motion.div 
                   initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}
-                  className="font-display font-black text-[15vw] lg:text-[12rem] tracking-tighter leading-none text-brand-800 opacity-[0.15] mb-4"
+                  className="font-display font-black text-6xl lg:text-[10rem] tracking-tighter leading-none text-brand-800 opacity-[0.15] mb-2 lg:mb-4"
                 >
                   1916
                 </motion.div>
                 
-                <h3 className="font-display text-2xl lg:text-4xl font-bold uppercase tracking-widest text-stone-900 mb-6">Awal Perjalanan</h3>
-                <p className="text-lg lg:text-xl leading-relaxed text-stone-700">
-                  Tercatat sebagai tahun lahirnya Kalurahan Grogol. Dalam konteks Kasultanan Ngayogyakarta Hadiningrat, sejarah administrasi desa mulai dibentuk secara sistematis berdasarkan Rijksblad No. 12 Tahun 1916.
+                <h3 className="font-display text-2xl lg:text-4xl font-bold uppercase tracking-widest text-stone-900 mb-4 lg:mb-6">{t('state1Title')}</h3>
+                <p className="text-base lg:text-lg leading-relaxed text-stone-700">
+                  {t('state1Text')}
                 </p>
               </div>
             </div>
@@ -73,21 +75,21 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
         {/* STATE 02: 1927 */}
         {currentState === 2 && (
           <SceneWrapper key="state-2">
-            <div className="w-full h-full flex items-center justify-end px-6 lg:px-32">
-              <div className="max-w-2xl text-right">
+            <div className="w-full h-full flex items-center justify-start lg:justify-end pl-6 pr-16 lg:pl-32 lg:pr-[140px] pb-[25vh] lg:pb-0">
+              <div className="max-w-2xl text-left lg:text-right">
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}
-                  className="font-display font-black text-7xl lg:text-9xl tracking-tighter text-brand-800 opacity-[0.15] mb-6"
+                  className="font-display font-black text-6xl lg:text-[10rem] tracking-tighter text-brand-800 opacity-[0.15] mb-2 lg:mb-6"
                 >
                   1927
                 </motion.div>
                 
-                <div className="inline-block text-left max-w-lg mt-8">
-                  <div className="w-16 h-[1px] bg-brand-700 mb-8" />
-                  <h3 className="font-display text-xl lg:text-2xl font-bold uppercase tracking-widest text-stone-900 mb-2">Rijksblad van Jogjakarta No. 10</h3>
-                  <p className="italic text-stone-500 mb-6">Tahun 1927</p>
-                  <p className="text-lg leading-relaxed text-stone-800">
-                    Grogol resmi tercatat sebagai salah satu dari 14 kalurahan di Onder-distrik Paliyan. Struktur pemerintahan desa mulai memiliki landasan administratif yang jelas.
+                <div className="inline-block text-left max-w-lg mt-4 lg:mt-8">
+                  <div className="w-16 h-[1px] bg-brand-700 mb-4 lg:mb-8" />
+                  <h3 className="font-display text-2xl lg:text-4xl font-bold uppercase tracking-widest text-stone-900 mb-2">{t('state2Title')}</h3>
+                  <p className="italic text-base text-stone-500 mb-6">{t('state2Year')}</p>
+                  <p className="text-base lg:text-lg leading-relaxed text-stone-800">
+                    {t('state2Text')}
                   </p>
                 </div>
               </div>
@@ -95,24 +97,24 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
           </SceneWrapper>
         )}
 
-        {/* STATE 03: 1946 (Arjo Sukarso & Catatan Hilang) */}
+        {/* STATE 03: 1946 ({t('state3Name')} & Catatan Hilang) */}
         {currentState === 3 && (
           <SceneWrapper key="state-3">
-            <div className="w-full h-full flex items-center justify-center px-4 bg-stone-900 text-stone-200">
+            <div className="w-full h-full flex items-center justify-center px-4 bg-stone-900 text-stone-200 pb-[25vh] lg:pb-0">
               <div className="max-w-4xl text-center">
                 <motion.div 
                   initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
-                  className="text-stone-500 font-display text-3xl mb-8"
+                  className="text-stone-500 font-display text-4xl lg:text-6xl mb-4 lg:mb-8"
                 >
                   1946
                 </motion.div>
-                <h2 className="font-display font-black text-5xl lg:text-7xl uppercase text-white mb-6">Arjo Sukarso</h2>
-                <p className="text-xl lg:text-2xl italic text-stone-400 mb-12">Lurah Ketiga</p>
+                <h2 className="font-display font-black text-4xl lg:text-7xl uppercase text-white mb-2 lg:mb-6">Arjo Sukarso</h2>
+                <p className="text-xl lg:text-2xl italic text-stone-400 mb-6 lg:mb-12">{t('state3Role')}</p>
                 
-                <div className="w-16 h-[1px] bg-stone-700 mx-auto mb-12" />
+                <div className="w-12 lg:w-16 h-[1px] bg-stone-700 mx-auto mb-6 lg:mb-12" />
                 
-                <p className="text-lg text-stone-300 leading-relaxed max-w-2xl mx-auto">
-                  Masa transisi dari era kolonial menuju awal kemerdekaan. Pada periode ini pula, tragedi kebakaran menelan arsip-arsip awal pemerintahan Grogol. Namun sejarah tetap hidup melalui ingatan warga.
+                <p className="text-base lg:text-lg text-stone-300 leading-relaxed max-w-2xl mx-auto">
+                  {t('state3Text')}
                 </p>
               </div>
             </div>
@@ -122,98 +124,98 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
         {/* STATE 04: 1947 */}
         {currentState === 4 && (
           <SceneWrapper key="state-4">
-            <div className="w-full h-full flex items-center px-6 lg:px-32">
+            <div className="w-full h-full flex items-center pl-6 pr-16 lg:pl-32 lg:pr-[140px] pb-[25vh] lg:pb-0">
               <div className="max-w-xl">
-                <div className="font-display font-black text-6xl tracking-tighter text-brand-700 mb-4">1947 — 1965</div>
-                <h2 className="font-display font-black text-5xl lg:text-7xl uppercase text-stone-900 mb-6">Sastro Diwirjo</h2>
-                <p className="text-lg leading-relaxed text-stone-700">
-                  Memimpin Kalurahan Grogol melintasi masa-masa genting awal kemerdekaan hingga pertengahan tahun 60-an, menjaga stabilitas dan semangat kebersamaan masyarakat desa.
+                <div className="font-display font-black text-4xl lg:text-6xl tracking-tighter text-brand-700 mb-2 lg:mb-4">1947 — 1965</div>
+                <h2 className="font-display font-black text-4xl lg:text-7xl uppercase text-stone-900 mb-4 lg:mb-6">{t('state4Name')}</h2>
+                <p className="text-base lg:text-lg leading-relaxed text-stone-700">
+                  {t('state4Text')}
                 </p>
               </div>
             </div>
           </SceneWrapper>
         )}
 
-        {/* STATE 05: 1965 (Hadi Suwarno) */}
+        {/* STATE 05: 1965 ({t('state5Name')}) */}
         {currentState === 5 && (
           <SceneWrapper key="state-5">
-            <div className="w-full h-full flex flex-col lg:flex-row items-center justify-between px-6 lg:px-24 pt-24 pb-32">
+            <div className="w-full h-full flex flex-col lg:flex-row items-start lg:items-center justify-start lg:justify-between pl-6 pr-16 lg:pl-24 lg:pr-[140px] pt-12 lg:pt-24 pb-[25vh] lg:pb-32 overflow-hidden">
               <div className="flex-1 lg:pr-12 w-full">
                 <motion.div 
                   initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-                  className="font-display font-black text-[12vw] lg:text-[10rem] tracking-tighter leading-[0.8] text-brand-800 opacity-[0.15] mb-4"
+                  className="font-display font-black text-6xl lg:text-[10rem] tracking-tighter leading-[0.8] text-brand-800 opacity-[0.15] mb-2 lg:mb-4"
                 >
                   1965
                 </motion.div>
-                <h2 className="font-display font-black text-5xl lg:text-7xl uppercase text-stone-900 mb-4">Hadi Suwarno</h2>
-                <h3 className="font-display text-2xl font-bold tracking-widest text-brand-700 mb-6">31 TAHUN</h3>
-                <p className="text-lg leading-relaxed text-stone-700 max-w-md">
-                  Periode krusial dalam sejarah pembangunan fisik Grogol. Infrastruktur desa berkembang secara terpadu melalui semangat gotong royong.
+                <h2 className="font-display font-black text-4xl lg:text-7xl uppercase text-stone-900 mb-2 lg:mb-4">Hadi Suwarno</h2>
+                <h3 className="font-display text-xl lg:text-2xl font-bold tracking-widest text-brand-700 mb-4 lg:mb-6">{t('state5Role')}</h3>
+                <p className="text-base lg:text-lg leading-relaxed text-stone-700 max-w-md">
+                  {t('state5Text')}
                 </p>
               </div>
               
-              <div className="flex-1 w-full mt-12 lg:mt-0 space-y-12 pl-0 lg:pl-12 border-l-0 lg:border-l border-stone-300">
+              <div className="flex-1 w-full mt-4 lg:mt-0 space-y-4 lg:space-y-12 pl-0 lg:pl-12 border-l-0 lg:border-l border-stone-300">
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
                   className="relative"
                 >
-                  <h4 className="font-display font-bold uppercase tracking-widest text-sm text-stone-500 mb-6">Panca Marga (1983)</h4>
-                  <ul className="list-none space-y-4 text-stone-800 text-lg">
-                    <li className="flex gap-4 items-center">
-                      <div className="w-6 h-[1px] bg-stone-400" />
-                      <span>Jalan Lingkar Desa</span>
+                  <h4 className="font-display font-bold uppercase tracking-widest text-sm text-stone-500 mb-2 lg:mb-6">{t('pancaMarga')}</h4>
+                  <ul className="grid grid-cols-2 lg:grid-cols-1 gap-y-2 lg:gap-y-4 gap-x-2 text-stone-800 text-sm lg:text-lg">
+                    <li className="flex gap-2 lg:gap-4 items-center">
+                      <div className="w-3 lg:w-6 h-[1px] bg-stone-400 shrink-0" />
+                      <span className="leading-tight">{t('pm1')}</span>
                     </li>
-                    <li className="flex gap-4 items-center">
-                      <div className="w-6 h-[1px] bg-stone-400" />
-                      <span>Tugu Batas Wilayah</span>
+                    <li className="flex gap-2 lg:gap-4 items-center">
+                      <div className="w-3 lg:w-6 h-[1px] bg-stone-400 shrink-0" />
+                      <span className="leading-tight">{t('pm2')}</span>
                     </li>
-                    <li className="flex gap-4 items-center">
-                      <div className="w-6 h-[1px] bg-stone-400" />
-                      <span>Irigasi Bulak Lungguh</span>
+                    <li className="flex gap-2 lg:gap-4 items-center">
+                      <div className="w-3 lg:w-6 h-[1px] bg-stone-400 shrink-0" />
+                      <span className="leading-tight">{t('pm3')}</span>
                     </li>
-                    <li className="flex gap-4 items-center">
-                      <div className="w-6 h-[1px] bg-stone-400" />
-                      <span>Poskamling Terpadu</span>
+                    <li className="flex gap-2 lg:gap-4 items-center">
+                      <div className="w-3 lg:w-6 h-[1px] bg-stone-400 shrink-0" />
+                      <span className="leading-tight">{t('pm4')}</span>
                     </li>
-                    <li className="flex gap-4 items-center">
-                      <div className="w-6 h-[1px] bg-stone-400" />
-                      <span>Balai Kalurahan Baru</span>
+                    <li className="flex gap-2 lg:gap-4 items-center">
+                      <div className="w-3 lg:w-6 h-[1px] bg-stone-400 shrink-0" />
+                      <span className="leading-tight">{t('pm5')}</span>
                     </li>
                   </ul>
                 </motion.div>
                 
-                <div className="w-16 h-[1px] bg-brand-700" />
+                <div className="w-8 lg:w-16 h-[1px] bg-brand-700" />
 
                 <motion.div 
                   initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.8 }}
                   className="relative"
                 >
-                  <h4 className="font-display font-bold uppercase tracking-widest text-sm text-stone-500 mb-4">Masjid Ki Ageng Pemanahan</h4>
-                  <p className="text-stone-800 text-lg leading-relaxed">Dibangun megah sebagai salah satu ikon spiritual Grogol hingga hari ini.</p>
+                  <h4 className="font-display font-bold uppercase tracking-widest text-xs lg:text-sm text-stone-500 mb-1 lg:mb-4">{t('mosque')}</h4>
+                  <p className="text-stone-800 text-xs lg:text-lg leading-snug lg:leading-relaxed">{t('mosqueText')}</p>
                 </motion.div>
               </div>
             </div>
           </SceneWrapper>
         )}
 
-        {/* STATE 06: 1996 (Sugiyarto) */}
+        {/* STATE 06: 1996 ({t('state6Name')}) */}
         {currentState === 6 && (
           <SceneWrapper key="state-6">
-            <div className="w-full h-full flex flex-col justify-center px-6 lg:px-32">
-              <div className="max-w-3xl ml-auto text-right">
-                <div className="font-display font-black text-5xl lg:text-7xl tracking-tighter text-brand-700 mb-2">1996 — 2014</div>
-                <h2 className="font-display font-black text-6xl lg:text-8xl uppercase text-stone-900 mb-12">Sugiyarto</h2>
+            <div className="w-full h-full flex flex-col justify-start lg:justify-center pl-6 pr-16 lg:pl-32 lg:pr-[140px] pt-16 lg:pt-0 pb-[25vh] lg:pb-32">
+              <div className="max-w-3xl ml-0 lg:ml-auto text-left lg:text-right">
+                <div className="font-display font-black text-4xl lg:text-6xl tracking-tighter text-brand-700 mb-2">1996 — 2014</div>
+                <h2 className="font-display font-black text-4xl lg:text-7xl uppercase text-stone-900 mb-4 lg:mb-6">Sugiyarto</h2>
                 
-                <div className="flex justify-end gap-12 mb-8">
+                <p className="text-base lg:text-lg leading-relaxed text-stone-700 lg:pl-12 mb-6 lg:mb-8">
+                  {t('state6Text')}
+                </p>
+                
+                <div className="flex justify-start lg:justify-end gap-12 lg:pl-12 mt-4 lg:mt-8">
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
-                    <div className="font-display font-black text-6xl lg:text-7xl text-stone-900">6,25</div>
-                    <div className="font-bold tracking-widest text-stone-500 uppercase mt-2">KM Jalan Desa</div>
+                    <div className="font-display font-black text-4xl lg:text-6xl text-stone-900">{t('state6Metric')}</div>
+                    <div className="font-bold tracking-widest text-xs lg:text-sm text-stone-500 uppercase mt-2">{t('state6MetricLabel')}</div>
                   </motion.div>
                 </div>
-                
-                <p className="text-lg leading-relaxed text-stone-700 lg:pl-24">
-                  Peningkatan masif pada jalan lingkungan dan jalan usaha tani. Revitalisasi Pasar Karangmojo A, pembangunan embung tadah hujan, dan penguatan seni budaya menjadi ciri khas kepemimpinan ini.
-                </p>
               </div>
             </div>
           </SceneWrapper>
@@ -222,44 +224,44 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
         {/* STATE 07: 2014 Transition */}
         {currentState === 7 && (
           <SceneWrapper key="state-7">
-            <div className="w-full h-full flex items-center justify-center px-4">
-              <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 text-center">
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-2">
-                  <div className="text-stone-400 font-bold tracking-widest uppercase mb-4">2014</div>
-                  <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">Ngadiyono</h2>
-                  <p className="text-stone-500 italic">Pj. Lurah</p>
+            <div className="w-full h-full flex items-center justify-center px-4 pb-[25vh] lg:pb-0">
+              <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-24 text-center">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-1 lg:space-y-2">
+                  <div className="text-stone-400 font-bold tracking-widest uppercase mb-2 lg:mb-4 text-xs lg:text-base">2014</div>
+                  <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">{t('state7Name1')}</h2>
+                  <p className="text-stone-500 italic text-xs lg:text-base">{t('state7Role1')}</p>
                 </motion.div>
                 
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="hidden lg:block w-[1px] h-32 bg-stone-300" />
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="w-16 h-[1px] lg:w-[1px] lg:h-32 bg-stone-300" />
                 
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="space-y-2">
-                  <div className="text-stone-400 font-bold tracking-widest uppercase mb-4">2015 — 2018</div>
-                  <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">H. Suhari</h2>
-                  <p className="text-stone-500 italic">Pj. Lurah</p>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="space-y-1 lg:space-y-2">
+                  <div className="text-stone-400 font-bold tracking-widest uppercase mb-2 lg:mb-4 text-xs lg:text-base">2015 — 2018</div>
+                  <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">{t('state7Name2')}</h2>
+                  <p className="text-stone-500 italic text-xs lg:text-base">{t('state7Role1')}</p>
                 </motion.div>
 
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="hidden lg:block w-[1px] h-32 bg-stone-300" />
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="w-16 h-[1px] lg:w-[1px] lg:h-32 bg-stone-300" />
                 
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0 }} className="space-y-2">
-                  <div className="text-stone-400 font-bold tracking-widest uppercase mb-4">2018 — 2020</div>
-                  <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">Drs. Purnomo</h2>
-                  <p className="text-stone-500 italic">Pj. Lurah</p>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0 }} className="space-y-1 lg:space-y-2">
+                  <div className="text-stone-400 font-bold tracking-widest uppercase mb-2 lg:mb-4 text-xs lg:text-base">2018 — 2020</div>
+                  <h2 className="font-display font-black text-3xl lg:text-5xl text-stone-800">{t('state7Name3')}</h2>
+                  <p className="text-stone-500 italic text-xs lg:text-base">{t('state7Role3')}</p>
                 </motion.div>
               </div>
             </div>
           </SceneWrapper>
         )}
 
-        {/* STATE 08: 2021 (Latip Wahyudi) */}
+        {/* STATE 08: 2021 ({t('state8Name')}) */}
         {currentState === 8 && (
           <SceneWrapper key="state-8">
-            <div className="w-full h-full flex items-center px-6 lg:px-24 bg-stone-100">
+            <div className="w-full h-full flex items-center pl-6 pr-16 lg:pl-24 lg:pr-[140px] bg-stone-100 pb-[25vh] lg:pb-0">
               <div className="max-w-2xl">
-                <div className="font-display font-black text-6xl lg:text-8xl tracking-tighter text-brand-700 mb-4">2021</div>
-                <h2 className="font-display font-black text-5xl lg:text-7xl uppercase text-stone-900 mb-4">Latip Wahyudi</h2>
-                <h3 className="font-display text-xl font-bold uppercase tracking-widest text-stone-500 mb-8">Lurah Kedelapan</h3>
-                <p className="text-lg lg:text-xl leading-relaxed text-stone-700">
-                  Membawa visi modernisasi tanpa meninggalkan akar tradisi. Di era ini, Grogol bertransformasi menjadi desa wisata unggulan—Kaloka—yang dikenal luas karena inovasi, keindahan alam, dan kearifan lokalnya.
+                <div className="font-display font-black text-4xl lg:text-6xl tracking-tighter text-brand-700 mb-2 lg:mb-4">2021</div>
+                <h2 className="font-display font-black text-4xl lg:text-7xl uppercase text-stone-900 mb-2 lg:mb-4">Latip Wahyudi</h2>
+                <h3 className="font-display text-xl lg:text-2xl font-bold uppercase tracking-widest text-stone-500 mb-4 lg:mb-8">{t('state8Role')}</h3>
+                <p className="text-base lg:text-lg leading-relaxed text-stone-700">
+                  {t('state8Text')}
                 </p>
               </div>
             </div>
@@ -283,7 +285,7 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                   initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.5 }}
                   className="font-display font-black text-[20vw] lg:text-[15rem] tracking-tighter leading-none text-brand-500 mb-4"
                 >
-                  100+
+                  {t('outro100')}
                 </motion.div>
                 <motion.div 
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1 }}
@@ -295,13 +297,13 @@ export function HistoryScene({ currentState }: HistorySceneProps) {
                   initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5 }}
                   className="italic text-2xl lg:text-3xl text-stone-300 mb-8"
                 >
-                  “Sejarah Grogol bukan sesuatu yang telah selesai.”
+                  {t('outroQuote')}
                 </motion.p>
                 <motion.p 
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 2.5 }}
                   className="text-lg text-white/80 max-w-xl mx-auto"
                 >
-                  Dan ketika Anda datang ke Grogol hari ini, Anda sedang menginjak tanah yang menyimpan lebih dari satu abad cerita.
+                  {t('outroText')}
                 </motion.p>
               </div>
             </div>

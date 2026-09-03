@@ -2,18 +2,18 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ArrowDown, Download, Sparkles, Users, Leaf } from 'lucide-react';
+import { ArrowRight, ArrowDown, Sparkles, Users, Leaf } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 import { Badge } from '@/components/ui/Misc';
-import { useEvents, useProfil } from '@/hooks/usePublicData';
-import { formatDateShort } from '@/lib/utils';
+import { useProfil } from '@/hooks/usePublicData';
+
 import { useTranslations } from 'next-intl';
 
 const img = (s: string, w = 800, h = 600) => `https://picsum.photos/seed/${s}/${w}/${h}`;
 
 export default function BudayaPage() {
   const t = useTranslations('Budaya');
-  const { data: events } = useEvents({ limit: 3 });
+
   const { data: profil } = useProfil();
 
   const triHita = [
@@ -136,42 +136,7 @@ export default function BudayaPage() {
         </Reveal>
       </section>
 
-      {/* Festival Calendar */}
-      <section className="section container-wide">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="text-2xl font-bold text-ink sm:text-3xl">{t('calendarTitle')}</h2>
-            </div>
-            <button className="btn-outline">
-              {t('calendarDownload')} <Download className="h-4 w-4" />
-            </button>
-          </div>
-        </Reveal>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {events.slice(0, 3).map((ev, i) => {
-            const { day, month } = formatDateShort(ev.startDate);
-            const highlight = i === 1;
-            return (
-              <Reveal key={ev.id} delay={i * 0.08}>
-                <div className={`h-full rounded-3xl p-7 ${highlight ? 'bg-brand-gradient text-white shadow-soft' : 'card'}`}>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-extrabold">{day}</span>
-                    <span className={`text-sm font-semibold ${highlight ? 'text-white/80' : 'text-brand-600'}`}>{month}</span>
-                  </div>
-                  <h3 className={`mt-4 text-lg font-bold ${highlight ? 'text-white' : 'text-ink'}`}>{ev.title}</h3>
-                  <p className={`mt-2 text-sm ${highlight ? 'text-white/80' : 'text-ink-muted'}`}>{ev.description}</p>
-                  {highlight ? (
-                    <Link href="/kontak" className="mt-5 inline-block rounded-full bg-white px-5 py-2 text-sm font-semibold text-brand-700">{t('buyTicket')}</Link>
-                  ) : (
-                    <button className="mt-5 rounded-full border border-black/10 px-5 py-2 text-sm font-semibold text-ink-soft hover:bg-black/5">{t('learnMore')}</button>
-                  )}
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      </section>
+
     </>
   );
 }

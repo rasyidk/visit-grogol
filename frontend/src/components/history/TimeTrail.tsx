@@ -15,7 +15,7 @@ export function TimeTrail({ currentState }: TimeTrailProps) {
   const progress = currentState / 9;
 
   return (
-    <div className="absolute bottom-0 left-0 w-full h-[40vh] pointer-events-none z-30">
+    <div className="absolute bottom-0 left-0 w-full h-[25vh] lg:h-[20vh] pointer-events-none z-30 opacity-70">
       <svg 
         className="w-full h-full" 
         preserveAspectRatio="none"

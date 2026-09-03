@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 import { AccommodationCard } from '@/components/public/AccommodationCard';
-import { Newsletter } from '@/components/public/Newsletter';
+
 import { useDestinasi } from '@/hooks/usePublicData';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
@@ -54,7 +54,7 @@ export default function PenginapanPage() {
         </Reveal>
       </section>
 
-      <section className="container-wide mt-12">
+      <section className="container-wide mt-12 pb-16 sm:pb-24">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {lodging.map((item, i) => (
             <Reveal key={item.id} delay={i * 0.08} className="h-full">
@@ -64,16 +64,7 @@ export default function PenginapanPage() {
         </div>
       </section>
 
-      <section className="section container-wide">
-        <Reveal>
-          <Newsletter
-            variant="green"
-            title={t('newsletterTitle')}
-            description={t('newsletterDesc')}
-            cta={t('newsletterCta')}
-          />
-        </Reveal>
-      </section>
+
     </>
   );
 }
