@@ -5,6 +5,7 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-    # Force all requests to the public/ folder
-    RewriteRule ^(.*)$ public/$1 [L]
+    # Force all requests to the be-laravel/public/ folder
+    RewriteCond %{REQUEST_URI} !^/be-laravel/public/
+    RewriteRule ^(.*)$ be-laravel/public/$1 [L,QSA]
 </IfModule>
