@@ -473,3 +473,28 @@ export const kulinerConfig: ResourceConfig = {
     { name: 'is_active', label: 'Status Publikasi (Aktif)', type: 'switch', defaultValue: true, colSpan: 2 },
   ],
 };
+
+export const umkmConfig: ResourceConfig = {
+  key: 'umkm',
+  endpoint: '/umkm',
+  label: 'UMKM',
+  labelSingular: 'UMKM',
+  description: 'Kelola data Usaha Mikro, Kecil, dan Menengah (UMKM) Grogol.',
+  searchable: true,
+  defaultSort: { sortBy: 'created_at', sortOrder: 'desc' },
+  columns: [
+    { key: 'thumbnail', label: 'Gambar', type: 'image' },
+    { key: 'title', label: 'Nama UMKM' },
+    { key: 'is_active', label: 'Status', type: 'boolean', booleanLabels: ['Aktif', 'Draft'] },
+  ],
+  fields: [
+    { name: 'title', label: 'Nama UMKM', type: 'text', required: true, colSpan: 2 },
+    { name: 'title_en', label: 'Nama UMKM (EN)', type: 'text', colSpan: 2 },
+    { name: 'content', label: 'Deskripsi Usaha (ID)', type: 'richtext', colSpan: 2 },
+    { name: 'content_en', label: 'Deskripsi Usaha (EN)', type: 'richtext', colSpan: 2 },
+    { name: 'thumbnail', label: 'Thumbnail Utama', type: 'image', colSpan: 2 },
+    { name: 'is_gallery_active', label: 'Tampilkan Slider Galeri di Halaman Detail', type: 'switch', defaultValue: true, colSpan: 2 },
+    { name: 'images', label: 'Galeri Tambahan', type: 'gallery', colSpan: 2 },
+    { name: 'is_active', label: 'Status Publikasi (Aktif)', type: 'switch', defaultValue: true, colSpan: 2 },
+  ],
+};

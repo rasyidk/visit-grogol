@@ -7,6 +7,7 @@ import type {
   Wisata,
   Budaya,
   Kuliner,
+  Umkm,
   Destinasi,
   Kategori,
   Berita,
@@ -83,6 +84,17 @@ export function useKulinerDetail(slug: string) {
   const query = useQuery({ queryKey: ['kuliner', slug, locale], queryFn: () => fetchOne<Kuliner>(`/kuliner/${slug}`) });
   const rawData = query.data;
   const data = rawData ? mapLocaleData(rawData, locale) as Kuliner : undefined;
+  return { ...query, data };
+}
+
+export const useUmkm = (params: Record<string, unknown> = {}) =>
+  usePublic<Umkm>(['umkm', JSON.stringify(params)], '/umkm', { limit: 12, is_active: true, ...params }, []);
+
+export function useUmkmDetail(slug: string) {
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['umkm', slug, locale], queryFn: () => fetchOne<Umkm>(`/umkm/${slug}`) });
+  const rawData = query.data;
+  const data = rawData ? mapLocaleData(rawData, locale) as Umkm : undefined;
   return { ...query, data };
 }
 

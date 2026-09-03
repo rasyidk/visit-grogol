@@ -276,3 +276,23 @@ export interface Kuliner {
   isActive?: boolean;
   isGalleryActive?: boolean;
 }
+
+export interface Umkm {
+  id: number;
+  slug: string;
+  title: string;
+  title_en: string | null;
+  content: string | null;
+  content_en: string | null;
+  thumbnail: string | null;
+  images: string[] | null;
+  is_active: boolean;
+  is_gallery_active: boolean;
+  created_at: string;
+  updated_at: string;
+
+  titleEn?: string;
+  contentEn?: string;
+  isActive?: boolean;
+  isGalleryActive?: boolean;
+}

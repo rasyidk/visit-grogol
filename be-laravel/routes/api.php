@@ -12,10 +12,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BudayaController;
 use App\Http\Controllers\WisataController;
 use App\Http\Controllers\KulinerController;
+use App\Http\Controllers\UmkmController;
 
 Route::apiResource('wisata', WisataController::class)->only(['index', 'show']);
 Route::apiResource('budaya', BudayaController::class)->only(['index', 'show']);
 Route::apiResource('kuliner', KulinerController::class)->only(['index', 'show']);
+Route::apiResource('umkm', UmkmController::class)->only(['index', 'show']);
 
 use App\Http\Controllers\UploadController;
 
@@ -31,4 +33,5 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('wisata', WisataController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('budaya', BudayaController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('kuliner', KulinerController::class)->only(['store', 'update', 'destroy']);
+    Route::apiResource('umkm', UmkmController::class)->only(['store', 'update', 'destroy']);
 });
