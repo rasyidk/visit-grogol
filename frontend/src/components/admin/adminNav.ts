@@ -43,7 +43,6 @@ export const ADMIN_NAV: AdminNavSection[] = [
   {
     title: 'Manajemen Konten',
     items: [
-      { label: 'Profil Desa', href: '/dashboard/profil', icon: Building2 },
       { label: 'Berita', href: '/dashboard/berita', icon: Newspaper },
       { label: 'Atraksi Wisata', href: '/dashboard/wisata', icon: Palmtree },
       { label: 'Seni Budaya', href: '/dashboard/budaya', icon: Sparkles },
