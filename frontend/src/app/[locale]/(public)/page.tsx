@@ -6,7 +6,6 @@ import { ArrowRight, Quote } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 import { CultureCorridor } from '@/components/home/CultureCorridor';
 import { EditorialHero } from '@/components/home/EditorialHero';
-import { ManagersSection } from '@/components/home/ManagersSection';
 import { TestimonialShowcase } from '@/components/home/TestimonialShowcase';
 import { GsapMagnetic } from '@/components/ui/GsapMagnetic';
 import { useProfil, useTestimoni } from '@/hooks/usePublicData';
@@ -23,12 +22,6 @@ export default function ProfilPage() {
   const isEn = locale === 'en';
   const getHref = (path: string) => (locale === 'id' ? path : `/${locale}${path}`);
 
-  const team = [
-    { name: 'Bp. Dharmawan', role: isEn ? 'Village Head' : 'Kepala Desa', seed: 'team-dharmawan-0' },
-    { name: 'Ibu Sari', role: isEn ? 'BUMDes Director' : 'Direktur BUMDes', seed: 'team-sari-1' },
-    { name: 'Bli Putu', role: isEn ? 'Head of Culture' : 'Ketua Adat & Budaya', seed: 'team-putu-2' },
-    { name: 'Rian Wijaya', role: isEn ? 'Environment Coordinator' : 'Koordinator Lingkungan', seed: 'team-rian-3' },
-  ];
 
   return (
     <>
@@ -39,7 +32,7 @@ export default function ProfilPage() {
         <div className="container-wide relative z-10 flex min-h-screen flex-col items-center justify-center pt-16 pb-28 text-center text-white">
           <Reveal>
             <div className="max-w-4xl mx-auto flex flex-col items-center">
-              <h1 className="max-w-3xl text-5xl font-display font-black leading-[1.1] sm:text-6xl lg:text-7xl tracking-tight text-white">
+              <h1 className="max-w-3xl text-5xl font-display font-bold leading-[1.1] sm:text-6xl lg:text-7xl tracking-tight text-white">
                 {tHero('title')}
               </h1>
               <p className="mt-6 max-w-2xl text-lg sm:text-xl text-white/85 font-normal leading-relaxed">
@@ -48,7 +41,7 @@ export default function ProfilPage() {
               <div className="mt-9 flex justify-center">
                 <GsapMagnetic strength={0.4}>
                   <Link
-                    href={getHref('/atraksi')}
+                    href={getHref('/wisata')}
                     className="btn-primary inline-flex items-center gap-2.5 px-8 py-3.5 text-sm sm:text-base font-bold shadow-soft hover:shadow-xl transition-all duration-200 active:scale-95"
                   >
                     <span>{isEn ? 'Explore Destinations' : 'Jelajahi Wisata'}</span>
@@ -67,8 +60,6 @@ export default function ProfilPage() {
       {/* Lorong Budaya (Animated Scroll Perspective Corridor) */}
       <CultureCorridor />
 
-      {/* Team / Managers with GSAP Physics */}
-      <ManagersSection isEn={isEn} team={team} />
 
       {/* Testimoni & Guestbook */}
       <TestimonialShowcase isEn={isEn} items={testimoni} />
