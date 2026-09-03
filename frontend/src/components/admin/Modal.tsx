@@ -32,14 +32,14 @@ export function Modal({
       {open && (
         <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:p-8">
           <motion.div
-            className="fixed inset-0 bg-brand-950/40 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
           <motion.div
-            className={`relative z-10 my-auto w-full ${maxW} rounded-3xl bg-white shadow-glass`}
+            className={`relative z-10 my-auto w-full ${maxW} rounded-3xl bg-white shadow-2xl`}
             initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 12 }}
@@ -47,7 +47,7 @@ export function Modal({
           >
             <div className="flex items-center justify-between border-b border-black/5 px-6 py-4">
               <h3 className="text-lg font-bold text-ink">{title}</h3>
-              <button onClick={onClose} className="rounded-lg p-1.5 text-ink-muted hover:bg-black/5" aria-label="Tutup">
+              <button onClick={onClose} className="rounded-lg p-1.5 text-ink-muted hover:bg-black/5 hover:text-ink transition-colors" aria-label="Tutup">
                 <X className="h-5 w-5" />
               </button>
             </div>

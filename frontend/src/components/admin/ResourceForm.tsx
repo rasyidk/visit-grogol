@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { useForm, Controller, type DefaultValues } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/Button';
+import { toast } from 'sonner';
 import { MediaUpload } from './MediaUpload';
 import { fetchList } from '@/lib/api';
 import type { FieldConfig, ResourceConfig, SelectOption } from './resourceTypes';
@@ -78,7 +79,7 @@ function DynamicSelect({
   return (
     <select
       id={field.name}
-      className="field-input"
+      className="field-input appearance-none"
       value={value === undefined || value === null ? '' : String(value)}
       onChange={(e) => onChange(field.type === 'select' && !Number.isNaN(Number(e.target.value)) && e.target.value !== '' ? Number(e.target.value) : e.target.value)}
     >
@@ -102,7 +103,7 @@ export function ResourceForm({
   config: ResourceConfig;
   record?: Values;
   submitting?: boolean;
-  onSubmit: (values: Values) => void;
+  onSubmit: (values: Values) => Promise<void> | void;
   onCancel: () => void;
 }) {
   const defaults = useMemo(() => buildDefaults(config.fields, record), [config.fields, record]);
@@ -110,10 +111,24 @@ export function ResourceForm({
     register,
     control,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<Values>({ defaultValues: defaults as DefaultValues<Values> });
 
-  const submit = (values: Values) => onSubmit(normalise(config.fields, values));
+  const submit = async (values: Values) => {
+    try {
+      await onSubmit(normalise(config.fields, values));
+    } catch (err: any) {
+      if (err.response?.status === 422 && err.response.data?.errors) {
+        const serverErrors = err.response.data.errors;
+        Object.keys(serverErrors).forEach((key) => {
+          setError(key, { type: 'server', message: serverErrors[key][0] });
+        });
+      } else {
+        toast.error('Terjadi kesalahan saat menyimpan data.');
+      }
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(submit)} className="space-y-5">
@@ -173,12 +188,12 @@ export function ResourceForm({
                         render={({ field: f }) => {
                           const valueArr = Array.isArray(f.value) ? f.value : [];
                           return (
-                            <div className="flex flex-wrap gap-2 mt-1">
+                            <div className="flex flex-wrap gap-2 mt-2">
                               {field.options?.map((opt) => (
-                                <label key={opt.value} className="flex items-center gap-2 text-sm text-ink-soft cursor-pointer bg-black/5 px-3 py-1.5 rounded-full hover:bg-black/10 transition">
+                                <label key={opt.value} className="flex items-center gap-2 text-sm text-gray-300 cursor-pointer bg-gray-800/50 border border-gray-700 px-3 py-1.5 rounded-full hover:bg-gray-700 transition-colors">
                                   <input
                                     type="checkbox"
-                                    className="rounded border-black/20 text-brand-600 focus:ring-brand-600 cursor-pointer h-4 w-4"
+                                    className="rounded border-gray-600 bg-gray-900 text-neon-teal focus:ring-neon-teal focus:ring-offset-gray-900 cursor-pointer h-4 w-4"
                                     checked={valueArr.includes(opt.value as never)}
                                     onChange={(e) => {
                                       if (e.target.checked) {

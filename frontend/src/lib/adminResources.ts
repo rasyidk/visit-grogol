@@ -345,7 +345,6 @@ export const penggunaConfig: ResourceConfig = {
   endpoint: '/admin-users',
   label: 'Pengguna Admin',
   labelSingular: 'Pengguna',
-  description: 'Kelola akun admin (khusus Superadmin).',
   searchable: true,
   filters: [
     {
@@ -366,7 +365,7 @@ export const penggunaConfig: ResourceConfig = {
     { key: 'name', label: 'Nama' },
     { key: 'email', label: 'Email' },
     { key: 'role', label: 'Role', type: 'badge' },
-    { key: 'isActive', label: 'Status', type: 'boolean' },
+    { key: 'isActive', label: 'Status', type: 'boolean', booleanLabels: ['AKTIF', 'TIDAK AKTIF'] },
   ],
   fields: [
     { name: 'name', label: 'Nama', type: 'text', required: true, colSpan: 1 },

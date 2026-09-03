@@ -7,8 +7,15 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+use App\Http\Controllers\AdminUserController;
+
+use App\Http\Controllers\DashboardController;
+
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user', [AuthController::class, 'me']);
+    
+    Route::get('/stats', [DashboardController::class, 'stats']);
+    Route::apiResource('admin-users', AdminUserController::class);
 });

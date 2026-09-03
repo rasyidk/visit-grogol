@@ -1,7 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import type { ApiEnvelope, PaginationMeta } from './types';
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const envUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+export const API_URL = envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
 
 export const tokenStore = {
   get: () => (typeof window !== 'undefined' ? localStorage.getItem('access_token') : null),
@@ -63,7 +64,7 @@ api.interceptors.response.use(
 
       try {
         // Attempt to refresh
-        const res = await axios.post<{ access_token: string }>(`${API_URL}/api/refresh`, {}, {
+        const res = await axios.post<{ access_token: string }>(`${API_URL}/refresh`, {}, {
           headers: {
             'Authorization': `Bearer ${tokenStore.get()}`,
             'Accept': 'application/json'
@@ -83,8 +84,8 @@ api.interceptors.response.use(
         
         if (typeof window !== 'undefined') {
           const path = window.location.pathname;
-          if (path.startsWith('/admin') && !path.includes('/login')) {
-            window.location.href = '/admin/login';
+          if (path.startsWith('/dashboard') && !path.includes('/login')) {
+            window.location.href = '/dashboard/login';
           }
         }
         return Promise.reject(refreshError);

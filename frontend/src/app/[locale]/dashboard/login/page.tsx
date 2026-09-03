@@ -24,13 +24,13 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<Values>({ resolver: zodResolver(schema), defaultValues: { email: 'admin@visitgrogol.id', password: '' } });
+  } = useForm<Values>({ resolver: zodResolver(schema), defaultValues: { email: '', password: '' } });
 
   const onSubmit = async (values: Values) => {
     try {
       await login(values.email, values.password);
       toast.success('Selamat datang kembali!');
-      router.push('/admin');
+      router.push('/dashboard');
     } catch (err) {
       toast.error(getApiErrorMessage(err, 'Login gagal'));
     }
@@ -43,10 +43,10 @@ export default function LoginPage() {
 
       <div className="glass-strong relative w-full max-w-md rounded-4xl p-8 sm:p-10">
         <div className="mb-8 text-center">
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-soft">
-            <Leaf className="h-7 w-7" />
+          <span className="mx-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-full shadow-soft bg-white">
+            <img src="/logo.png" alt="Visit Grogol Kaloka" className="h-full w-full object-cover" />
           </span>
-          <h1 className="mt-4 text-2xl font-bold text-ink">Admin Visit Grogol Kaloka</h1>
+          <h1 className="mt-4 text-2xl font-bold text-ink">CMS Visit Grogol Kaloka</h1>
           <p className="mt-1 text-sm text-ink-muted">Masuk untuk mengelola konten website</p>
         </div>
 
@@ -55,7 +55,7 @@ export default function LoginPage() {
             <label className="field-label">Email</label>
             <div className="relative">
               <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted" />
-              <input className="field-input pl-10" placeholder="admin@visitgrogol.id" {...register('email')} />
+              <input className="field-input pl-10" {...register('email')} />
             </div>
             {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>}
           </div>
@@ -67,13 +67,12 @@ export default function LoginPage() {
               <input
                 type={show ? 'text' : 'password'}
                 className="field-input pl-10 pr-10"
-                placeholder="••••••••"
                 {...register('password')}
               />
               <button
                 type="button"
-                onClick={() => setShow((v) => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink"
+                onClick={() => setShow(!show)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink cursor-pointer z-10"
                 aria-label="Toggle password"
               >
                 {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -86,10 +85,6 @@ export default function LoginPage() {
             {isSubmitting ? 'Memproses…' : 'Masuk'}
           </button>
         </form>
-
-        <p className="mt-6 rounded-xl bg-brand-50 p-3 text-center text-xs text-brand-700">
-          Demo: admin@visitgrogol.id / Admin@12345
-        </p>
       </div>
     </div>
   );

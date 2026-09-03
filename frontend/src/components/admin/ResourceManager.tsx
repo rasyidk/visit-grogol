@@ -16,8 +16,8 @@ import type { ColumnConfig, ResourceConfig } from './resourceTypes';
 type Row = Record<string, unknown> & { id: number };
 
 function Cell({ col, row }: { col: ColumnConfig; row: Row }) {
-  const value = row[col.key];
   if (col.render) return <>{col.render(row)}</>;
+  const value = row[col.key];
   switch (col.type) {
     case 'image':
       return value ? (
@@ -242,7 +242,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
           </table>
         </div>
         {meta && (
-          <Pagination page={meta.page} totalPages={meta.totalPages} total={meta.total} onPage={setPage} />
+          <Pagination page={meta.page} totalPages={meta.totalPages} total={meta.total} onPageChange={setPage} />
         )}
       </div>
 

@@ -27,9 +27,11 @@ class AuthController extends Controller
     public function me()
     {
         $user = auth('api')->user();
+        if ($user) {
+            $user->role = $user->getRoleNames()->first();
+        }
         return response()->json([
-            'user' => $user,
-            'roles' => $user ? $user->getRoleNames() : [],
+            'data' => $user
         ]);
     }
 

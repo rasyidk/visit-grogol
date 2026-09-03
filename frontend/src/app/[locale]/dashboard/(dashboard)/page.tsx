@@ -14,6 +14,7 @@ import {
   Users,
   TrendingUp,
   ArrowRight,
+  ChevronRight,
 } from 'lucide-react';
 import { fetchOne } from '@/lib/api';
 import { PageHeader } from '@/components/admin/ui';
@@ -72,8 +73,8 @@ export default function DashboardPage() {
             <div className="rounded-2xl bg-white p-6 shadow-card lg:col-span-2">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="font-bold text-ink">Destinasi Terpopuler</h2>
-                <Link href="/admin/destinasi" className="flex items-center gap-1 text-sm text-brand-700 hover:underline">
-                  Kelola <ArrowRight className="h-4 w-4" />
+                <Link href="/dashboard/destinasi" className="flex items-center gap-1 text-sm text-brand-700 hover:underline">
+                  Kelola Destinasi <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>
               <ul className="divide-y divide-black/5">
@@ -97,8 +98,8 @@ export default function DashboardPage() {
             <div className="rounded-2xl bg-white p-6 shadow-card">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="font-bold text-ink">Reservasi Terbaru</h2>
-                <Link href="/admin/reservasi" className="text-sm text-brand-700 hover:underline">
-                  Lihat
+                <Link href="/dashboard/reservasi" className="text-sm text-brand-700 hover:underline">
+                  Lihat Semua
                 </Link>
               </div>
               <ul className="space-y-3">

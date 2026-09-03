@@ -38,6 +38,17 @@ const config: Config = {
         },
         cream: '#f5f6f4',
         sand: '#eceee9',
+        midnight: {
+          900: '#0B111A', // deep space
+          800: '#151D29', // card bg
+          700: '#1F2937', // border
+          DEFAULT: '#0B111A',
+        },
+        neon: {
+          DEFAULT: '#00F0FF',
+          green: '#39FF14',
+          teal: '#00E5FF'
+        }
       },
       fontFamily: {
         sans: ['var(--font-body)', 'system-ui', 'sans-serif'],
@@ -52,10 +63,14 @@ const config: Config = {
         card: '0 4px 24px -8px rgba(20, 25, 21, 0.12)',
         glass: '0 8px 32px 0 rgba(15, 63, 35, 0.15)',
         'inner-glow': 'inset 0 1px 0 0 rgba(255,255,255,0.4)',
+        'neon-glow': '0 0 15px rgba(0, 229, 255, 0.5)',
+        'midnight-glass': '0 8px 32px 0 rgba(0, 0, 0, 0.4)',
       },
       backgroundImage: {
         'brand-gradient': 'linear-gradient(135deg, #1b7a3e 0%, #134f2a 100%)',
         'hero-fade': 'linear-gradient(180deg, rgba(6,36,19,0) 0%, rgba(6,36,19,0.65) 100%)',
+        'midnight-gradient': 'linear-gradient(135deg, rgba(21,29,41,0.8) 0%, rgba(11,17,26,0.95) 100%)',
+        'glass-gradient': 'linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)',
       },
       keyframes: {
         'fade-up': {

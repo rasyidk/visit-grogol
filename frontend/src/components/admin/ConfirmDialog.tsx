@@ -30,7 +30,7 @@ export function ConfirmDialog({
         <p className="pt-1 text-sm leading-relaxed text-ink-soft">{message}</p>
       </div>
       <div className="mt-6 flex justify-end gap-3">
-        <Button variant="ghost" onClick={onClose} type="button">
+        <Button variant="ghost" onClick={onClose} type="button" className="text-ink-soft hover:bg-black/5 hover:text-ink">
           Batal
         </Button>
         <Button

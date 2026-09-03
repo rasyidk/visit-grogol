@@ -14,12 +14,24 @@ use Spatie\Permission\Traits\HasRoles;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'is_active'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+    protected $appends = ['role', 'isActive'];
+
+    public function getRoleAttribute()
+    {
+        return $this->getRoleNames()->first();
+    }
+
+    public function getIsActiveAttribute()
+    {
+        return (bool) ($this->attributes['is_active'] ?? true);
+    }
 
     /**
      * Get the attributes that should be cast.
