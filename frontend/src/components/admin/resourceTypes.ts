@@ -11,7 +11,8 @@ export type FieldType =
   | 'video'
   | 'tags'
   | 'checkbox_group'
-  | 'richtext';
+  | 'richtext'
+  | 'gallery';
 
 export interface SelectOption {
   label: string;

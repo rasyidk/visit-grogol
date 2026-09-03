@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl';
 import { fetchList, fetchOne } from '@/lib/api';
 import type {
   Wisata,
+  Budaya,
   Destinasi,
   Kategori,
   Berita,
@@ -59,6 +60,17 @@ export function useWisataDetail(slug: string) {
   const query = useQuery({ queryKey: ['wisata', slug, locale], queryFn: () => fetchOne<Wisata>(`/wisata/${slug}`) });
   const rawData = query.data;
   const data = rawData ? mapLocaleData(rawData, locale) as Wisata : undefined;
+  return { ...query, data };
+}
+
+export const useBudaya = (params: Record<string, unknown> = {}) =>
+  usePublic<Budaya>(['budaya', JSON.stringify(params)], '/budaya', { limit: 12, is_active: true, ...params }, []);
+
+export function useBudayaDetail(slug: string) {
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['budaya', slug, locale], queryFn: () => fetchOne<Budaya>(`/budaya/${slug}`) });
+  const rawData = query.data;
+  const data = rawData ? mapLocaleData(rawData, locale) as Budaya : undefined;
   return { ...query, data };
 }
 

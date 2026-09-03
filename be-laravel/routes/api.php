@@ -9,9 +9,11 @@ Route::post('/login', [AuthController::class, 'login']);
 
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BudayaController;
 use App\Http\Controllers\WisataController;
 
 Route::apiResource('wisata', WisataController::class)->only(['index', 'show']);
+Route::apiResource('budaya', BudayaController::class)->only(['index', 'show']);
 
 use App\Http\Controllers\UploadController;
 
@@ -25,4 +27,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/stats', [DashboardController::class, 'stats']);
     Route::apiResource('admin-users', AdminUserController::class);
     Route::apiResource('wisata', WisataController::class)->only(['store', 'update', 'destroy']);
+    Route::apiResource('budaya', BudayaController::class)->only(['store', 'update', 'destroy']);
 });

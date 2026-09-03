@@ -1,6 +1,5 @@
 import {
   LayoutDashboard,
-  MapPin,
   Tags,
   GalleryHorizontal,
   Newspaper,
@@ -13,6 +12,8 @@ import {
   Building2,
   Phone,
   Users,
+  Map,
+  Flower2,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -35,9 +36,14 @@ export const ADMIN_NAV: AdminNavSection[] = [
     items: [{ label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard }],
   },
   {
-    title: 'Konten',
+    title: 'Manajemen Konten',
     items: [
-      { label: 'Manajemen Wisata', href: '/dashboard/wisata', icon: MapPin },
+      { label: 'Profil Desa', href: '/dashboard/profil', icon: Building2 },
+      { label: 'Berita', href: '/dashboard/berita', icon: Newspaper },
+      { label: 'Wisata', href: '/dashboard/wisata', icon: Map },
+      { label: 'Budaya', href: '/dashboard/budaya', icon: Flower2 },
+      { label: 'Event', href: '/dashboard/event', icon: CalendarDays },
+      { label: 'Testimoni', href: '/dashboard/testimoni', icon: MessageSquareQuote },
     ],
   },
   {
