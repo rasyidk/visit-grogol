@@ -44,7 +44,7 @@ export default function UmkmPage() {
                 return (
                   <Reveal key={umkm.id} delay={i * 0.1} className="h-full flex">
                     <Link href={`/umkm/${umkm.slug}`} className="group flex flex-col w-full overflow-hidden bg-sand/30 rounded-3xl shadow-sm hover:shadow-card transition-all duration-300 transform hover:-translate-y-1">
-                      <div className="relative w-full overflow-hidden aspect-[4/5] shrink-0">
+                      <div className="relative w-full overflow-hidden aspect-[4/3] shrink-0">
                         <Image 
                           src={umkm.thumbnail || ''} 
                           alt={displayTitle} 
