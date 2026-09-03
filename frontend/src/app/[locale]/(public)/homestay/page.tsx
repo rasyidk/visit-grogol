@@ -57,10 +57,21 @@ export default function HomestayPage() {
                         )}
                       </div>
                       <div className="p-6 flex flex-col flex-1">
-                        <h3 className="text-2xl font-bold text-ink group-hover:text-brand-600 transition-colors mb-2">{displayTitle}</h3>
-                        <div className="flex items-center text-ink-muted text-sm mt-auto pt-4 border-t border-black/5">
-                          <Bed className="w-4 h-4 mr-2" />
-                          <span>{isEn ? "View details" : "Lihat fasilitas"}</span>
+                        <h3 className="text-2xl font-bold text-ink group-hover:text-brand-600 transition-colors mb-3">{displayTitle}</h3>
+                        
+                        {/* Fasilitas singkat */}
+                        <p className="text-sm text-ink-soft leading-relaxed line-clamp-2 mb-4">
+                          {homestay.facilities}
+                        </p>
+
+                        <div className="flex items-center justify-between text-brand-600 text-sm mt-auto pt-4 border-t border-black/5 font-medium">
+                          <span className="flex items-center">
+                            <Bed className="w-4 h-4 mr-2" />
+                            {isEn ? "View details" : "Lihat selengkapnya"}
+                          </span>
+                          <span className="opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 duration-300">
+                            &rarr;
+                          </span>
                         </div>
                       </div>
                     </Link>
