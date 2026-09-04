@@ -11,23 +11,23 @@ const img = (s: string, w = 600, h = 420) => `https://picsum.photos/seed/${s}/${
 
 // Ring 1 (Outer ring - responsive positioning for both mobile and desktop)
 const RING_OUTER = [
-  { id: '1', title: 'Tari Reog', seed: 'budaya-reog-cor', x: -28, y: -24, xM: -32, yM: -26, rot: -6, aspect: 'w-28 sm:w-40 md:w-52 aspect-[16/10]' },
-  { id: '2', title: 'Kirab Budaya', seed: 'budaya-kirab-cor', x: -9, y: -28, xM: -10, yM: -32, rot: 4, aspect: 'w-26 sm:w-36 md:w-48 aspect-[16/11]' },
-  { id: '3', title: 'Sorak Warga', seed: 'budaya-warga-cor', x: 9, y: -28, xM: 10, yM: -32, rot: -3, aspect: 'w-26 sm:w-36 md:w-48 aspect-[16/10]' },
-  { id: '4', title: 'Pentas Seni', seed: 'budaya-pentas-cor', x: 28, y: -22, xM: 32, yM: -24, rot: 6, aspect: 'w-28 sm:w-40 md:w-52 aspect-[16/11]' },
-  { id: '5', title: 'Pendopo Adat', seed: 'budaya-pendopo-cor', x: -32, y: 1, xM: -35, yM: 0, rot: -4, aspect: 'w-28 sm:w-40 md:w-52 aspect-[16/10]' },
-  { id: '6', title: 'Sesepuh Desa', seed: 'budaya-sesepuh-cor', x: 32, y: 1, xM: 35, yM: 0, rot: 5, aspect: 'w-28 sm:w-40 md:w-52 aspect-[16/10]' },
-  { id: '7', title: 'Gejlog Lesung', seed: 'budaya-gejlog-cor', x: -24, y: 24, xM: -30, yM: 26, rot: 5, aspect: 'w-28 sm:w-40 md:w-50 aspect-[16/10]' },
-  { id: '8', title: 'Prajurit Bregada', seed: 'budaya-bregada-cor', x: 0, y: 28, xM: 0, yM: 32, rot: -2, aspect: 'w-30 sm:w-44 md:w-56 aspect-[16/10]' },
-  { id: '9', title: 'Upacara Rasulan', seed: 'budaya-rasulan-cor', x: 24, y: 24, xM: 30, yM: 26, rot: -5, aspect: 'w-28 sm:w-40 md:w-50 aspect-[16/10]' },
+  { id: '1', title: 'Rasulan', src: '/Rasulan.jpg', x: -28, y: -24, xM: -32, yM: -26, rot: -6, aspect: 'w-28 sm:w-40 md:w-52 aspect-[16/10]' },
+  { id: '2', title: 'Gejlog Lesung', src: '/Gejlog Lesung.jpg', x: -9, y: -28, xM: -10, yM: -32, rot: 4, aspect: 'w-26 sm:w-36 md:w-48 aspect-[16/11]' },
+  { id: '3', title: 'Dakon', src: '/Dakon.jpg', x: 9, y: -28, xM: 10, yM: -32, rot: -3, aspect: 'w-26 sm:w-36 md:w-48 aspect-[16/10]' },
+  { id: '4', title: 'Reog', src: '/Reog anak.jpg', x: 28, y: -22, xM: 32, yM: -24, rot: 6, aspect: 'w-28 sm:w-40 md:w-52 aspect-[16/11]' },
+  { id: '5', title: 'Thiwul', src: '/Thiwul.jpg', x: -32, y: 1, xM: -35, yM: 0, rot: -4, aspect: 'w-28 sm:w-40 md:w-52 aspect-[16/10]' },
+  { id: '6', title: 'Tempe Godhong', src: '/Tempe Godhong.jpg', x: 32, y: 1, xM: 35, yM: 0, rot: 5, aspect: 'w-28 sm:w-40 md:w-52 aspect-[16/10]' },
+  { id: '7', title: 'Situs Wanaboedha', src: '/Situs Wanaboedha.jpg', x: -24, y: 24, xM: -30, yM: 26, rot: 5, aspect: 'w-28 sm:w-40 md:w-50 aspect-[16/10]' },
+  { id: '8', title: 'Sega Berkat', src: '/Sega Berkat.jpg', x: 0, y: 28, xM: 0, yM: 32, rot: -2, aspect: 'w-30 sm:w-44 md:w-56 aspect-[16/10]' },
+  { id: '9', title: 'Rasulan', src: '/Rasulan.jpg', x: 24, y: 24, xM: 30, yM: 26, rot: -5, aspect: 'w-28 sm:w-40 md:w-50 aspect-[16/10]' },
 ];
 
 // Ring 2 (Inner ring - emerges cleanly from center)
 const RING_INNER = [
-  { id: 'i1', title: 'Gamelan Karawitan', seed: 'budaya-gamelan-inn', x: -16, y: -15, xM: -18, yM: -16, rot: 3, aspect: 'w-24 sm:w-32 md:w-42 aspect-[16/10]' },
-  { id: 'i2', title: 'Dolanan Anak', seed: 'budaya-dolanan-inn', x: 16, y: -15, xM: 18, yM: -16, rot: -4, aspect: 'w-24 sm:w-32 md:w-42 aspect-[16/10]' },
-  { id: 'i3', title: 'Sedekahan Bumi', seed: 'budaya-sedekah-inn', x: -16, y: 15, xM: -18, yM: 16, rot: -3, aspect: 'w-24 sm:w-32 md:w-42 aspect-[16/10]' },
-  { id: 'i4', title: 'Ritual Gumbregan', seed: 'budaya-gumbregan-inn', x: 16, y: 15, xM: 18, yM: 16, rot: 4, aspect: 'w-24 sm:w-32 md:w-42 aspect-[16/10]' },
+  { id: 'i1', title: 'Gejlog Lesung', src: '/Gejlog Lesung.jpg', x: -16, y: -15, xM: -18, yM: -16, rot: 3, aspect: 'w-24 sm:w-32 md:w-42 aspect-[16/10]' },
+  { id: 'i2', title: 'Dakon', src: '/Dakon.jpg', x: 16, y: -15, xM: 18, yM: -16, rot: -4, aspect: 'w-24 sm:w-32 md:w-42 aspect-[16/10]' },
+  { id: 'i3', title: 'Reog', src: '/Reog anak.jpg', x: -16, y: 15, xM: -18, yM: 16, rot: -3, aspect: 'w-24 sm:w-32 md:w-42 aspect-[16/10]' },
+  { id: 'i4', title: 'Thiwul', src: '/Thiwul.jpg', x: 16, y: 15, xM: 18, yM: 16, rot: 4, aspect: 'w-24 sm:w-32 md:w-42 aspect-[16/10]' },
 ];
 
 export function CultureCorridor() {
@@ -222,14 +222,14 @@ function CardFrame({
   item: {
     id: string;
     title: string;
-    seed: string;
+    src: string;
     aspect: string;
   };
 }) {
   return (
     <div className={`${item.aspect} relative overflow-hidden rounded-xl sm:rounded-2xl border-2 sm:border-3 border-white bg-white shadow-md sm:shadow-lg`}>
       <Image
-        src={img(item.seed, 450, 320)}
+        src={item.src}
         alt={item.title}
         fill
         className="object-cover"
