@@ -23,7 +23,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }
   }, [isError, router]);
 
-  if (!mounted || isLoading) {
+  if (!mounted || isLoading || isError || (typeof window !== 'undefined' && !localStorage.getItem('access_token'))) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <Spinner className="h-8 w-8 text-brand-600" />
