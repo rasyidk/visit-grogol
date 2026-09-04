@@ -12,17 +12,15 @@ class DashboardController extends Controller
         return response()->json([
             'data' => [
                 'counts' => [
-                    'destinasi' => 0,
-                    'berita' => 0,
-                    'event' => 0,
-                    'testimoni' => 0,
-                    'galeriFoto' => 0,
+                    'wisata' => \App\Models\Wisata::count(),
+                    'budaya' => \App\Models\Budaya::count(),
+                    'kuliner' => \App\Models\Kuliner::count(),
+                    'umkm' => \App\Models\Umkm::count(),
+                    'homestay' => \App\Models\Homestay::count(),
+                    'berita' => \App\Models\Berita::count(),
                     'reservasi' => 0,
-                    'subscribers' => 0,
-                    'admins' => User::count(),
-                ],
-                'topDestinasi' => [],
-                'latestReservasi' => []
+                    'admins' => \App\Models\User::count(),
+                ]
             ]
         ]);
     }
