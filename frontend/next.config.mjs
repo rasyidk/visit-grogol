@@ -12,6 +12,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'i.ytimg.com' },
       { protocol: 'http', hostname: 'localhost' },
       { protocol: 'https', hostname: 'api.visitgrogolkaloka.com' },
+      { protocol: 'https', hostname: 'backend.visitgrogolkaloka.com' },
     ],
   },
 };
