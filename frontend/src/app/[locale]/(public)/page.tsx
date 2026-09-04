@@ -27,7 +27,7 @@ export default function ProfilPage() {
     <>
       {/* Hero */}
       <section className="relative min-h-screen w-full overflow-hidden flex items-center justify-center">
-        <Image src={profil.heroImage || img('profil-hero', 1920, 1080)} alt="Desa di balik awan" fill priority className="object-cover object-center" />
+        <Image src="/HeroBanner.jpg" alt="Desa di balik awan" fill priority className="object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-b from-brand-950/50 via-brand-950/60 to-brand-950/80" />
         <div className="container-wide relative z-10 flex min-h-screen flex-col items-center justify-center pt-16 pb-28 text-center text-white">
           <Reveal>

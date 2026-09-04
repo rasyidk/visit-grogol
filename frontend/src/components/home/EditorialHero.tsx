@@ -43,7 +43,7 @@ export function EditorialHero({ isEn }: { isEn: boolean }) {
             style={{ y: yParallaxSlow }}
             className="col-span-6 sm:col-span-4 col-start-7 sm:col-start-9 lg:col-span-3 lg:col-start-10 mt-12 lg:mt-0"
           >
-            <RevealImage src={img('grogol-landscape-ed', 600, 800)} alt="Landscape" caption={isEn ? "01 — Landscape" : "01 — Lanskap"} />
+            <RevealImage src="/Landscape.jpg" alt="Landscape" caption={isEn ? "01 — Landscape" : "01 — Lanskap"} />
           </motion.div>
         </div>
 
@@ -67,7 +67,7 @@ export function EditorialHero({ isEn }: { isEn: boolean }) {
         {/* ROW 2: Large Image + Text Block */}
         <div className="grid grid-cols-12 gap-6 mt-20 sm:mt-24 lg:mt-32 items-center">
           <div className="col-span-12 sm:col-span-8 lg:col-span-6 z-10">
-            <RevealImage src={img('grogol-people-ed', 1200, 1600)} alt="People" caption={isEn ? "02 — People" : "02 — Masyarakat"} priority />
+            <RevealImage src="/People.jpg" alt="People" caption={isEn ? "02 — People" : "02 — Masyarakat"} priority />
           </div>
 
           <div className="col-span-12 sm:col-span-8 lg:col-span-4 lg:col-start-8 mt-12 lg:mt-0">
@@ -101,7 +101,7 @@ export function EditorialHero({ isEn }: { isEn: boolean }) {
             style={{ y: yParallaxFast }}
             className="col-span-10 sm:col-span-8 lg:col-span-5 lg:col-start-7 z-0"
           >
-            <RevealImage src={img('grogol-everyday-ed', 800, 1000)} alt="Everyday Life" caption={isEn ? "03 — Everyday Life" : "03 — Keseharian"} />
+            <RevealImage src="/EverydayLife.jpg" alt="Everyday Life" caption={isEn ? "03 — Everyday Life" : "03 — Keseharian"} />
           </motion.div>
         </div>
 
@@ -109,7 +109,7 @@ export function EditorialHero({ isEn }: { isEn: boolean }) {
         <div className="grid grid-cols-12 gap-6 mt-24 sm:mt-32 lg:mt-48 items-center">
           <div className="col-span-6 lg:col-span-3">
              <motion.div style={{ y: yParallaxSlow }}>
-               <RevealImage src={img('grogol-food-ed', 600, 600)} alt="Food" caption={isEn ? "04 — Food" : "04 — Kuliner"} aspect="aspect-square" />
+               <RevealImage src="/Food.jpg" alt="Food" caption={isEn ? "04 — Food" : "04 — Kuliner"} aspect="aspect-square" />
              </motion.div>
           </div>
 
@@ -136,7 +136,7 @@ export function EditorialHero({ isEn }: { isEn: boolean }) {
 
           <div className="col-span-6 lg:col-span-3 lg:col-start-10 mt-12 lg:mt-0">
             <motion.div style={{ y: yParallaxMedium }}>
-               <RevealImage src={img('grogol-culture-ed', 600, 800)} alt="Culture" caption={isEn ? "05 — Culture" : "05 — Budaya"} />
+               <RevealImage src="/Culture.jpg" alt="Culture" caption={isEn ? "05 — Culture" : "05 — Budaya"} />
             </motion.div>
           </div>
         </div>
