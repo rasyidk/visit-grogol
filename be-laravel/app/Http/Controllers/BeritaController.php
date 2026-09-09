@@ -51,19 +51,34 @@ class BeritaController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'titleEn' => 'nullable|string|max:255',
             'title_en' => 'nullable|string|max:255',
             'content' => 'nullable|string',
+            'contentEn' => 'nullable|string',
             'content_en' => 'nullable|string',
             'thumbnail' => 'nullable|string',
             'author' => 'nullable|string|max:255',
-            'is_active' => 'boolean',
+            'isActive' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         if (empty($validated['author'])) {
             $validated['author'] = 'Admin';
         }
 
-        $berita = Berita::create($validated);
+        $titleEn = $validated['titleEn'] ?? $validated['title_en'] ?? null;
+        $contentEn = $validated['contentEn'] ?? $validated['content_en'] ?? null;
+        $isActive = $validated['isActive'] ?? $validated['is_active'] ?? true;
+
+        $berita = Berita::create([
+            'title' => $validated['title'],
+            'title_en' => $titleEn,
+            'content' => $validated['content'] ?? null,
+            'content_en' => $contentEn,
+            'thumbnail' => $validated['thumbnail'] ?? null,
+            'author' => $validated['author'],
+            'is_active' => $isActive,
+        ]);
         return response()->json(['data' => $berita], 201);
     }
 
@@ -79,24 +94,41 @@ class BeritaController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'titleEn' => 'nullable|string|max:255',
             'title_en' => 'nullable|string|max:255',
             'content' => 'nullable|string',
+            'contentEn' => 'nullable|string',
             'content_en' => 'nullable|string',
             'thumbnail' => 'nullable|string',
             'author' => 'nullable|string|max:255',
-            'is_active' => 'boolean',
+            'isActive' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
         ]);
 
         if (empty($validated['author'])) {
             $validated['author'] = 'Admin';
         }
 
+        $titleEn = $validated['titleEn'] ?? $validated['title_en'] ?? null;
+        $contentEn = $validated['contentEn'] ?? $validated['content_en'] ?? null;
+        $isActive = $validated['isActive'] ?? $validated['is_active'] ?? true;
+
+        $updateData = [
+            'title' => $validated['title'],
+            'title_en' => $titleEn,
+            'content' => $validated['content'] ?? null,
+            'content_en' => $contentEn,
+            'thumbnail' => $validated['thumbnail'] ?? null,
+            'author' => $validated['author'],
+            'is_active' => $isActive,
+        ];
+
         // check if thumbnail changed
-        if (isset($validated['thumbnail']) && $validated['thumbnail'] !== $berita->thumbnail) {
+        if (isset($updateData['thumbnail']) && $updateData['thumbnail'] !== $berita->thumbnail) {
             $this->deleteImageFile($berita->thumbnail);
         }
 
-        $berita->update($validated);
+        $berita->update($updateData);
         return response()->json(['data' => $berita]);
     }
 

@@ -128,8 +128,8 @@ export default function KontakPage() {
           <Reveal delay={0.15}>
             <div className="overflow-hidden rounded-3xl bg-white shadow-card">
               <div className="relative h-44">
-                <Image src="https://picsum.photos/seed/desa-map/600/400" alt="Peta desa" fill className="object-cover" />
-                <a href="https://maps.google.com" target="_blank" rel="noreferrer" className="glass-strong absolute bottom-3 right-3 rounded-full px-4 py-2 text-xs font-semibold text-ink">
+                <Image src="/Landscape.jpg" alt="Peta desa" fill className="object-cover" />
+                <a href="https://share.google/eotqkx4z0ixoviIr0" target="_blank" rel="noreferrer" className="glass-strong absolute bottom-3 right-3 rounded-full px-4 py-2 text-xs font-semibold text-ink">
                   {t('mapViewBtn')}
                 </a>
                 <div className="glass-strong absolute left-3 top-3 rounded-full p-2 text-brand-600"><MapPin className="h-4 w-4" /></div>
@@ -165,7 +165,7 @@ export default function KontakPage() {
         <Reveal>
           <div className="relative overflow-hidden rounded-4xl">
             <div className="relative h-[380px]">
-              <Image src={profil?.kontakHeroImage || 'https://picsum.photos/seed/sunrise-hills/1600/800'} alt="Ketenangan menanti" fill className="object-cover" />
+              <Image src={profil?.kontakHeroImage || '/HeroBanner.jpg'} alt="Ketenangan menanti" fill className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
             </div>
             <div className="absolute inset-0 flex flex-col justify-center p-8 text-white sm:p-14">
