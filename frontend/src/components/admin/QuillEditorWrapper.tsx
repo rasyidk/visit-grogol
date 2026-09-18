@@ -35,6 +35,7 @@ export default function QuillEditorWrapper({ value, onChange }: QuillEditorProps
         [{ 'header': [1, 2, 3, false] }, { 'size': ['5px', '8px', '10px', '12px', '14px', '16px', '18px', '20px', '22px', '24px', '26px', '28px', '36px', '48px', '72px', '100px'] }],
         ['bold', 'italic', 'underline', 'strike'],
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'align': [] }],
         ['link', 'image', 'video'],
         ['clean']
       ],
