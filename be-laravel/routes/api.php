@@ -17,6 +17,7 @@ use App\Http\Controllers\HomestayController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PageContentController;
 use App\Http\Controllers\TestimoniController;
+use App\Http\Controllers\ReservasiController;
 
 Route::apiResource('wisata', WisataController::class)->only(['index', 'show']);
 Route::apiResource('budaya', BudayaController::class)->only(['index', 'show']);
@@ -26,6 +27,7 @@ Route::apiResource('homestay', HomestayController::class)->only(['index', 'show'
 Route::apiResource('berita', BeritaController::class)->only(['index', 'show']);
 Route::get('page-content/{page}', [PageContentController::class, 'show']);
 Route::get('testimoni', [TestimoniController::class, 'index']);
+Route::post('reservasi', [ReservasiController::class, 'store'])->middleware('throttle:10,1');
 
 use App\Http\Controllers\UploadController;
 
@@ -37,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/upload', [UploadController::class, 'upload']);
 
     Route::get('/stats', [DashboardController::class, 'stats']);
+    Route::get('reservasi', [ReservasiController::class, 'index']);
     Route::apiResource('admin-users', AdminUserController::class);
     Route::apiResource('wisata', WisataController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('budaya', BudayaController::class)->only(['store', 'update', 'destroy']);

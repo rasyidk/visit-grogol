@@ -58,6 +58,8 @@ class BeritaController extends Controller
             'content_en' => 'nullable|string',
             'thumbnail' => 'nullable|string',
             'author' => 'nullable|string|max:255',
+            'publishedAt' => 'nullable|date',
+            'published_at' => 'nullable|date',
             'isActive' => 'nullable|boolean',
             'is_active' => 'nullable|boolean',
         ]);
@@ -77,6 +79,7 @@ class BeritaController extends Controller
             'content_en' => $contentEn,
             'thumbnail' => $validated['thumbnail'] ?? null,
             'author' => $validated['author'],
+            'published_at' => $validated['publishedAt'] ?? $validated['published_at'] ?? null,
             'is_active' => $isActive,
         ]);
         return response()->json(['data' => $berita], 201);
@@ -101,6 +104,8 @@ class BeritaController extends Controller
             'content_en' => 'nullable|string',
             'thumbnail' => 'nullable|string',
             'author' => 'nullable|string|max:255',
+            'publishedAt' => 'nullable|date',
+            'published_at' => 'nullable|date',
             'isActive' => 'nullable|boolean',
             'is_active' => 'nullable|boolean',
         ]);
@@ -120,6 +125,7 @@ class BeritaController extends Controller
             'content_en' => $contentEn,
             'thumbnail' => $validated['thumbnail'] ?? null,
             'author' => $validated['author'],
+            'published_at' => $validated['publishedAt'] ?? $validated['published_at'] ?? $berita->published_at,
             'is_active' => $isActive,
         ];
 
