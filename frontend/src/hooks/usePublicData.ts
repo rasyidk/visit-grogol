@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useLocale } from 'next-intl';
 import { fetchList, fetchOne } from '@/lib/api';
 import { DEFAULT_HEADER_HERO, type HeaderHeroPage, type HeaderHeroContent, type PageHeroContent } from '@/lib/pageHero';
+import { DEFAULT_RESERVATION_CONTENT, normaliseReservationContent, type ReservationContent } from '@/lib/reservationContent';
 import type {
   Wisata,
   Budaya,
@@ -190,6 +191,18 @@ export function usePageHero(page: HeaderHeroPage) {
       title: content.title[locale] || content.title.id,
       description: content.description[locale] || content.description.id,
     },
+  };
+}
+
+export function useReservasiContent() {
+  const query = useQuery({
+    queryKey: ['page-content', 'reservasi'],
+    queryFn: () => fetchOne<{ content?: Partial<ReservationContent> }>('/page-content/reservasi'),
+  });
+
+  return {
+    ...query,
+    data: normaliseReservationContent(query.data?.content ?? DEFAULT_RESERVATION_CONTENT),
   };
 }
 

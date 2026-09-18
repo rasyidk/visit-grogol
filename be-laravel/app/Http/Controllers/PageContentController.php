@@ -21,6 +21,14 @@ class PageContentController extends Controller
                 ]]);
             }
 
+            if ($pageName === 'reservasi') {
+                return response()->json(['data' => [
+                    'id' => null,
+                    'page_name' => 'reservasi',
+                    'content' => $this->defaultReservationContent(),
+                ]]);
+            }
+
             return response()->json(['message' => 'Page not found'], 404);
         }
 
@@ -84,6 +92,51 @@ class PageContentController extends Controller
                 'description' => [
                     'id' => 'Ikuti terus cerita terbaru, pengumuman, dan acara dari desa kami.',
                     'en' => 'Stay updated with the latest stories, announcements, and events from our village.',
+                ],
+            ],
+        ];
+    }
+
+    private function defaultReservationContent(): array
+    {
+        return [
+            'packages' => [
+                ['id' => 'full-day-budaya', 'label' => ['id' => 'Paket Full Day Budaya', 'en' => 'Full Day Culture Package']],
+                ['id' => 'dua-hari-satu-malam', 'label' => ['id' => 'Paket 2 Hari 1 Malam', 'en' => '2 Days 1 Night Package']],
+                ['id' => 'jelajah-kuliner', 'label' => ['id' => 'Paket Jelajah Kuliner', 'en' => 'Culinary Exploration Package']],
+                ['id' => 'petualangan-alam', 'label' => ['id' => 'Paket Petualangan Alam', 'en' => 'Nature Adventure Package']],
+            ],
+            'map' => [
+                'image' => '/Landscape.jpg',
+                'url' => 'https://share.google/eotqkx4z0ixoviIr0',
+            ],
+            'transport' => [
+                [
+                    'id' => 'transportasi-umum',
+                    'icon' => 'train',
+                    'title' => ['id' => 'Transportasi Umum', 'en' => 'Public Transportation'],
+                    'description' => [
+                        'id' => 'Naik taksi resmi atau shuttle desa selama 45 menit perjalanan.',
+                        'en' => 'Take an official taxi or village shuttle for a 45-minute journey.',
+                    ],
+                ],
+                [
+                    'id' => 'dari-bandara',
+                    'icon' => 'plane',
+                    'title' => ['id' => 'Dari Bandara', 'en' => 'From the Airport'],
+                    'description' => [
+                        'id' => 'Layanan antar-jemput privat tersedia dengan konfirmasi 24 jam sebelumnya.',
+                        'en' => 'Private transfer service is available with 24-hour confirmation.',
+                    ],
+                ],
+                [
+                    'id' => 'sewa-kendaraan',
+                    'icon' => 'bike',
+                    'title' => ['id' => 'Sewa Kendaraan', 'en' => 'Vehicle Rental'],
+                    'description' => [
+                        'id' => 'Parkir aman tersedia bagi tamu yang membawa kendaraan pribadi.',
+                        'en' => 'Secure parking is available for guests bringing private vehicles.',
+                    ],
                 ],
             ],
         ];

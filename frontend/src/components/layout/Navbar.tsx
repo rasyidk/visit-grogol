@@ -64,17 +64,11 @@ export function Navbar() {
         scrolled ? 'glass-nav shadow-soft' : 'bg-transparent'
       )}
     >
-      <nav className="container-wide flex h-16 items-center justify-between sm:h-20">
-        <Link href={getHref('/')} className={cn("flex items-center gap-3", !forceLightText ? "text-brand-700" : "text-white")}>
-          <Image src="/logo.png" alt="Desa Wisata Grogol Kaloka" width={40} height={40} className="rounded-full shadow-soft" />
-          <span className="flex flex-col leading-none">
-            <span className="text-lg font-extrabold sm:text-xl">{tBrand('name')}</span>
-            <span className={cn(
-              'mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] sm:text-[10px]',
-              forceLightText ? 'text-white/75' : 'text-ink-muted'
-            )}>
-              {tBrand('tagline')}
-            </span>
+      <nav className="container-wide flex min-h-16 items-center justify-between gap-2 py-2 sm:h-20 sm:py-0">
+        <Link href={getHref('/')} className={cn("flex min-w-0 flex-1 items-center gap-3", !forceLightText ? "text-brand-700" : "text-white")}>
+          <Image src="/logo.png" alt="Desa Wisata Grogol Kaloka" width={40} height={40} className="shrink-0 rounded-full shadow-soft" />
+          <span className="min-w-0 leading-tight">
+            <span className="block break-words text-base font-extrabold sm:text-xl">{tBrand('name')}</span>
           </span>
         </Link>
 
@@ -98,7 +92,7 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-3">
           <LanguageSwitcher forceLightText={forceLightText} />
           <Link href={getHref('/reservasi')} className={cn("btn-primary hidden sm:inline-flex text-xs xl:text-sm px-4 xl:px-6", forceLightText && "bg-white text-brand-700 hover:bg-brand-50")}>
             {t('reservation')}

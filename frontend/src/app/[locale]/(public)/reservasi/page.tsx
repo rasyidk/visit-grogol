@@ -1,15 +1,18 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { MessageCircle, Train, Plane, Bike, MapPin, Sun } from 'lucide-react';
+import { MessageCircle, Train, Plane, Bike, Bus, Car, MapPin, Sun } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 import { createOne, getApiErrorMessage } from '@/lib/api';
-import { useKontak, useProfil } from '@/hooks/usePublicData';
-import { useTranslations } from 'next-intl';
+import { useKontak, useProfil, useReservasiContent } from '@/hooks/usePublicData';
+import { useLocale, useTranslations } from 'next-intl';
+
+const TRANSPORT_ICONS = { train: Train, plane: Plane, bike: Bike, car: Car, bus: Bus };
 
 const baseSchema = z.object({
   name: z.string(),
@@ -23,8 +26,10 @@ type FormValues = z.infer<typeof baseSchema>;
 
 export default function KontakPage() {
   const t = useTranslations('Kontak');
+  const locale = useLocale() as 'id' | 'en';
   const { data: kontak } = useKontak();
   const { data: profil } = useProfil();
+  const { data: reservationContent } = useReservasiContent();
 
   const schema = z.object({
     name: z.string().min(2, t('errNameMin')),
@@ -35,19 +40,29 @@ export default function KontakPage() {
     note: z.string().optional(),
   });
 
-  const PACKAGES = [t('pkgFull'), t('pkg2Days'), t('pkgCulinary'), t('pkgAdventure')];
-  
-  const transports = [
-    { icon: Train, title: t('transportTrain').split(' + ')[0], desc: t('transportTrain').split(' + ')[1] || 'Naik taksi resmi atau shuttle desa selama 45 menit perjalanan.' },
-    { icon: Plane, title: t('transportPlaneTitle'), desc: t('transportPlaneDesc') },
-    { icon: Bike, title: t('transportBikeTitle'), desc: t('transportBikeDesc') },
-  ];
+  const packageOptions = useMemo(
+    () => reservationContent.packages.map((item) => ({
+      id: item.id,
+      label: item.label[locale] || item.label.id,
+    })),
+    [locale, reservationContent.packages]
+  );
+
   const {
     register,
     handleSubmit,
+    getValues,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { guests: 1, packageType: PACKAGES[0] } });
+  } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { guests: 1, packageType: packageOptions[0]?.label } });
+
+  useEffect(() => {
+    const currentPackage = getValues('packageType');
+    if (packageOptions.length > 0 && !packageOptions.some((item) => item.label === currentPackage)) {
+      setValue('packageType', packageOptions[0].label);
+    }
+  }, [getValues, packageOptions, setValue]);
 
   const onSubmit = async (values: FormValues) => {
     try {
@@ -93,8 +108,8 @@ export default function KontakPage() {
               <div className="sm:col-span-2">
                 <Field label={t('labelPackage')}>
                   <select className="field-input" {...register('packageType')}>
-                    {PACKAGES.map((p) => (
-                      <option key={p} value={p}>{p}</option>
+                    {packageOptions.map((item) => (
+                      <option key={item.id} value={item.label}>{item.label}</option>
                     ))}
                   </select>
                 </Field>
@@ -128,8 +143,8 @@ export default function KontakPage() {
           <Reveal delay={0.15}>
             <div className="overflow-hidden rounded-3xl bg-white shadow-card">
               <div className="relative h-44">
-                <Image src="/Landscape.jpg" alt="Peta desa" fill className="object-cover" />
-                <a href="https://share.google/eotqkx4z0ixoviIr0" target="_blank" rel="noreferrer" className="glass-strong absolute bottom-3 right-3 rounded-full px-4 py-2 text-xs font-semibold text-ink">
+                <Image src={reservationContent.map.image || '/Landscape.jpg'} alt={locale === 'en' ? 'Grogol map' : 'Peta desa'} fill className="object-cover" />
+                <a href={reservationContent.map.url || '#'} target="_blank" rel="noreferrer" className="glass-strong absolute bottom-3 right-3 rounded-full px-4 py-2 text-xs font-semibold text-ink">
                   {t('mapViewBtn')}
                 </a>
                 <div className="glass-strong absolute left-3 top-3 rounded-full p-2 text-brand-600"><MapPin className="h-4 w-4" /></div>
@@ -143,17 +158,23 @@ export default function KontakPage() {
                 <Bike className="h-4 w-4" /> {t('guideTransport')}
               </p>
               <ul className="space-y-4">
-                {transports.map((t) => (
-                  <li key={t.title} className="flex gap-3">
+                {reservationContent.transport.map((item) => {
+                  const Icon = TRANSPORT_ICONS[item.icon] || Bike;
+                  const title = item.title[locale] || item.title.id;
+                  const description = item.description[locale] || item.description.id;
+
+                  return (
+                  <li key={item.id} className="flex gap-3">
                     <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-brand-600 shadow-card">
-                      <t.icon className="h-4 w-4" />
+                      <Icon className="h-4 w-4" />
                     </span>
                     <div>
-                      <p className="text-sm font-semibold text-ink">{t.title}</p>
-                      <p className="text-xs leading-relaxed text-ink-muted">{t.desc}</p>
+                      <p className="text-sm font-semibold text-ink">{title}</p>
+                      <p className="text-xs leading-relaxed text-ink-muted">{description}</p>
                     </div>
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </div>
           </Reveal>
