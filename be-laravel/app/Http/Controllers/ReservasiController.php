@@ -61,12 +61,12 @@ class ReservasiController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'min:2', 'max:120'],
             'email' => ['required', 'email', 'max:255'],
-            'arrivalDate' => ['nullable', 'date'],
+            'arrivalDate' => ['required_without:arrival_date', 'date'],
             'arrival_date' => ['nullable', 'date'],
             'guests' => ['required', 'integer', 'min:1', 'max:500'],
-            'packageType' => ['nullable', 'string', 'max:160'],
+            'packageType' => ['required_without:package_type', 'string', 'max:160'],
             'package_type' => ['nullable', 'string', 'max:160'],
-            'note' => ['nullable', 'string', 'max:5000'],
+            'note' => ['required', 'string', 'max:5000'],
         ]);
 
         $reservation = Reservasi::create([

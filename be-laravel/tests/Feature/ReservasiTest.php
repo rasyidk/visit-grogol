@@ -37,4 +37,26 @@ class ReservasiTest extends TestCase
                 && $mail->reservation->is($reservation);
         });
     }
+
+    public function test_public_reservation_requires_all_form_fields(): void
+    {
+        $response = $this->postJson('/api/reservasi', [
+            'name' => '',
+            'email' => '',
+            'arrivalDate' => '',
+            'guests' => '',
+            'packageType' => '',
+            'note' => '',
+        ]);
+
+        $response->assertUnprocessable()
+            ->assertJsonValidationErrors([
+                'name',
+                'email',
+                'arrivalDate',
+                'guests',
+                'packageType',
+                'note',
+            ]);
+    }
 }

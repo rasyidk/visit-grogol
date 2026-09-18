@@ -193,6 +193,7 @@
     "transportTrain": "Commuter Line ke Stasiun Bogor + 30 mnt perjalanan",
     "transportBus": "Bus Damri ke Botani Square + 40 mnt perjalanan",
     "errNameMin": "Nama minimal 2 karakter",
+    "errRequired": "Field ini wajib diisi",
     "errEmail": "Email tidak valid",
     "errGuestsMin": "Minimal 1 tamu",
     "toastSuccess": "Permintaan booking terkirim! Kami akan menghubungi Anda.",

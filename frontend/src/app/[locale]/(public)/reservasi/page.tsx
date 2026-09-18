@@ -17,10 +17,10 @@ const TRANSPORT_ICONS = { train: Train, plane: Plane, bike: Bike, car: Car, bus:
 const baseSchema = z.object({
   name: z.string(),
   email: z.string(),
-  arrivalDate: z.string().optional(),
+  arrivalDate: z.string(),
   guests: z.coerce.number(),
-  packageType: z.string().optional(),
-  note: z.string().optional(),
+  packageType: z.string(),
+  note: z.string(),
 });
 type FormValues = z.infer<typeof baseSchema>;
 
@@ -32,12 +32,12 @@ export default function KontakPage() {
   const { data: reservationContent } = useReservasiContent();
 
   const schema = z.object({
-    name: z.string().min(2, t('errNameMin')),
-    email: z.string().email(t('errEmail')),
-    arrivalDate: z.string().optional(),
+    name: z.string().trim().min(2, t('errNameMin')),
+    email: z.string().trim().min(1, t('errRequired')).email(t('errEmail')),
+    arrivalDate: z.string().min(1, t('errRequired')),
     guests: z.coerce.number().min(1, t('errGuestsMin')).max(500),
-    packageType: z.string().optional(),
-    note: z.string().optional(),
+    packageType: z.string().min(1, t('errRequired')),
+    note: z.string().trim().min(1, t('errRequired')),
   });
 
   const packageOptions = useMemo(
@@ -94,20 +94,20 @@ export default function KontakPage() {
             <h2 className="text-2xl font-bold text-ink">{t('formTitle')}</h2>
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
               <Field label={t('labelName')} error={errors.name?.message}>
-                <input className="field-input" placeholder={t('phName')} {...register('name')} />
+                <input required className="field-input" placeholder={t('phName')} {...register('name')} />
               </Field>
               <Field label={t('labelEmail')} error={errors.email?.message}>
-                <input className="field-input" placeholder={t('phEmail')} {...register('email')} />
+                <input required type="email" className="field-input" placeholder={t('phEmail')} {...register('email')} />
               </Field>
-              <Field label={t('labelDate')}>
-                <input type="date" className="field-input" {...register('arrivalDate')} />
+              <Field label={t('labelDate')} error={errors.arrivalDate?.message}>
+                <input type="date" required className="field-input" {...register('arrivalDate')} />
               </Field>
               <Field label={t('labelGuests')} error={errors.guests?.message}>
-                <input type="number" min={1} className="field-input" placeholder="0" {...register('guests')} />
+                <input required type="number" min={1} className="field-input" placeholder="0" {...register('guests')} />
               </Field>
               <div className="sm:col-span-2">
-                <Field label={t('labelPackage')}>
-                  <select className="field-input" {...register('packageType')}>
+                <Field label={t('labelPackage')} error={errors.packageType?.message}>
+                  <select required className="field-input" {...register('packageType')}>
                     {packageOptions.map((item) => (
                       <option key={item.id} value={item.label}>{item.label}</option>
                     ))}
@@ -115,8 +115,8 @@ export default function KontakPage() {
                 </Field>
               </div>
               <div className="sm:col-span-2">
-                <Field label={t('labelMessage')}>
-                  <textarea rows={4} className="field-input resize-none" placeholder={t('phMessage')} {...register('note')} />
+                <Field label={t('labelMessage')} error={errors.note?.message}>
+                  <textarea required rows={4} className="field-input resize-none" placeholder={t('phMessage')} {...register('note')} />
                 </Field>
               </div>
             </div>
