@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,4 +20,18 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        // Keep production API errors useful without exposing SQL, credentials,
+        // or other internal exception details to the public website.
+        $exceptions->renderable(function (QueryException $exception, Request $request) {
+            if (! $request->is('api/*') && ! $request->expectsJson()) {
+                return null;
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Layanan sedang mengalami gangguan koneksi database. Silakan coba lagi beberapa saat lagi.',
+                'error_code' => 'DATABASE_UNAVAILABLE',
+            ], 503);
+        });
     })->create();

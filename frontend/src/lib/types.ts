@@ -6,6 +6,7 @@ export interface ApiEnvelope<T> {
   data: T;
   meta?: PaginationMeta;
   errors?: Record<string, string[]>;
+  error_code?: string;
 }
 
 export interface PaginationMeta {

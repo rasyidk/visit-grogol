@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Mail\ReservationReceived;
 use App\Models\Reservasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 class ReservasiController extends Controller
 {
@@ -77,7 +79,20 @@ class ReservasiController extends Controller
             'status' => 'PENDING',
         ]);
 
-        Mail::to(config('mail.reservation_to'))->send(new ReservationReceived($reservation));
+        try {
+            Mail::to(config('mail.reservation_to'))->send(new ReservationReceived($reservation));
+        } catch (Throwable $exception) {
+            Log::error('Reservation email delivery failed.', [
+                'reservation_id' => $reservation->id,
+                'exception' => $exception,
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Reservasi sudah tersimpan, tetapi email notifikasi gagal dikirim. Silakan periksa pengaturan SMTP di server.',
+                'error_code' => 'MAIL_DELIVERY_FAILED',
+            ], 502);
+        }
 
         return response()->json(['data' => $this->toApiArray($reservation)], 201);
     }

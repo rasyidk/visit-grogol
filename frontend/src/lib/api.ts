@@ -106,7 +106,15 @@ export function getApiErrorMessage(error: unknown, fallback = 'Terjadi kesalahan
       const first = Object.values(data.errors)[0];
       if (Array.isArray(first) && first[0]) return first[0];
     }
-    return data?.message || error.message || fallback;
+    if (data?.message) {
+      return data.error_code
+        ? data.message + ' (Kode: ' + data.error_code + ')'
+        : data.message;
+    }
+    if (error.response?.status && error.response.status >= 500) {
+      return 'Server gagal memproses permintaan. Coba lagi beberapa saat lagi. (HTTP ' + error.response.status + ')';
+    }
+    return error.message || fallback;
   }
   return fallback;
 }
