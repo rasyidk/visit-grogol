@@ -24,6 +24,7 @@ export function Navbar() {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations('Navigation');
+  const tBrand = useTranslations('Brand');
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -64,9 +65,17 @@ export function Navbar() {
       )}
     >
       <nav className="container-wide flex h-16 items-center justify-between sm:h-20">
-        <Link href={getHref('/')} className={cn("flex items-center gap-3 text-xl font-extrabold", !forceLightText ? "text-brand-700" : "text-white")}>
+        <Link href={getHref('/')} className={cn("flex items-center gap-3", !forceLightText ? "text-brand-700" : "text-white")}>
           <Image src="/logo.png" alt="Desa Wisata Grogol Kaloka" width={40} height={40} className="rounded-full shadow-soft" />
-          Visit Grogol Kaloka
+          <span className="flex flex-col leading-none">
+            <span className="text-lg font-extrabold sm:text-xl">{tBrand('name')}</span>
+            <span className={cn(
+              'mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] sm:text-[10px]',
+              forceLightText ? 'text-white/75' : 'text-ink-muted'
+            )}>
+              {tBrand('tagline')}
+            </span>
+          </span>
         </Link>
 
         <ul className="hidden items-center gap-4 xl:gap-6 lg:flex">
