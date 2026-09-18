@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Outfit, Poppins } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { QueryProvider } from '@/providers/QueryProvider';
 
@@ -46,6 +47,17 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${outfit.variable} ${poppins.variable}`}>
       <body>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-ZHC78J1HNC"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-ZHC78J1HNC');`}
+        </Script>
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>{children}</QueryProvider>
         </NextIntlClientProvider>
