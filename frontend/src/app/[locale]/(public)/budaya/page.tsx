@@ -2,9 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const Hero360 = dynamic(() => import('@/components/public/Hero360'), { ssr: false });
 import { ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Reveal } from '@/components/ui/Reveal';
@@ -32,7 +29,13 @@ export default function BudayaPage() {
             priority
           />
         ) : (
-          <Hero360 />
+          <Image
+            src="/HeroBanner.jpg"
+            alt="Placeholder hero budaya"
+            fill
+            className="object-cover"
+            priority
+          />
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-brand-950/60 to-brand-950/80 pointer-events-none" />
         <div className="container-wide relative flex min-h-screen flex-col justify-center pb-16 pt-24 text-white pointer-events-none">

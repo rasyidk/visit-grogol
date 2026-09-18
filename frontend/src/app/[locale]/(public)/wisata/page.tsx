@@ -2,9 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const Hero360 = dynamic(() => import('@/components/public/Hero360'), { ssr: false });
 import { Play, Clock, Ticket, MapPin, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Reveal } from '@/components/ui/Reveal';
@@ -34,7 +31,13 @@ export default function BerandaPage() {
             priority
           />
         ) : (
-          <Hero360 />
+          <Image
+            src="/HeroBanner.jpg"
+            alt="Placeholder hero wisata"
+            fill
+            className="object-cover"
+            priority
+          />
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-brand-950/40 via-brand-950/30 to-brand-950/70 pointer-events-none" />
 
