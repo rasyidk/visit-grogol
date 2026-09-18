@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import { Reveal } from '@/components/ui/Reveal';
 
 import { Badge } from '@/components/ui/Misc';
-import { useDestinasi, useProfil, useWisata } from '@/hooks/usePublicData';
+import { useDestinasi, usePageHero, useWisata } from '@/hooks/usePublicData';
 import { formatRupiah } from '@/lib/utils';
 import { useTranslations, useLocale } from 'next-intl';
 
@@ -18,16 +18,16 @@ export default function BerandaPage() {
   const t = useTranslations('Atraksi');
   const locale = useLocale();
   const isEn = locale === 'en';
-  const { data: profil } = useProfil();
+  const { data: hero } = usePageHero('wisata');
   const { data: wisataList } = useWisata();
 
   return (
     <>
       {/* ── Hero ─────────────────────────────────────── */}
       <section className="relative min-h-screen w-full overflow-hidden">
-        {profil?.atraksiHeroImage ? (
+        {hero.background ? (
           <Image
-            src={profil.atraksiHeroImage}
+            src={hero.background}
             alt="Hero"
             fill
             className="object-cover"
@@ -45,10 +45,11 @@ export default function BerandaPage() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-2xl text-white"
           >
-            <h1 className="text-5xl font-extrabold leading-[1.05] sm:text-6xl lg:text-7xl" dangerouslySetInnerHTML={{ __html: t('heroTitle').replace('&', '&amp;') }}>
+            <h1 className="text-5xl font-extrabold leading-[1.05] sm:text-6xl lg:text-7xl">
+              {hero.title || t('heroTitle')}
             </h1>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
-              {t('heroDesc')}
+              {hero.description || t('heroDesc')}
             </p>
           </motion.div>
         </div>
@@ -128,4 +129,3 @@ function BentoCard({
     </Reveal>
   );
 }
-

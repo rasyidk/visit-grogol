@@ -19,6 +19,7 @@ import {
   Coffee,
   ShoppingBag,
   Home,
+  PanelsTopLeft,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -27,6 +28,7 @@ export interface AdminNavItem {
   href: string;
   icon: LucideIcon;
   roles?: string[];
+  children?: AdminNavItem[];
 }
 
 export interface AdminNavSection {
@@ -44,6 +46,17 @@ export const ADMIN_NAV: AdminNavSection[] = [
     title: 'Manajemen Konten',
     items: [
       { label: 'Berita', href: '/dashboard/berita', icon: Newspaper },
+      { label: 'Kisah Kami', href: '/dashboard/kisah-kami', icon: Building2 },
+      {
+        label: 'Header & Hero',
+        href: '/dashboard/header-hero',
+        icon: PanelsTopLeft,
+        children: [
+          { label: 'Home', href: '/dashboard/header-hero?page=home', icon: Home },
+          { label: 'Wisata', href: '/dashboard/header-hero?page=wisata', icon: Palmtree },
+          { label: 'Budaya', href: '/dashboard/header-hero?page=budaya', icon: Sparkles },
+        ],
+      },
       { label: 'Atraksi Wisata', href: '/dashboard/wisata', icon: Palmtree },
       { label: 'Seni Budaya', href: '/dashboard/budaya', icon: Sparkles },
       { label: 'Kuliner', href: '/dashboard/kuliner', icon: Coffee },

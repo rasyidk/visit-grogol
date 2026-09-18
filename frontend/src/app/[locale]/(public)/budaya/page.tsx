@@ -9,23 +9,23 @@ import { ArrowDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Reveal } from '@/components/ui/Reveal';
 import { Badge } from '@/components/ui/Misc';
-import { useBudaya, useProfil } from '@/hooks/usePublicData';
+import { useBudaya, usePageHero } from '@/hooks/usePublicData';
 import { useTranslations, useLocale } from 'next-intl';
 
 export default function BudayaPage() {
   const t = useTranslations('Budaya');
   const locale = useLocale();
   const isEn = locale === 'en';
-  const { data: profil } = useProfil();
+  const { data: hero } = usePageHero('budaya');
   const { data: budayaList } = useBudaya();
 
   return (
     <>
       {/* Hero */}
       <section className="relative min-h-screen w-full overflow-hidden">
-        {profil?.budayaHeroImage ? (
+        {hero.background ? (
           <Image
-            src={profil.budayaHeroImage}
+            src={hero.background}
             alt="Hero Budaya"
             fill
             className="object-cover"
@@ -43,10 +43,10 @@ export default function BudayaPage() {
             className="max-w-2xl"
           >
             <h1 className="text-5xl font-extrabold leading-tight sm:text-6xl">
-              {t('heroTitle')}
+              {hero.title || t('heroTitle')}
             </h1>
             <p className="mt-5 max-w-xl text-base text-white/80">
-              {t('heroDesc')}
+              {hero.description || t('heroDesc')}
             </p>
           </motion.div>
         </div>

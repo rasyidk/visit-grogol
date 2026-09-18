@@ -2,15 +2,20 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Leaf, X } from 'lucide-react';
+import { ChevronDown, Leaf, X } from 'lucide-react';
 import { ADMIN_NAV } from './adminNav';
 import { useCurrentUser } from '@/hooks/useAuth';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
   const pathname = usePathname();
   const { data: user } = useCurrentUser();
-  const isActive = (href: string) => (href === '/dashboard' ? pathname === '/dashboard' : pathname.startsWith(href));
+  const [openMenus, setOpenMenus] = useState<Record<string, boolean>>({});
+  const isActive = (href: string) => {
+    const baseHref = href.split('?')[0];
+    return baseHref === '/dashboard' ? pathname === '/dashboard' : pathname.startsWith(baseHref);
+  };
 
   // Filter sections and items based on role
   const filteredNav = ADMIN_NAV.map((section) => {
@@ -58,21 +63,70 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
               <ul className="space-y-1.5">
                 {section.items.map((item) => (
                   <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        'group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-300',
-                        isActive(item.href)
-                          ? 'bg-brand-50 text-brand-700'
-                          : 'text-ink-soft hover:bg-black/5 hover:text-ink'
-                      )}
-                    >
-                      <item.icon className={cn(
-                        "h-[18px] w-[18px] transition-colors",
-                        isActive(item.href) ? "text-brand-600" : "text-ink-muted group-hover:text-ink-soft"
-                      )} />
-                      {item.label}
-                    </Link>
+                    {item.children ? (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => setOpenMenus((current) => ({ ...current, [item.href]: !current[item.href] }))}
+                          className={cn(
+                            'group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium transition-all duration-300',
+                            isActive(item.href)
+                              ? 'bg-brand-50 text-brand-700'
+                              : 'text-ink-soft hover:bg-black/5 hover:text-ink'
+                          )}
+                          aria-expanded={openMenus[item.href] ?? isActive(item.href)}
+                        >
+                          <item.icon className={cn(
+                            'h-[18px] w-[18px] transition-colors',
+                            isActive(item.href) ? 'text-brand-600' : 'text-ink-muted group-hover:text-ink-soft'
+                          )} />
+                          <span className="flex-1">{item.label}</span>
+                          <ChevronDown className={cn(
+                            'h-4 w-4 transition-transform',
+                            (openMenus[item.href] ?? isActive(item.href)) && 'rotate-180'
+                          )} />
+                        </button>
+                        {(openMenus[item.href] ?? isActive(item.href)) && (
+                          <ul className="mt-1 space-y-1 pl-5">
+                            {item.children.map((child) => (
+                              <li key={child.href}>
+                                <Link
+                                  href={child.href}
+                                  className={cn(
+                                    'group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all',
+                                    isActive(child.href)
+                                      ? 'bg-brand-50 font-medium text-brand-700'
+                                      : 'text-ink-soft hover:bg-black/5 hover:text-ink'
+                                  )}
+                                >
+                                  <child.icon className={cn(
+                                    'h-4 w-4',
+                                    isActive(child.href) ? 'text-brand-600' : 'text-ink-muted group-hover:text-ink-soft'
+                                  )} />
+                                  {child.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          'group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-300',
+                          isActive(item.href)
+                            ? 'bg-brand-50 text-brand-700'
+                            : 'text-ink-soft hover:bg-black/5 hover:text-ink'
+                        )}
+                      >
+                        <item.icon className={cn(
+                          'h-[18px] w-[18px] transition-colors',
+                          isActive(item.href) ? 'text-brand-600' : 'text-ink-muted group-hover:text-ink-soft'
+                        )} />
+                        {item.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

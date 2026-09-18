@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useLocale } from 'next-intl';
 import { fetchList, fetchOne } from '@/lib/api';
+import { DEFAULT_HEADER_HERO, type HeaderHeroPage, type HeaderHeroContent, type PageHeroContent } from '@/lib/pageHero';
 import type {
   Wisata,
   Budaya,
@@ -153,6 +154,43 @@ export function useKontak() {
   const rawData = query.data ?? FALLBACK_KONTAK;
   const data = mapLocaleData(rawData, locale) as Kontak;
   return { ...query, data };
+}
+
+export function useKisahKami() {
+  const locale = useLocale();
+  const query = useQuery({ queryKey: ['/page-content/kisah-kami'], queryFn: () => fetchOne<any>('/page-content/kisah-kami') });
+
+  // Custom mapping for Kisah Kami since it stores both ID and EN in JSON structure: { content: { id: {...}, en: {...} } }
+  const content = query.data?.content || {};
+  const data = content[locale as 'id' | 'en'] || content['id'] || '';
+
+  return { ...query, data };
+}
+
+export function usePageHero(page: HeaderHeroPage) {
+  const locale = useLocale() as 'id' | 'en';
+  const query = useQuery({
+    queryKey: ['page-content', 'header-hero'],
+    queryFn: () => fetchOne<{ content?: Partial<HeaderHeroContent> }>('/page-content/header-hero'),
+  });
+
+  const raw = query.data?.content?.[page] as Partial<PageHeroContent> | undefined;
+  const fallback = DEFAULT_HEADER_HERO[page];
+  const content: PageHeroContent = {
+    ...fallback,
+    ...raw,
+    title: { ...fallback.title, ...(raw?.title ?? {}) },
+    description: { ...fallback.description, ...(raw?.description ?? {}) },
+  };
+
+  return {
+    ...query,
+    data: {
+      ...content,
+      title: content.title[locale] || content.title.id,
+      description: content.description[locale] || content.description.id,
+    },
+  };
 }
 
 // ── Fallback content (mirrors the seed) ──────────────────────
