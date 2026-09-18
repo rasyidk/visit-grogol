@@ -16,6 +16,7 @@ use App\Http\Controllers\UmkmController;
 use App\Http\Controllers\HomestayController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PageContentController;
+use App\Http\Controllers\TestimoniController;
 
 Route::apiResource('wisata', WisataController::class)->only(['index', 'show']);
 Route::apiResource('budaya', BudayaController::class)->only(['index', 'show']);
@@ -24,6 +25,7 @@ Route::apiResource('umkm', UmkmController::class)->only(['index', 'show']);
 Route::apiResource('homestay', HomestayController::class)->only(['index', 'show']);
 Route::apiResource('berita', BeritaController::class)->only(['index', 'show']);
 Route::get('page-content/{page}', [PageContentController::class, 'show']);
+Route::get('testimoni', [TestimoniController::class, 'index']);
 
 use App\Http\Controllers\UploadController;
 
@@ -43,4 +45,7 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('homestay', HomestayController::class)->only(['store', 'update', 'destroy']);
     Route::apiResource('berita', BeritaController::class)->only(['store', 'update', 'destroy']);
     Route::put('page-content/{page}', [PageContentController::class, 'update']);
+    Route::post('testimoni', [TestimoniController::class, 'store']);
+    Route::put('testimoni/{id}', [TestimoniController::class, 'update']);
+    Route::delete('testimoni/{id}', [TestimoniController::class, 'destroy']);
 });

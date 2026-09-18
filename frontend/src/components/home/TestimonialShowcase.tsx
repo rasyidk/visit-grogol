@@ -12,6 +12,7 @@ interface TestimonialItem {
   role?: string | null;
   roleEn?: string | null;
   origin?: string | null;
+  avatar?: string | null;
   message: string;
   messageEn?: string | null;
   rating?: number | null;
@@ -103,18 +104,14 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
     },
   ];
 
-  // Always guarantee exactly 5 reviews
-  const list: TestimonialItem[] = reviews.map((base, idx) => {
-    if (items && items[idx]) {
-      return {
-        ...base,
-        ...items[idx],
-        date: base.date,
-        seed: base.seed,
-      };
-    }
-    return base;
-  });
+  // Use approved CMS reviews when available; keep the editorial set as a fallback.
+  const list: TestimonialItem[] = items?.length
+    ? items.slice(0, 5).map((item, idx) => ({
+        ...item,
+        seed: item.seed || `review-${item.id || idx}`,
+      }))
+    : reviews;
+  const reviewCount = list.length;
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -129,16 +126,15 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
     restDelta: 0.0001,
   });
 
-  // Active floating index continuously from 0 to 4 (5 reviews) based on scroll
-  const activeFloat = useTransform(smoothProgress, [0, 1], [0, 4]);
+  // Active floating index follows the number of reviews returned by the CMS.
+  const activeFloat = useTransform(smoothProgress, [0, 1], [0, Math.max(reviewCount - 1, 0)]);
 
   const [activeIdx, setActiveIdx] = useState(0);
 
   useEffect(() => {
     const unsubscribe = activeFloat.on('change', (v) => {
       const normalized = Math.round(v);
-      const modIndex = ((normalized % 5) + 5) % 5;
-      setActiveIdx(modIndex);
+      setActiveIdx(Math.min(Math.max(normalized, 0), reviewCount - 1));
     });
     return () => unsubscribe();
   }, [activeFloat]);
@@ -147,7 +143,7 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
     if (!containerRef.current) return;
     const containerTop = containerRef.current.offsetTop;
     const scrollDistance = containerRef.current.offsetHeight - window.innerHeight;
-    const targetScroll = containerTop + (targetIndex / 4) * scrollDistance;
+    const targetScroll = containerTop + (targetIndex / Math.max(reviewCount - 1, 1)) * scrollDistance;
     window.scrollTo({ top: targetScroll, behavior: 'smooth' });
   };
 
@@ -181,7 +177,7 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
               />
             </svg>
 
-            {/* 5 Avatars traveling along circular arc in continuous loop */}
+            {/* Avatars traveling along the circular arc in a continuous loop */}
             <div className="relative w-full h-full flex items-center">
               {list.map((item, i) => (
                 <RotaryAvatar
@@ -190,6 +186,7 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
                   index={i}
                   activeFloat={activeFloat}
                   isEn={isEn}
+                  total={reviewCount}
                   onClick={() => scrollToReview(i)}
                 />
               ))}
@@ -206,8 +203,8 @@ export function TestimonialShowcase({ isEn, items }: TestimonialShowcaseProps) {
                 <ChevronUp className="h-4 w-4" />
               </button>
               <button
-                onClick={() => scrollToReview(Math.min(4, activeIdx + 1))}
-                disabled={activeIdx === 4}
+                onClick={() => scrollToReview(Math.min(reviewCount - 1, activeIdx + 1))}
+                disabled={activeIdx === reviewCount - 1}
                 aria-label="Next review"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-white text-ink hover:bg-brand-50 hover:text-brand-700 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-sm active:scale-95 cursor-pointer"
               >
@@ -256,18 +253,20 @@ function RotaryAvatar({
   item,
   index,
   activeFloat,
+  total,
   onClick,
 }: {
   item: TestimonialItem;
   index: number;
   activeFloat: any;
+  total: number;
   isEn: boolean;
   onClick: () => void;
 }) {
   // Continuous circular modular wrap-around difference
   const getDiff = (cur: number) => {
-    let diff = ((index - cur) % 5 + 5) % 5;
-    if (diff > 2.5) diff -= 5;
+    let diff = ((index - cur) % total + total) % total;
+    if (diff > total / 2) diff -= total;
     return diff;
   };
 
@@ -318,7 +317,7 @@ function RotaryAvatar({
       >
         <div className="relative h-full w-full overflow-hidden rounded-full">
           <Image
-            src={img(item.seed || `rev-${index}`, 200, 200)}
+            src={item.avatar || img(item.seed || `rev-${index}`, 200, 200)}
             alt={item.name}
             fill
             className="object-cover"

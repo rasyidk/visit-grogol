@@ -61,6 +61,7 @@ export const ADMIN_NAV: AdminNavSection[] = [
           { label: 'Kabar Grogol', href: '/dashboard/header-hero?page=kabar-grogol', icon: Newspaper },
         ],
       },
+      { label: 'Ulasan Pengunjung', href: '/dashboard/testimoni', icon: MessageSquareQuote },
       { label: 'Atraksi Wisata', href: '/dashboard/wisata', icon: Palmtree },
       { label: 'Seni Budaya', href: '/dashboard/budaya', icon: Sparkles },
       { label: 'Kuliner', href: '/dashboard/kuliner', icon: Coffee },
