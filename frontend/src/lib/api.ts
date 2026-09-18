@@ -139,9 +139,10 @@ export async function deleteOne(path: string): Promise<void> {
   await api.delete(path);
 }
 
-export async function uploadFile(file: File): Promise<{ url: string; filename: string }> {
+export async function uploadFile(file: File, options?: { purpose?: 'hero' }): Promise<{ url: string; filename: string }> {
   const form = new FormData();
   form.append('file', file);
+  if (options?.purpose) form.append('purpose', options.purpose);
   const res = await api.post<ApiEnvelope<{ url: string; filename: string }>>('/upload', form, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });

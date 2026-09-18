@@ -5,13 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
-import { useUmkm } from '@/hooks/usePublicData';
-import { useTranslations, useLocale } from 'next-intl';
+import { usePageHero, useUmkm } from '@/hooks/usePublicData';
+import { useLocale } from 'next-intl';
 
 export default function UmkmPage() {
-  const t = useTranslations('Umkm');
   const locale = useLocale();
   const isEn = locale === 'en';
+  const { data: hero } = usePageHero('umkm');
   const { data: umkmList, isLoading } = useUmkm();
 
   return (
@@ -21,8 +21,11 @@ export default function UmkmPage() {
         <div className="max-w-4xl">
           <Reveal>
             <h1 className="text-5xl md:text-7xl font-bold text-ink tracking-tight leading-[1.1]">
-              {isEn ? "Local Craftsmanship." : "Karya Lokal, Cita Rasa Global."}
+              {hero.title}
             </h1>
+            <p className="mt-6 max-w-2xl text-lg md:text-2xl leading-relaxed text-ink-soft">
+              {hero.description}
+            </p>
           </Reveal>
         </div>
       </section>

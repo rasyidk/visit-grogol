@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionHeading } from '@/components/ui/Misc';
-import { useKuliner, useProfil } from '@/hooks/usePublicData';
+import { useKuliner, usePageHero } from '@/hooks/usePublicData';
 import { useTranslations, useLocale } from 'next-intl';
 
 export default function KulinerPage() {
   const t = useTranslations('Kuliner');
   const locale = useLocale();
   const isEn = locale === 'en';
-  const { data: profil } = useProfil();
+  const { data: hero } = usePageHero('kuliner');
   const { data: kulinerList, isLoading } = useKuliner();
 
   return (
@@ -22,13 +22,10 @@ export default function KulinerPage() {
         <div className="max-w-4xl">
           <Reveal>
             <h1 className="text-5xl md:text-7xl font-bold text-ink tracking-tight mb-6 leading-[1.1]">
-              {isEn ? "Authentic Flavors." : "Cita Rasa Autentik."} <br className="hidden sm:block" />
-              <span className="text-brand-600">{isEn ? "Culinary Heritage." : "Warisan Kuliner."}</span>
+              {hero.title || (isEn ? "Authentic Flavors. Culinary Heritage." : "Warisan Kuliner yang Menggugah Selera.")}
             </h1>
             <p className="text-lg md:text-2xl text-ink-soft max-w-2xl leading-relaxed">
-              {isEn 
-                ? "Explore the best eateries and traditional flavors passed down through generations in our village." 
-                : "Jelajahi tempat makan terbaik dan cita rasa tradisional yang diwariskan turun-temurun di desa kami."}
+              {hero.description}
             </p>
           </Reveal>
         </div>

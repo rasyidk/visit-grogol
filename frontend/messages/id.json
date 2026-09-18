@@ -128,6 +128,14 @@
     "ctaBtn1": "Pesan Meja Sekarang",
     "ctaBtn2": "Lihat Peta Kuliner"
   },
+  "Umkm": {
+    "heroTitle": "Karya Lokal, Cita Rasa Global.",
+    "heroDesc": "Temukan karya kreatif, produk unggulan, dan cerita para pelaku usaha lokal yang menghidupkan ekonomi desa."
+  },
+  "Homestay": {
+    "heroTitle": "Singgah Nyaman, Suasana Desa.",
+    "heroDesc": "Nikmati pengalaman menginap yang hangat dengan keramahan warga lokal dan kenyamanan yang dekat dengan alam."
+  },
   "Penginapan": {
     "heroTag": "Kenyamanan Autentik",
     "heroTitle1": "Beristirahat di Jantung",

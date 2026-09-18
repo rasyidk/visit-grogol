@@ -5,13 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Bed, MapPin } from 'lucide-react';
 import { Reveal } from '@/components/ui/Reveal';
-import { useHomestay } from '@/hooks/usePublicData';
-import { useTranslations, useLocale } from 'next-intl';
+import { useHomestay, usePageHero } from '@/hooks/usePublicData';
+import { useLocale } from 'next-intl';
 
 export default function HomestayPage() {
-  const t = useTranslations('Homestay');
   const locale = useLocale();
   const isEn = locale === 'en';
+  const { data: hero } = usePageHero('homestay');
   const { data: homestays, isLoading } = useHomestay();
 
   return (
@@ -21,9 +21,11 @@ export default function HomestayPage() {
         <div className="max-w-4xl">
           <Reveal>
             <h1 className="text-5xl md:text-7xl font-bold text-ink tracking-tight leading-[1.1]">
-              {isEn ? "Cozy Stays," : "Singgah Nyaman,"} <br />
-              <span className="text-brand-600 font-serif italic">{isEn ? "Local Heart." : "Suasana Desa."}</span>
+              {hero.title}
             </h1>
+            <p className="mt-6 max-w-2xl text-lg md:text-2xl leading-relaxed text-ink-soft">
+              {hero.description}
+            </p>
           </Reveal>
         </div>
       </section>

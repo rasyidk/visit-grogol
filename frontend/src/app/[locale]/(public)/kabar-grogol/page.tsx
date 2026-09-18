@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useBerita } from '@/hooks/usePublicData';
+import { useBerita, usePageHero } from '@/hooks/usePublicData';
 import { Reveal } from '@/components/ui/Reveal';
 import { useLocale } from 'next-intl';
 import { Calendar, User } from 'lucide-react';
@@ -12,6 +12,7 @@ import { Spinner } from '@/components/ui/Misc';
 export default function KabarGrogolPage() {
   const locale = useLocale();
   const isEn = locale === 'en';
+  const { data: hero } = usePageHero('kabar-grogol');
   const { data: beritaList, isLoading } = useBerita({ limit: 12 });
 
   if (isLoading) {
@@ -25,11 +26,9 @@ export default function KabarGrogolPage() {
   if (!beritaList || beritaList.length === 0) {
     return (
       <div className="pt-32 min-h-screen text-center">
-        <h1 className="text-3xl font-bold text-ink">
-          {isEn ? 'Grogol News' : 'Kabar Grogol'}
-        </h1>
+        <h1 className="text-3xl font-bold text-ink">{hero.title}</h1>
         <p className="mt-4 text-ink-soft">
-          {isEn ? 'No news available at the moment.' : 'Belum ada kabar terbaru saat ini.'}
+          {hero.description}
         </p>
       </div>
     );
@@ -44,12 +43,10 @@ export default function KabarGrogolPage() {
         <Reveal>
           <div className="mb-12 border-b border-black/10 pb-8 text-center md:text-left">
             <h1 className="text-4xl md:text-5xl font-extrabold text-ink tracking-tight">
-              {isEn ? 'Grogol News' : 'Kabar Grogol'}
+              {hero.title}
             </h1>
             <p className="mt-4 text-lg text-ink-soft max-w-2xl mx-auto md:mx-0">
-              {isEn 
-                ? 'Stay updated with the latest stories, announcements, and events from our village.' 
-                : 'Ikuti terus cerita terbaru, pengumuman, dan acara dari desa kami.'}
+              {hero.description}
             </p>
           </div>
         </Reveal>

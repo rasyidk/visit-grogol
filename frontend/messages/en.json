@@ -128,6 +128,14 @@
     "ctaBtn1": "Book a Table Now",
     "ctaBtn2": "View Culinary Map"
   },
+  "Umkm": {
+    "heroTitle": "Local Craftsmanship.",
+    "heroDesc": "Discover creative works, signature products, and the stories of local makers powering the village economy."
+  },
+  "Homestay": {
+    "heroTitle": "Cozy Stays, Local Heart.",
+    "heroDesc": "Enjoy a warm stay with local hospitality and comfort close to nature."
+  },
   "Penginapan": {
     "heroTag": "Authentic Comfort",
     "heroTitle1": "Rest in the Heart of",

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { PageHeader } from '@/components/admin/ui';
 import { MediaUpload } from '@/components/admin/MediaUpload';
@@ -19,7 +19,13 @@ const PAGE_OPTIONS: Array<{ value: HeaderHeroPage; label: string }> = [
   { value: 'home', label: 'Home' },
   { value: 'wisata', label: 'Wisata' },
   { value: 'budaya', label: 'Budaya' },
+  { value: 'kuliner', label: 'Kuliner' },
+  { value: 'umkm', label: 'UMKM' },
+  { value: 'homestay', label: 'Homestay' },
+  { value: 'kabar-grogol', label: 'Kabar Grogol' },
 ];
+
+const BACKGROUND_PAGES: HeaderHeroPage[] = ['home', 'wisata', 'budaya'];
 
 function mergePage(defaults: PageHeroContent, value?: Partial<PageHeroContent>): PageHeroContent {
   return {
@@ -35,11 +41,14 @@ function mergeContent(value?: Partial<HeaderHeroContent>): HeaderHeroContent {
     home: mergePage(DEFAULT_HEADER_HERO.home, value?.home),
     wisata: mergePage(DEFAULT_HEADER_HERO.wisata, value?.wisata),
     budaya: mergePage(DEFAULT_HEADER_HERO.budaya, value?.budaya),
+    kuliner: mergePage(DEFAULT_HEADER_HERO.kuliner, value?.kuliner),
+    umkm: mergePage(DEFAULT_HEADER_HERO.umkm, value?.umkm),
+    homestay: mergePage(DEFAULT_HEADER_HERO.homestay, value?.homestay),
+    'kabar-grogol': mergePage(DEFAULT_HEADER_HERO['kabar-grogol'], value?.['kabar-grogol']),
   };
 }
 
 export default function HeaderHeroManagerPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
   const requestedPage = searchParams.get('page') as HeaderHeroPage | null;
@@ -82,22 +91,10 @@ export default function HeaderHeroManagerPage() {
     <>
       <PageHeader
         title="Header & Hero"
-        description="Kelola background, judul, dan deskripsi hero untuk halaman utama, wisata, dan budaya."
+        description="Kelola judul dan deskripsi hero untuk enam halaman utama website. Background tersedia untuk Home, Wisata, dan Budaya."
       />
 
       <div className="max-w-5xl space-y-6">
-        <div className="rounded-2xl bg-white p-6 shadow-card sm:p-8">
-          <label className="field-label" htmlFor="hero-page">Pilih halaman</label>
-          <select
-            id="hero-page"
-            className="field-input max-w-sm"
-            value={activePage}
-            onChange={(event) => router.replace(`?page=${event.target.value}`)}
-          >
-            {PAGE_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-          </select>
-        </div>
-
         <div className="rounded-2xl bg-white p-6 shadow-card sm:p-8">
           <div className="mb-8">
             <h2 className="text-xl font-bold text-ink">Hero {PAGE_OPTIONS.find((option) => option.value === activePage)?.label}</h2>
@@ -105,11 +102,19 @@ export default function HeaderHeroManagerPage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            <MediaUpload
-              label="Background hero"
-              value={page.background}
-              onChange={(background) => updatePage({ background })}
-            />
+            {BACKGROUND_PAGES.includes(activePage) ? (
+              <MediaUpload
+                label="Background hero"
+                value={page.background}
+                maxSizeMb={1}
+                uploadPurpose="hero"
+                onChange={(background) => updatePage({ background })}
+              />
+            ) : (
+              <div className="rounded-2xl border border-dashed border-black/15 bg-black/[0.02] p-5 text-sm leading-relaxed text-ink-muted">
+                Halaman ini memakai layout editorial tanpa pengaturan background. Anda cukup mengubah judul dan deskripsinya.
+              </div>
+            )}
             <div className="space-y-5">
               <div>
                 <label className="field-label" htmlFor="hero-title-id">Judul (Bahasa Indonesia)</label>

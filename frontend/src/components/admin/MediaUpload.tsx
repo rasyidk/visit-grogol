@@ -6,16 +6,23 @@ import { UploadCloud, X, Loader2, Film } from 'lucide-react';
 import { toast } from 'sonner';
 import { uploadFile, getApiErrorMessage } from '@/lib/api';
 
+const DEFAULT_MAX_UPLOAD_SIZE_MB = 25;
+const DEFAULT_MAX_UPLOAD_SIZE = DEFAULT_MAX_UPLOAD_SIZE_MB * 1024 * 1024;
+
 export function MediaUpload({
   value,
   onChange,
   accept = 'image',
   label,
+  maxSizeMb = DEFAULT_MAX_UPLOAD_SIZE_MB,
+  uploadPurpose,
 }: {
   value?: string;
   onChange: (url: string) => void;
   accept?: 'image' | 'video';
   label?: string;
+  maxSizeMb?: number;
+  uploadPurpose?: 'hero';
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -23,12 +30,16 @@ export function MediaUpload({
 
   const handleFile = async (file?: File) => {
     if (!file) return;
+    if (file.size > maxSizeMb * 1024 * 1024) {
+      toast.error(`Ukuran file maksimal ${maxSizeMb} MB`);
+      return;
+    }
     // Local preview immediately
     const localUrl = URL.createObjectURL(file);
     setPreview(localUrl);
     setUploading(true);
     try {
-      const { url } = await uploadFile(file);
+      const { url } = await uploadFile(file, uploadPurpose ? { purpose: uploadPurpose } : undefined);
       onChange(url);
       setPreview(url);
     } catch (err) {
@@ -116,6 +127,11 @@ export function GalleryUpload({
 
   const handleFiles = async (files?: FileList | null) => {
     if (!files || files.length === 0) return;
+    const oversized = Array.from(files).find((file) => file.size > DEFAULT_MAX_UPLOAD_SIZE);
+    if (oversized) {
+      toast.error('Ukuran setiap file maksimal 25 MB');
+      return;
+    }
     setUploading(true);
     const newUrls: string[] = [];
     try {
