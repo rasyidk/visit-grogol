@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     'Kembali ke Alam & Tradisi. Desa wisata premium yang memadukan keindahan alam, warisan budaya, dan kenyamanan modern di jantung nusantara.',
   applicationName: 'Visit Grogol Kaloka',
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
+    icon: [{ url: '/favicon.png', type: 'image/png', sizes: '48x48' }],
+    shortcut: '/favicon.png',
     apple: '/logo.png',
   },
   keywords: ['desa wisata', 'pariwisata', 'Visit Grogol Kaloka', 'alam', 'budaya', 'kuliner'],
