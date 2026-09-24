@@ -43,6 +43,14 @@ export default function UmkmPage() {
                 const displayTitle = isEn ? (umkm.titleEn || umkm.title_en || umkm.title) : umkm.title;
                 const displayDesc = isEn ? (umkm.contentEn || umkm.content_en || umkm.content) : umkm.content;
                 const excerpt = displayDesc ? displayDesc.replace(/<[^>]+>/g, '').substring(0, 120) + '...' : '';
+                const alignment = displayDesc?.match(/ql-align-(center|right|justify)/)?.[1];
+                const excerptAlignmentClass = alignment
+                  ? ({
+                      center: 'ql-align-center',
+                      right: 'ql-align-right',
+                      justify: 'ql-align-justify',
+                    } as const)[alignment]
+                  : '';
 
                 return (
                   <Reveal key={umkm.id} delay={i * 0.1} className="h-full flex">
@@ -61,7 +69,9 @@ export default function UmkmPage() {
                       </div>
                       <div className="p-6 flex flex-col flex-1">
                         <h3 className="text-2xl font-bold text-ink group-hover:text-brand-600 transition-colors">{displayTitle}</h3>
-                        <p className="mt-3 text-sm leading-relaxed text-ink-muted flex-1">{excerpt}</p>
+                        <p className={`mt-3 flex-1 text-sm leading-relaxed text-ink-muted ${excerptAlignmentClass}`}>
+                          {excerpt}
+                        </p>
                       </div>
                     </Link>
                   </Reveal>
