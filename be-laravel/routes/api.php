@@ -18,6 +18,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\PageContentController;
 use App\Http\Controllers\TestimoniController;
 use App\Http\Controllers\ReservasiController;
+use App\Http\Controllers\SocialMediaController;
 
 Route::apiResource('wisata', WisataController::class)->only(['index', 'show']);
 Route::apiResource('budaya', BudayaController::class)->only(['index', 'show']);
@@ -28,6 +29,7 @@ Route::apiResource('berita', BeritaController::class)->only(['index', 'show']);
 Route::get('page-content/{page}', [PageContentController::class, 'show']);
 Route::get('testimoni', [TestimoniController::class, 'index']);
 Route::post('reservasi', [ReservasiController::class, 'store'])->middleware('throttle:10,1');
+Route::get('social-media', [SocialMediaController::class, 'index']);
 
 use App\Http\Controllers\UploadController;
 
@@ -51,4 +53,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('testimoni', [TestimoniController::class, 'store']);
     Route::put('testimoni/{id}', [TestimoniController::class, 'update']);
     Route::delete('testimoni/{id}', [TestimoniController::class, 'destroy']);
+    Route::post('social-media', [SocialMediaController::class, 'store']);
+    Route::put('social-media/{id}', [SocialMediaController::class, 'update']);
+    Route::patch('social-media/{id}', [SocialMediaController::class, 'update']);
+    Route::delete('social-media/{id}', [SocialMediaController::class, 'destroy']);
 });
