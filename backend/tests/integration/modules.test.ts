@@ -115,6 +115,28 @@ describe('Singletons (profil & kontak)', () => {
   });
 });
 
+describe('Social media', () => {
+  it('lists active social media accounts publicly', async () => {
+    prismaMock.socialMedia.findMany.mockResolvedValue([
+      { id: 1, platform: 'INSTAGRAM', name: 'Instagram Visit Grogol', url: 'https://instagram.com/visitgrogol', isActive: true },
+    ] as never);
+    prismaMock.socialMedia.count.mockResolvedValue(1 as never);
+    const res = await request(app).get(`${base}/social-media?isActive=true`);
+    expect(res.status).toBe(200);
+    expect(res.body.data[0].platform).toBe('INSTAGRAM');
+  });
+
+  it('allows an authenticated admin to create a social media account', async () => {
+    prismaMock.socialMedia.create.mockImplementation((((args: any) => Promise.resolve({ id: 1, ...args.data })) as never));
+    const res = await request(app)
+      .post(`${base}/social-media`)
+      .set('Authorization', auth())
+      .send({ platform: 'TIKTOK', name: 'TikTok Visit Grogol', url: 'https://tiktok.com/@visitgrogol' });
+    expect(res.status).toBe(201);
+    expect(res.body.data.platform).toBe('TIKTOK');
+  });
+});
+
 describe('Authorization rules', () => {
   it('forbids a plain ADMIN from creating admin users (SUPERADMIN only)', async () => {
     const res = await request(app)

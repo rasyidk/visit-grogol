@@ -20,6 +20,7 @@ import type {
   GaleriVideo,
   ProfilWebsite,
   Kontak,
+  SocialMedia,
 } from '@/lib/types';
 
 /**
@@ -154,6 +155,18 @@ export function useKontak() {
   const query = useQuery({ queryKey: ['kontak', locale], queryFn: () => fetchOne<Kontak>('/kontak') });
   const rawData = query.data ?? FALLBACK_KONTAK;
   const data = mapLocaleData(rawData, locale) as Kontak;
+  return { ...query, data };
+}
+
+export function useSocialMedia() {
+  const query = useQuery({
+    queryKey: ['social-media'],
+    queryFn: () => fetchList<SocialMedia>('/social-media', { limit: 10, isActive: true, sortBy: 'position', sortOrder: 'asc' }),
+  });
+
+  // Keep the public footer usable while the API is unavailable, but respect an
+  // intentional empty API response (for example when every account is hidden).
+  const data = query.data ? query.data.data : FALLBACK_SOCIAL_MEDIA;
   return { ...query, data };
 }
 
@@ -293,3 +306,33 @@ export const FALLBACK_KONTAK: Kontak = {
   youtube: null,
   mapEmbed: null,
 };
+
+export const FALLBACK_SOCIAL_MEDIA: SocialMedia[] = [
+  {
+    id: 1,
+    platform: 'INSTAGRAM',
+    name: 'Instagram Visit Grogol',
+    username: '@desawisata.official',
+    url: 'https://instagram.com/desawisata.official',
+    isActive: true,
+    position: 0,
+  },
+  {
+    id: 2,
+    platform: 'TIKTOK',
+    name: 'TikTok Visit Grogol',
+    username: '@visitgrogol',
+    url: 'https://tiktok.com/@visitgrogol',
+    isActive: true,
+    position: 1,
+  },
+  {
+    id: 3,
+    platform: 'FACEBOOK',
+    name: 'Facebook Visit Grogol',
+    username: 'Visit Grogol',
+    url: 'https://facebook.com/visitgrogol',
+    isActive: true,
+    position: 2,
+  },
+];

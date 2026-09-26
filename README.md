@@ -117,7 +117,7 @@ npm run test:e2e          # skenario: login, CRUD Destinasi/Berita/Event, upload
 
 ## ✨ Fitur Dashboard Admin
 
-Login/Logout JWT · Statistik · CRUD **Destinasi, Kategori, Banner, Berita, Event, Galeri Foto, Galeri Video, Testimoni, Profil Website, Kontak, Pengguna Admin** · manajemen **Reservasi** & **Newsletter** · upload + preview media · search, filter, sorting, pagination · konfirmasi hapus · toast notification pada tiap aksi CRUD.
+Login/Logout JWT · Statistik · CRUD **Destinasi, Kategori, Banner, Berita, Event, Galeri Foto, Galeri Video, Testimoni, Profil Website, Kontak, Media Sosial (Instagram, TikTok, Facebook), Pengguna Admin** · manajemen **Reservasi** & **Newsletter** · upload + preview media · search, filter, sorting, pagination · konfirmasi hapus · toast notification pada tiap aksi CRUD.
 
 ---
 

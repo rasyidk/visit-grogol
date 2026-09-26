@@ -1,12 +1,23 @@
+'use client';
+
 import Link from 'next/link';
-import { Globe, Share2, AtSign, Instagram, Facebook, Youtube } from 'lucide-react';
+import { Globe, Instagram, Facebook, Music2 } from 'lucide-react';
 import { useTranslations, useLocale } from 'next-intl';
+import { useSocialMedia } from '@/hooks/usePublicData';
+import type { SocialMedia } from '@/lib/types';
+
+function SocialIcon({ platform }: { platform: SocialMedia['platform'] }) {
+  if (platform === 'INSTAGRAM') return <Instagram className="h-4 w-4" />;
+  if (platform === 'FACEBOOK') return <Facebook className="h-4 w-4" />;
+  return <Music2 className="h-4 w-4" />;
+}
 
 export function Footer() {
   const t = useTranslations('Footer');
   const navT = useTranslations('Navigation');
   const commonT = useTranslations('Common');
   const locale = useLocale();
+  const { data: socialMedia } = useSocialMedia();
 
   const getHref = (href: string) => {
     if (locale === 'id') return href;
@@ -64,15 +75,17 @@ export function Footer() {
           <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-ink">
             {locale === 'en' ? 'Follow Us' : 'Ikuti Kami'}
           </h4>
-          <div className="flex gap-3">
-            {[Instagram, Facebook, Youtube, AtSign].map((Icon, i) => (
+          <div className="flex flex-wrap gap-3">
+            {socialMedia.map((social) => (
               <a
-                key={i}
-                href="#"
+                key={social.id}
+                href={social.url}
+                target="_blank"
+                rel="noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-ink-soft shadow-card transition hover:bg-brand-600 hover:text-white"
-                aria-label="Social link"
+                aria-label={social.name}
               >
-                <Icon className="h-4 w-4" />
+                <SocialIcon platform={social.platform} />
               </a>
             ))}
           </div>

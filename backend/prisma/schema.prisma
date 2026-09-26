@@ -26,6 +26,12 @@ enum ReservasiStatus {
   CANCELLED
 }
 
+enum SocialPlatform {
+  INSTAGRAM
+  TIKTOK
+  FACEBOOK
+}
+
 // ─────────────────────────  ADMIN USERS  ──────────────────────
 
 model AdminUser {
@@ -286,6 +292,24 @@ model Kontak {
   updatedAt DateTime @updatedAt
 
   @@map("kontak")
+}
+
+// ─────────────────────  SOCIAL MEDIA ACCOUNTS  ──────────────
+
+model SocialMedia {
+  id         Int           @id @default(autoincrement())
+  platform   SocialPlatform
+  name       String        @db.VarChar(120)
+  username   String?       @db.VarChar(120)
+  url        String        @db.VarChar(500)
+  isActive   Boolean       @default(true)
+  position   Int           @default(0)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@unique([platform])
+  @@index([isActive, position])
+  @@map("social_media")
 }
 
 // ───────────────────  RESERVATIONS (contact form)  ────────────

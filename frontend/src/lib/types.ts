@@ -193,6 +193,20 @@ export interface Kontak {
   youtube?: string | null;
 }
 
+export type SocialPlatform = 'INSTAGRAM' | 'TIKTOK' | 'FACEBOOK';
+
+export interface SocialMedia {
+  id: number;
+  platform: SocialPlatform;
+  name: string;
+  username?: string | null;
+  url: string;
+  isActive: boolean;
+  position: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface AdminUser {
   id: number;
   name: string;

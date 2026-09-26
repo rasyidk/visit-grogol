@@ -16,6 +16,7 @@ import kontakRoutes from '../modules/kontak/kontak.route';
 import adminUserRoutes from '../modules/adminUser/adminUser.route';
 import reservasiRoutes from '../modules/reservasi/reservasi.route';
 import newsletterRoutes from '../modules/newsletter/newsletter.route';
+import socialMediaRoutes from '../modules/socialMedia/socialMedia.route';
 
 export const apiRouter = Router();
 
@@ -44,3 +45,4 @@ apiRouter.use('/kontak', kontakRoutes);
 apiRouter.use('/admin-users', adminUserRoutes);
 apiRouter.use('/reservasi', reservasiRoutes);
 apiRouter.use('/newsletter', newsletterRoutes);
+apiRouter.use('/social-media', socialMediaRoutes);

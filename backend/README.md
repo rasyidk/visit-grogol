@@ -70,6 +70,7 @@ manajemen `admin-users` khusus `SUPERADMIN`.
 | GET/POST/PUT/PATCH/DELETE | `/destinasi` | GET publik · tulis admin | + `GET /destinasi/slug/:slug` |
 | … | `/kategori`, `/banner`, `/berita`, `/event`, `/galeri-foto`, `/galeri-video`, `/testimoni` | idem | CRUD standar (berita/event/kategori punya `/slug/:slug`) |
 | GET/PUT | `/profil`, `/kontak` | GET publik · PUT admin | resource tunggal (singleton) |
+| GET/POST/PUT/DELETE | `/social-media` | GET publik · tulis admin | kelola tautan Instagram, TikTok, dan Facebook |
 | GET/POST/PUT/DELETE | `/admin-users` | SUPERADMIN | password otomatis di-hash, tak pernah dikembalikan |
 | POST | `/reservasi` | publik | submit form reservasi |
 | GET/PATCH/DELETE | `/reservasi`, `/reservasi/:id/status` | admin | kelola reservasi |

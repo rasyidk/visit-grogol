@@ -302,6 +302,20 @@ async function main() {
     });
   }
 
+  // ── Social media accounts ────────────────────────────────
+  const socialMedia = [
+    { platform: 'INSTAGRAM' as const, name: 'Instagram Visit Grogol', username: '@desawisata.official', url: 'https://instagram.com/desawisata.official', position: 0 },
+    { platform: 'TIKTOK' as const, name: 'TikTok Visit Grogol', username: '@visitgrogol', url: 'https://tiktok.com/@visitgrogol', position: 1 },
+    { platform: 'FACEBOOK' as const, name: 'Facebook Visit Grogol', username: 'Visit Grogol', url: 'https://facebook.com/visitgrogol', position: 2 },
+  ];
+  for (const account of socialMedia) {
+    await prisma.socialMedia.upsert({
+      where: { platform: account.platform },
+      update: {},
+      create: account,
+    });
+  }
+
   // ── Sample reservations & subscribers ─────────────────────
   const resvCount = await prisma.reservasi.count();
   if (resvCount === 0) {

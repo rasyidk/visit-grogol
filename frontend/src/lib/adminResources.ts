@@ -133,6 +133,59 @@ export const bannerConfig: ResourceConfig = {
   ],
 };
 
+export const socialMediaConfig: ResourceConfig = {
+  key: 'sosial-media',
+  endpoint: '/social-media',
+  label: 'Media Sosial',
+  labelSingular: 'Akun Media Sosial',
+  description: 'Kelola tautan Instagram, TikTok, dan Facebook yang tampil di website.',
+  searchable: true,
+  filters: [
+    {
+      key: 'platform',
+      label: 'Platform',
+      options: [
+        { label: 'Instagram', value: 'INSTAGRAM' },
+        { label: 'TikTok', value: 'TIKTOK' },
+        { label: 'Facebook', value: 'FACEBOOK' },
+      ],
+    },
+    boolFilter('Status', 'isActive'),
+  ],
+  sortOptions: [
+    { label: 'Urutan', value: 'position' },
+    { label: 'Platform', value: 'platform' },
+    { label: 'Terbaru', value: 'createdAt' },
+  ],
+  defaultSort: { sortBy: 'position', sortOrder: 'asc' },
+  columns: [
+    { key: 'platform', label: 'Platform', type: 'badge' },
+    { key: 'name', label: 'Nama Akun' },
+    { key: 'username', label: 'Username' },
+    { key: 'url', label: 'Tautan', type: 'text', className: 'max-w-[280px] truncate' },
+    { key: 'isActive', label: 'Status', type: 'boolean', booleanLabels: ['Aktif', 'Nonaktif'] },
+  ],
+  fields: [
+    {
+      name: 'platform',
+      label: 'Platform',
+      type: 'select',
+      required: true,
+      options: [
+        { label: 'Instagram', value: 'INSTAGRAM' },
+        { label: 'TikTok', value: 'TIKTOK' },
+        { label: 'Facebook', value: 'FACEBOOK' },
+      ],
+      colSpan: 1,
+    },
+    { name: 'name', label: 'Nama Akun', type: 'text', required: true, placeholder: 'Instagram Visit Grogol', colSpan: 1 },
+    { name: 'username', label: 'Username / Handle', type: 'text', placeholder: '@visitgrogol', colSpan: 1 },
+    { name: 'url', label: 'URL Profil', type: 'text', required: true, placeholder: 'https://instagram.com/visitgrogol', help: 'Gunakan URL lengkap dengan https://', colSpan: 2 },
+    { name: 'position', label: 'Urutan Tampil', type: 'number', min: 0, defaultValue: 0, colSpan: 1 },
+    { name: 'isActive', label: 'Tampilkan di website', type: 'switch', defaultValue: true },
+  ],
+};
+
 export const beritaConfig: ResourceConfig = {
   key: 'berita',
   endpoint: '/berita',

@@ -21,6 +21,7 @@ import {
   Home,
   PanelsTopLeft,
   Settings2,
+  Share2,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -64,6 +65,7 @@ export const ADMIN_NAV: AdminNavSection[] = [
       },
       { label: 'Ulasan Pengunjung', href: '/dashboard/testimoni', icon: MessageSquareQuote },
       { label: 'Konten Reservasi', href: '/dashboard/reservasi-content', icon: Settings2 },
+      { label: 'Media Sosial', href: '/dashboard/sosial-media', icon: Share2 },
       { label: 'Atraksi Wisata', href: '/dashboard/wisata', icon: Palmtree },
       { label: 'Seni Budaya', href: '/dashboard/budaya', icon: Sparkles },
       { label: 'Kuliner', href: '/dashboard/kuliner', icon: Coffee },
